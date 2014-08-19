@@ -16,9 +16,9 @@ public class SampleActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.williammora.snackbar.R.layout.activity_sample);
+        setContentView(R.layout.activity_sample);
 
-        Button singleLineButton = (Button) findViewById(com.williammora.snackbar.R.id.single_line);
+        Button singleLineButton = (Button) findViewById(R.id.single_line);
         singleLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +28,7 @@ public class SampleActivity extends Activity {
             }
         });
 
-        Button singleLineWithActionButton = (Button) findViewById(com.williammora.snackbar.R.id.single_line_with_action);
+        Button singleLineWithActionButton = (Button) findViewById(R.id.single_line_with_action);
         singleLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,7 @@ public class SampleActivity extends Activity {
             }
         });
 
-        Button multiLineButton = (Button) findViewById(com.williammora.snackbar.R.id.multi_line);
+        Button multiLineButton = (Button) findViewById(R.id.multi_line);
         multiLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class SampleActivity extends Activity {
             }
         });
 
-        Button multiLineWithActionButton = (Button) findViewById(com.williammora.snackbar.R.id.multi_line_with_action);
+        Button multiLineWithActionButton = (Button) findViewById(R.id.multi_line_with_action);
         multiLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class SampleActivity extends Activity {
             }
         });
 
-        Button noAnimationButton = (Button) findViewById(com.williammora.snackbar.R.id.no_animation);
+        Button noAnimationButton = (Button) findViewById(R.id.no_animation);
         noAnimationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +87,7 @@ public class SampleActivity extends Activity {
             }
         });
 
-        Button customColorsButton = (Button) findViewById(com.williammora.snackbar.R.id.custom_colors);
+        Button customColorsButton = (Button) findViewById(R.id.custom_colors);
         customColorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
