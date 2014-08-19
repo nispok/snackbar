@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -73,6 +72,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets the type of {@link com.wmora.snackbar.Snackbar} to be displayed.
+     *
      * @param type the {@link com.wmora.snackbar.Snackbar.SnackbarType} of this instance
      * @return
      */
@@ -83,6 +83,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets the text to be displayed in this {@link com.wmora.snackbar.Snackbar}
+     *
      * @param text
      * @return
      */
@@ -93,6 +94,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets the background color of this {@link com.wmora.snackbar.Snackbar}
+     *
      * @param color
      * @return
      */
@@ -103,6 +105,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets the text color of this {@link com.wmora.snackbar.Snackbar}
+     *
      * @param textColor
      * @return
      */
@@ -114,6 +117,7 @@ public class Snackbar extends RelativeLayout {
     /**
      * Sets the action label to be displayed, if any. Note that if this is not set, the action
      * button will not be displayed
+     *
      * @param actionButtonLabel
      * @return
      */
@@ -125,6 +129,7 @@ public class Snackbar extends RelativeLayout {
     /**
      * Sets the color of the action button label. Note that you must set a button label with
      * {@link com.wmora.snackbar.Snackbar#actionLabel(CharSequence)} for this button to be displayed
+     *
      * @param actionColor
      * @return
      */
@@ -137,6 +142,7 @@ public class Snackbar extends RelativeLayout {
      * Sets the listener to be called when the {@link com.wmora.snackbar.Snackbar} action is
      * selected. Note that you must set a button label with
      * {@link com.wmora.snackbar.Snackbar#actionLabel(CharSequence)} for this button to be displayed
+     *
      * @param listener
      * @return
      */
@@ -147,6 +153,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets on/off animation for this {@link com.wmora.snackbar.Snackbar}
+     *
      * @param withAnimation
      * @return
      */
@@ -158,6 +165,7 @@ public class Snackbar extends RelativeLayout {
     /**
      * Sets the duration of this {@link com.wmora.snackbar.Snackbar}. See
      * {@link com.wmora.snackbar.Snackbar.SnackbarDuration} for available options
+     *
      * @param duration
      * @return
      */
@@ -187,9 +195,11 @@ public class Snackbar extends RelativeLayout {
 
         TextView snackbarAction = (TextView) layout.findViewById(R.id.snackbar_action);
         if (!TextUtils.isEmpty(mActionLabel)) {
+            requestLayout();
             snackbarAction.setText(mActionLabel);
             snackbarAction.setTextColor(mActionColor);
             snackbarAction.setOnClickListener(mActionListener);
+            snackbarAction.setMaxLines(mType.getMaxLines());
         } else {
             snackbarAction.setVisibility(GONE);
         }
@@ -215,6 +225,7 @@ public class Snackbar extends RelativeLayout {
     /**
      * Displays the {@link com.wmora.snackbar.Snackbar} at the bottom of the
      * {@link android.app.Activity} provided.
+     *
      * @param targetActivity
      */
     public void show(Activity targetActivity) {
@@ -238,8 +249,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     private void startSnackbarAnimation() {
-        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_from_bottom);
-        Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
+        final Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
         fadeOut.setStartOffset(mDuration.getDuration());
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -249,7 +259,12 @@ public class Snackbar extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                dismiss();
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismiss();
+                    }
+                });
             }
 
             @Override
@@ -257,14 +272,36 @@ public class Snackbar extends RelativeLayout {
 
             }
         });
-        AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(slideIn);
-        animationSet.addAnimation(fadeOut);
-        startAnimation(animationSet);
+        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_from_bottom);
+        slideIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        startAnimation(fadeOut);
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        startAnimation(slideIn);
     }
 
     private void dismiss() {
         clearAnimation();
-        ((ViewGroup) getParent()).removeView(this);
+        ViewGroup parent = (ViewGroup) getParent();
+        if (parent != null) {
+            parent.removeView(this);
+        }
     }
 }

@@ -10,7 +10,6 @@
     </style>
 
     <style name="SnackbarText.Action">
-        <item name="android:maxLines">1</item>
         <item name="android:textAllCaps">true</item>
     </style>
 </resources>

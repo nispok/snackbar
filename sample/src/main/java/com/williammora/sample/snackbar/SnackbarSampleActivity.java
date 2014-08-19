@@ -9,9 +9,9 @@ import android.widget.Button;
 
 import com.wmora.snackbar.Snackbar;
 
-public class SampleActivity extends Activity {
+public class SnackbarSampleActivity extends Activity {
 
-    private static final String TAG = SampleActivity.class.getSimpleName();
+    private static final String TAG = SnackbarSampleActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +22,9 @@ public class SampleActivity extends Activity {
         singleLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .text("Single-line snackbar")
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
 
@@ -32,7 +32,7 @@ public class SampleActivity extends Activity {
         singleLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .text("Something has been done")
                         .actionLabel("Undo")
                         .actionListener(new View.OnClickListener() {
@@ -41,7 +41,7 @@ public class SampleActivity extends Activity {
                                 Log.d(TAG, "Undoing something");
                             }
                         })
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
 
@@ -49,11 +49,11 @@ public class SampleActivity extends Activity {
         multiLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .type(Snackbar.SnackbarType.MULTI_LINE)
                         .text("This is a multi-line snackbar. Keep in mind that snackbars are " +
                                 "meant for VERY short messages")
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
 
@@ -61,7 +61,7 @@ public class SampleActivity extends Activity {
         multiLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .type(Snackbar.SnackbarType.MULTI_LINE)
                         .text("This is a multi-line snackbar with an action button. Note that " +
                                 "multi-line snackbars are 2 lines max")
@@ -72,7 +72,7 @@ public class SampleActivity extends Activity {
                                 Log.d(TAG, "Undoing something");
                             }
                         })
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
 
@@ -80,10 +80,10 @@ public class SampleActivity extends Activity {
         noAnimationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .text("No animation :(")
                         .animation(false)
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
 
@@ -91,19 +91,19 @@ public class SampleActivity extends Activity {
         customColorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SampleActivity.this)
+                Snackbar.with(SnackbarSampleActivity.this)
                         .text("Whoa :-O")
                         .textColor(Color.GREEN)
-                        .color(Color.WHITE)
+                        .color(Color.BLUE)
                         .actionLabel("Action")
-                        .actionColor(Color.BLUE)
+                        .actionColor(Color.RED)
                         .actionListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Log.d(TAG, "Doing something");
                             }
                         })
-                        .show(SampleActivity.this);
+                        .show(SnackbarSampleActivity.this);
             }
         });
     }
