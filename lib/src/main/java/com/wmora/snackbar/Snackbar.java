@@ -19,7 +19,7 @@ import com.wmora.snackbar.listeners.SwipeDismissTouchListener;
 public class Snackbar extends RelativeLayout {
 
     public enum SnackbarType {
-        SINGLE_LINE(48, 1), MULTI_LINE(80, 2);
+        SINGLE_LINE(56, 1), MULTI_LINE(80, 2);
 
         private int height;
         private int maxLines;
