@@ -65,7 +65,7 @@ public class SnackbarSampleActivity extends Activity {
                         .type(Snackbar.SnackbarType.MULTI_LINE)
                         .text("This is a multi-line snackbar with an action button. Note that " +
                                 "multi-line snackbars are 2 lines max")
-                        .actionLabel("Undo")
+                        .actionLabel("Action")
                         .actionListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -92,7 +92,7 @@ public class SnackbarSampleActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Whoa :-O")
+                        .text("Shorter message, different colors")
                         .textColor(Color.GREEN)
                         .color(Color.BLUE)
                         .actionLabel("Action")
@@ -103,6 +103,7 @@ public class SnackbarSampleActivity extends Activity {
                                 Log.d(TAG, "Doing something");
                             }
                         })
+                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                         .show(SnackbarSampleActivity.this);
             }
         });
