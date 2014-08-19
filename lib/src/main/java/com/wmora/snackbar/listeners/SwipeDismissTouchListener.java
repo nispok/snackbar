@@ -180,7 +180,10 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 if (Math.abs(deltaX) > mSlop && Math.abs(deltaY) < Math.abs(deltaX) / 2) {
                     mSwiping = true;
                     mSwipingSlop = (deltaX > 0 ? mSlop : -mSlop);
-                    mView.getParent().requestDisallowInterceptTouchEvent(true);
+
+                    if(mView.getParent() != null) {
+                        mView.getParent().requestDisallowInterceptTouchEvent(true);
+                    }
 
                     // Cancel listview's touch
                     MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
