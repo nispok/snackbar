@@ -56,3 +56,6 @@ Snackbar.with(getApplicationContext()) // context
 ```
 It uses <a href="https://github.com/romannurik/android-swipetodismiss">Roman Nurik's SwipeToDismiss sample code</a> to implement the swipte-to-dimiss functionality.<br /><br />
 If you would like to add features to it or report any bugs, refer to the <a href="https://github.com/wmora/snackbar/issues">issues</a> section.<br /><br />
+
+# Developed By
++ William Mora - (@_williammora)[https://twitter.com/_williammora] - william.r.mora@gmail.com
