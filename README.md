@@ -59,3 +59,6 @@ If you would like to add features to it or report any bugs, refer to the <a href
 
 # Developed By
 + William Mora - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
+
+## License
+[MIT](./LICENSE)
