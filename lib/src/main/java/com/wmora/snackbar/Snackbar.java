@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.wmora.snackbar.listeners.SwipeDismissTouchListener;
 
+/**
+ * View that provides quick feedback about an operation in a small popup at the base of the screen
+ */
 public class Snackbar extends RelativeLayout {
 
     public enum SnackbarType {
