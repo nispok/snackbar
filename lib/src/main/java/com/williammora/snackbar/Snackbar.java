@@ -1,4 +1,4 @@
-package com.wmora.snackbar;
+package com.williammora.snackbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wmora.snackbar.listeners.SwipeDismissTouchListener;
+import com.williammora.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
@@ -74,9 +74,9 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the type of {@link com.wmora.snackbar.Snackbar} to be displayed.
+     * Sets the type of {@link Snackbar} to be displayed.
      *
-     * @param type the {@link com.wmora.snackbar.Snackbar.SnackbarType} of this instance
+     * @param type the {@link Snackbar.SnackbarType} of this instance
      * @return
      */
     public Snackbar type(SnackbarType type) {
@@ -85,7 +85,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the text to be displayed in this {@link com.wmora.snackbar.Snackbar}
+     * Sets the text to be displayed in this {@link Snackbar}
      *
      * @param text
      * @return
@@ -96,7 +96,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the background color of this {@link com.wmora.snackbar.Snackbar}
+     * Sets the background color of this {@link Snackbar}
      *
      * @param color
      * @return
@@ -107,7 +107,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the text color of this {@link com.wmora.snackbar.Snackbar}
+     * Sets the text color of this {@link Snackbar}
      *
      * @param textColor
      * @return
@@ -131,7 +131,7 @@ public class Snackbar extends RelativeLayout {
 
     /**
      * Sets the color of the action button label. Note that you must set a button label with
-     * {@link com.wmora.snackbar.Snackbar#actionLabel(CharSequence)} for this button to be displayed
+     * {@link Snackbar#actionLabel(CharSequence)} for this button to be displayed
      *
      * @param actionColor
      * @return
@@ -142,9 +142,9 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the listener to be called when the {@link com.wmora.snackbar.Snackbar} action is
+     * Sets the listener to be called when the {@link Snackbar} action is
      * selected. Note that you must set a button label with
-     * {@link com.wmora.snackbar.Snackbar#actionLabel(CharSequence)} for this button to be displayed
+     * {@link Snackbar#actionLabel(CharSequence)} for this button to be displayed
      *
      * @param listener
      * @return
@@ -155,7 +155,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets on/off animation for this {@link com.wmora.snackbar.Snackbar}
+     * Sets on/off animation for this {@link Snackbar}
      *
      * @param withAnimation
      * @return
@@ -166,8 +166,8 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Sets the duration of this {@link com.wmora.snackbar.Snackbar}. See
-     * {@link com.wmora.snackbar.Snackbar.SnackbarDuration} for available options
+     * Sets the duration of this {@link Snackbar}. See
+     * {@link Snackbar.SnackbarDuration} for available options
      *
      * @param duration
      * @return
@@ -226,7 +226,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
-     * Displays the {@link com.wmora.snackbar.Snackbar} at the bottom of the
+     * Displays the {@link Snackbar} at the bottom of the
      * {@link android.app.Activity} provided.
      *
      * @param targetActivity

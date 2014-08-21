@@ -1,4 +1,4 @@
-package com.wmora.snackbar;
+package com.williammora.snackbar;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

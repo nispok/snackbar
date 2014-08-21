@@ -1,4 +1,4 @@
-package com.wmora.snackbar.listeners;
+package com.williammora.snackbar.listeners;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
