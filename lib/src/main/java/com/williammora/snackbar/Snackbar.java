@@ -307,4 +307,36 @@ public class Snackbar extends RelativeLayout {
             parent.removeView(this);
         }
     }
+
+    public int getActionColor() {
+        return mActionColor;
+    }
+
+    public CharSequence getActionLabel() {
+        return mActionLabel;
+    }
+
+    public int getTextColor() {
+        return mTextColor;
+    }
+
+    public int getColor() {
+        return mColor;
+    }
+
+    public CharSequence getText() {
+        return mText;
+    }
+
+    public SnackbarDuration getDuration() {
+        return mDuration;
+    }
+
+    public SnackbarType getType() {
+        return mType;
+    }
+
+    public boolean isAnimated() {
+        return mAnimated;
+    }
 }
