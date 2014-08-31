@@ -1,4 +1,4 @@
-language: java
+language: android
 
 env:
   matrix:
@@ -33,4 +33,5 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
-script: ./gradlew connectedAndroidTest
+script:
+  - ./gradlew :lib:connectedAndroidTest
