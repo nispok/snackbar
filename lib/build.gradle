@@ -9,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 19
         versionCode 1
-        versionName "0.1.0-SNAPSHOT"
+        versionName "1.0.0"
     }
     buildTypes {
         release {
@@ -22,3 +22,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+apply from: 'maven-push.gradle'
