@@ -8,7 +8,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 ## Installation
 You can import the library from sources as a module or grab via Gradle:
  <br />
- ```java
+ ```groovy
  compile 'com.williammora:snackbar:1.0.0'
  ```
 ## Usage
