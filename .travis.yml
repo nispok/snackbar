@@ -1,5 +1,9 @@
 language: java
 
+env:
+  matrix:
+    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+
 branches:
   only:
     - master
