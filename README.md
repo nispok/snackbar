@@ -26,7 +26,7 @@ If you want an action button to be displayed, just assign a label and an <code>A
 Snackbar.with(getApplicationContext()) // context
     .text("Item deleted") // text to display
     .actionLabel("Undo") // action button label
-    .actionListener(new ActionClickListener() {
+    .actionListener(new Snackbar.ActionClickListener() {
         @Override
         public void onActionClicked() {
             Log.d(TAG, "Undoing something");
@@ -54,7 +54,7 @@ Snackbar.with(getApplicationContext()) // context
     .color(Color.BLUE) // change the background color
     .actionLabel("Action") // action button label
     .actionColor(Color.RED) // action button label color
-    .actionListener(new ActionClickListener() {
+    .actionListener(new Snackbar.ActionClickListener() {
         @Override
         public void onActionClicked() {
             Log.d(TAG, "Doing something");
@@ -62,7 +62,7 @@ Snackbar.with(getApplicationContext()) // context
      }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
 ```
-It uses <a href="https://github.com/romannurik/android-swipetodismiss">Roman Nurik's SwipeToDismiss sample code</a> to implement the swipte-to-dimiss functionality.<br /><br />
+It uses <a href="https://github.com/romannurik/android-swipetodismiss">Roman Nurik's SwipeToDismiss sample code</a> to implement the swipe-to-dimiss functionality.<br /><br />
 If you would like to add features to it or report any bugs, refer to the <a href="https://github.com/wmora/snackbar/issues">issues</a> section.<br /><br />
 
 # Developed By
