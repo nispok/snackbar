@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import com.williammora.snackbar.Snackbar;
 
+import java.lang.Override;
+
 public class SnackbarSampleActivity extends Activity {
 
     private static final String TAG = SnackbarSampleActivity.class.getSimpleName();
@@ -35,10 +37,10 @@ public class SnackbarSampleActivity extends Activity {
                 Snackbar.with(SnackbarSampleActivity.this)
                         .text("Something has been done")
                         .actionLabel("Undo")
-                        .actionListener(new View.OnClickListener() {
+                        .actionListener(new Snackbar.ActionClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                Log.d(TAG, "Undoing something");
+                            public void onActionClicked() {
+
                             }
                         })
                         .show(SnackbarSampleActivity.this);
@@ -66,10 +68,10 @@ public class SnackbarSampleActivity extends Activity {
                         .text("This is a multi-line snackbar with an action button. Note that " +
                                 "multi-line snackbars are 2 lines max")
                         .actionLabel("Action")
-                        .actionListener(new View.OnClickListener() {
+                        .actionListener(new Snackbar.ActionClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                Log.d(TAG, "Undoing something");
+                            public void onActionClicked() {
+
                             }
                         })
                         .show(SnackbarSampleActivity.this);
@@ -97,10 +99,10 @@ public class SnackbarSampleActivity extends Activity {
                         .color(Color.BLUE)
                         .actionLabel("Action")
                         .actionColor(Color.RED)
-                        .actionListener(new View.OnClickListener() {
+                        .actionListener(new Snackbar.ActionClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                Log.d(TAG, "Doing something");
+                            public void onActionClicked() {
+
                             }
                         })
                         .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
