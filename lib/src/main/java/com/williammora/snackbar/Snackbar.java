@@ -63,9 +63,9 @@ public class Snackbar extends RelativeLayout {
     private CharSequence mActionLabel;
     private int mActionColor = Color.GREEN;
     private boolean mAnimated = true;
-    private int mCustomDuration = -1; // Allow the user to set a custom duration.
-    private ActionClickListener mCallbacks; // Custom click listener that dismisses on touch.
-    private boolean mShouldDismiss = true; // Should the Snackbar dismiss when action clicked.
+    private long mCustomDuration = -1;
+    private ActionClickListener mListener;
+    private boolean mShouldDismiss = true;
 
     private Snackbar(Context context) {
         super(context);
@@ -143,7 +143,13 @@ public class Snackbar extends RelativeLayout {
         return this;
     }
 
-    public Snackbar shouldDismissOnActionClicked(boolean shouldDismiss){
+    /**
+     * Determines whether this {@link Snackbar} should dismiss when the action button is touched
+     *
+     * @param shouldDismiss
+     * @return
+     */
+    public Snackbar dismissOnActionClicked(boolean shouldDismiss) {
         this.mShouldDismiss = shouldDismiss;
         return this;
     }
@@ -157,7 +163,7 @@ public class Snackbar extends RelativeLayout {
      * @return
      */
     public Snackbar actionListener(ActionClickListener listener) {
-        this.mCallbacks = listener;
+        this.mListener = listener;
         return this;
     }
 
@@ -184,7 +190,13 @@ public class Snackbar extends RelativeLayout {
         return this;
     }
 
-    public Snackbar customDuration(int duration){
+    /**
+     * Sets a custom duration of this {@link Snackbar}
+     *
+     * @param duration
+     * @return
+     */
+    public Snackbar duration(long duration) {
         mCustomDuration = duration;
         return this;
     }
@@ -216,10 +228,12 @@ public class Snackbar extends RelativeLayout {
             snackbarAction.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mCallbacks != null)
-                        mCallbacks.onActionClicked();
-                    if(mShouldDismiss)
+                    if (mListener != null) {
+                        mListener.onActionClicked();
+                    }
+                    if (mShouldDismiss) {
                         dismiss();
+                    }
                 }
             });
             snackbarAction.setMaxLines(mType.getMaxLines());
@@ -273,7 +287,7 @@ public class Snackbar extends RelativeLayout {
 
     private void startSnackbarAnimation() {
         final Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
-        fadeOut.setStartOffset(mCustomDuration  == -1 ? mDuration.getDuration() : mCustomDuration);
+        fadeOut.setStartOffset(mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration);
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -348,8 +362,8 @@ public class Snackbar extends RelativeLayout {
         return mText;
     }
 
-    public SnackbarDuration getDuration() {
-        return mDuration;
+    public long getDuration() {
+        return mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration;
     }
 
     public SnackbarType getType() {
@@ -358,6 +372,10 @@ public class Snackbar extends RelativeLayout {
 
     public boolean isAnimated() {
         return mAnimated;
+    }
+
+    public boolean shouldDismissOnActionClicked() {
+        return mShouldDismiss;
     }
 
     public interface ActionClickListener {

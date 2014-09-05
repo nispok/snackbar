@@ -30,13 +30,13 @@ public class SnackbarTests extends InstrumentationTestCase {
     public void testSnackbarShouldHaveLongLengthDurationSetByDefault() {
         mSnackbar = Snackbar.with(mContext);
 
-        assertEquals(Snackbar.SnackbarDuration.LENGTH_LONG, mSnackbar.getDuration());
+        assertEquals(Snackbar.SnackbarDuration.LENGTH_LONG.getDuration(), mSnackbar.getDuration());
     }
 
     public void testSnackbarDurationCanBeChanged() {
         mSnackbar = Snackbar.with(mContext).duration(Snackbar.SnackbarDuration.LENGTH_SHORT);
 
-        assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT, mSnackbar.getDuration());
+        assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
     }
 
     public void testSnackbarShouldHaveWhiteTextColorByDefault() {
@@ -89,7 +89,35 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals("Aloha!", mSnackbar.getText());
         assertEquals("Action", mSnackbar.getActionLabel());
         assertEquals(Snackbar.SnackbarType.MULTI_LINE, mSnackbar.getType());
-        assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT, mSnackbar.getDuration());
+        assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
+    }
+
+    public void testSnackbarCanBeCreatedWithCustomDuration() {
+        mSnackbar = Snackbar.with(mContext)
+                .duration(1000l);
+
+        assertEquals(1000l, mSnackbar.getDuration());
+    }
+
+    public void testSnackbarWithCustomDurationOverrideSnackbarDuration() {
+        mSnackbar = Snackbar.with(mContext)
+                .duration(1000l)
+                .duration(Snackbar.SnackbarDuration.LENGTH_LONG);
+
+        assertEquals(1000l, mSnackbar.getDuration());
+    }
+
+    public void testSnackbarCanBeSetToDismissOnActionClicked() {
+        mSnackbar = Snackbar.with(mContext)
+                .dismissOnActionClicked(true);
+
+        assertTrue(mSnackbar.shouldDismissOnActionClicked());
+    }
+
+    public void testSnackbarShouldBeDismissedOnActionClickedByDefault() {
+        mSnackbar = Snackbar.with(mContext);
+
+        assertTrue(mSnackbar.shouldDismissOnActionClicked());
     }
 
 }

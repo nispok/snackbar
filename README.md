@@ -9,7 +9,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.williammora:snackbar:1.0.0'
+ compile 'com.williammora:snackbar:1.1.0'
  ```
 ## Usage
 <br />
@@ -20,18 +20,18 @@ Snackbar.with(getApplicationContext()) // context
     .text("Single-line snackbar") // text to display
     .show(this); // activity where it is displayed
 ```
-If you want an action button to be displayed, just assign a label and an <code>OnClickListener</code>:
+If you want an action button to be displayed, just assign a label and an <code>ActionClickListener</code>:
 <br />
 ```java
 Snackbar.with(getApplicationContext()) // context
     .text("Item deleted") // text to display
     .actionLabel("Undo") // action button label
-    .actionListener(new View.OnClickListener() {
+    .actionListener(new ActionClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onActionClicked() {
             Log.d(TAG, "Undoing something");
         }
-     }) // action button's OnClickListener
+     }) // action button's ActionClickListener
      .show(this); // activity where it is displayed
 ```
 There are two <code>Snackbar</code> types: single-line (default) and multi-line (2 lines max). You can also set the duration of the <code>Snackbar</code> similar to a <a href="http://developer.android.com/reference/android/widget/Toast.html"><code>Toast</code></a>. Animation disabling is also possible.
@@ -54,12 +54,12 @@ Snackbar.with(getApplicationContext()) // context
     .color(Color.BLUE) // change the background color
     .actionLabel("Action") // action button label
     .actionColor(Color.RED) // action button label color
-    .actionListener(new View.OnClickListener() {
+    .actionListener(new ActionClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onActionClicked() {
             Log.d(TAG, "Doing something");
         }
-     }) // action button's OnClickListener    
+     }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
 ```
 It uses <a href="https://github.com/romannurik/android-swipetodismiss">Roman Nurik's SwipeToDismiss sample code</a> to implement the swipte-to-dimiss functionality.<br /><br />

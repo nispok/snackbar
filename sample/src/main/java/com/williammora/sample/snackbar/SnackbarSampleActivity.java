@@ -85,6 +85,7 @@ public class SnackbarSampleActivity extends Activity {
                 Snackbar.with(SnackbarSampleActivity.this)
                         .text("No animation :(")
                         .animation(false)
+                        .duration(1000l)
                         .show(SnackbarSampleActivity.this);
             }
         });
