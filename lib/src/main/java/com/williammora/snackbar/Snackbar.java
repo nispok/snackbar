@@ -64,8 +64,10 @@ public class Snackbar extends RelativeLayout {
     private int mActionColor = Color.GREEN;
     private boolean mAnimated = true;
     private int mCustomDuration = -1; // Allow the user to set a custom duration.
-    private ActionClickListener mCallbacks; // Custom click listener that dismisses on touch.
+    private ActionClickListener mClickCallbacks; // Custom click listener that dismisses on touch.
+    private DismissListener mDismissListener;
     private boolean mShouldDismiss = true; // Should the Snackbar dismiss when action clicked.
+    private boolean hasDismissed = false;
 
     private Snackbar(Context context) {
         super(context);
@@ -157,7 +159,12 @@ public class Snackbar extends RelativeLayout {
      * @return
      */
     public Snackbar actionListener(ActionClickListener listener) {
-        this.mCallbacks = listener;
+        this.mClickCallbacks = listener;
+        return this;
+    }
+
+    public Snackbar dismissListener(DismissListener listener){
+        this.mDismissListener = listener;
         return this;
     }
 
@@ -216,10 +223,12 @@ public class Snackbar extends RelativeLayout {
             snackbarAction.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mCallbacks != null)
-                        mCallbacks.onActionClicked();
-                    if(mShouldDismiss)
+                    if(mClickCallbacks != null) {
+                        mClickCallbacks.onActionClicked();
+                    }
+                    if(mShouldDismiss) {
                         dismiss();
+                    }
                 }
             });
             snackbarAction.setMaxLines(mType.getMaxLines());
@@ -326,6 +335,10 @@ public class Snackbar extends RelativeLayout {
         if (parent != null) {
             parent.removeView(this);
         }
+        if (this.mDismissListener != null && !hasDismissed){
+            hasDismissed = true;
+            this.mDismissListener.onDismiss();
+        }
     }
 
     public int getActionColor() {
@@ -362,5 +375,9 @@ public class Snackbar extends RelativeLayout {
 
     public interface ActionClickListener {
         public void onActionClicked();
+    }
+
+    public interface DismissListener {
+        public void onDismiss();
     }
 }
