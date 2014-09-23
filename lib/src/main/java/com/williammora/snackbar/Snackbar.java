@@ -281,13 +281,13 @@ public class Snackbar extends RelativeLayout {
                 public void run() {
                     dismiss();
                 }
-            }, mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration);
+            }, getDuration());
         }
     }
 
     private void startSnackbarAnimation() {
-        final Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.fade_out);
-        fadeOut.setStartOffset(mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration);
+        final Animation fadeOut = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_out);
+        fadeOut.setStartOffset(getDuration());
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -309,7 +309,7 @@ public class Snackbar extends RelativeLayout {
 
             }
         });
-        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_from_bottom);
+        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_in);
         slideIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
