@@ -9,7 +9,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.williammora:snackbar:1.1.0'
+ compile 'com.williammora:snackbar:1.2.0'
  ```
 ## Usage
 <br />
@@ -33,6 +33,19 @@ Snackbar.with(getApplicationContext()) // context
         }
      }) // action button's ActionClickListener
      .show(this); // activity where it is displayed
+```
+If you need to know when the <code>Snackbar</code> is dismissed, assign a <code>DismissListener</code>:
+<br />
+```java
+Snackbar.with(getApplicationContext()) // context
+    .text("This will do something when dismissed") // text to display
+    .dismissListener(new Snackbar.DismissListener() {
+        @Override
+        public void onDismiss() {
+            Log.d(TAG, "Snackbar dismissed");
+        }
+    }) // Snackbar's DismissListener
+    .show(this); // activity where it is displayed
 ```
 There are two <code>Snackbar</code> types: single-line (default) and multi-line (2 lines max). You can also set the duration of the <code>Snackbar</code> similar to a <a href="http://developer.android.com/reference/android/widget/Toast.html"><code>Toast</code></a>. Animation disabling is also possible.
 <br />
@@ -62,11 +75,16 @@ Snackbar.with(getApplicationContext()) // context
      }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
 ```
-It uses <a href="https://github.com/romannurik/android-swipetodismiss">Roman Nurik's SwipeToDismiss sample code</a> to implement the swipe-to-dimiss functionality.<br /><br />
-If you would like to add features to it or report any bugs, refer to the <a href="https://github.com/wmora/snackbar/issues">issues</a> section.<br /><br />
+It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dimiss functionality.<br /><br />
+If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/wmora/snackbar/issues) section.<br /><br />
 
-# Developed By
+# Examples
+There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/williammora/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
+
+# Contributors
 + William Mora - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
++ [Lewis Deane](https://github.com/lewisjdeane)
++ [Andrew Hughes](https://github.com/ashughes)
 
 ## License
 [MIT](./LICENSE)
