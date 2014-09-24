@@ -64,8 +64,10 @@ public class Snackbar extends RelativeLayout {
     private int mActionColor = Color.GREEN;
     private boolean mAnimated = true;
     private long mCustomDuration = -1;
-    private ActionClickListener mListener;
+    private ActionClickListener mActionClickListener;
     private boolean mShouldDismiss = true;
+    private DismissListener mDismissListener;
+    private boolean mIsShowing = false;
 
     private Snackbar(Context context) {
         super(context);
@@ -150,7 +152,7 @@ public class Snackbar extends RelativeLayout {
      * @return
      */
     public Snackbar dismissOnActionClicked(boolean shouldDismiss) {
-        this.mShouldDismiss = shouldDismiss;
+        mShouldDismiss = shouldDismiss;
         return this;
     }
 
@@ -163,7 +165,18 @@ public class Snackbar extends RelativeLayout {
      * @return
      */
     public Snackbar actionListener(ActionClickListener listener) {
-        this.mListener = listener;
+        mActionClickListener = listener;
+        return this;
+    }
+
+    /**
+     * Sets the listener to be called when the {@link Snackbar} is dismissed.
+     *
+     * @param listener
+     * @return
+     */
+    public Snackbar dismissListener(DismissListener listener) {
+        mDismissListener = listener;
         return this;
     }
 
@@ -228,8 +241,8 @@ public class Snackbar extends RelativeLayout {
             snackbarAction.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mListener != null) {
-                        mListener.onActionClicked();
+                    if (mActionClickListener != null) {
+                        mActionClickListener.onActionClicked();
                     }
                     if (mShouldDismiss) {
                         dismiss();
@@ -272,6 +285,8 @@ public class Snackbar extends RelativeLayout {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.BOTTOM;
         root.addView(this, params);
+
+        mIsShowing = true;
 
         if (mAnimated) {
             startSnackbarAnimation();
@@ -340,6 +355,10 @@ public class Snackbar extends RelativeLayout {
         if (parent != null) {
             parent.removeView(this);
         }
+        if (mDismissListener != null && mIsShowing) {
+            mDismissListener.onDismiss();
+        }
+        mIsShowing = false;
     }
 
     public int getActionColor() {
@@ -378,7 +397,19 @@ public class Snackbar extends RelativeLayout {
         return mShouldDismiss;
     }
 
+    public boolean isShowing() {
+        return mIsShowing;
+    }
+
+    public boolean isDismissed() {
+        return !mIsShowing;
+    }
+
     public interface ActionClickListener {
         public void onActionClicked();
+    }
+
+    public interface DismissListener {
+        public void onDismiss();
     }
 }
