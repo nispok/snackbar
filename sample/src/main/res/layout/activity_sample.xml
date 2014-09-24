@@ -44,6 +44,12 @@
             android:text="No animation" />
 
         <Button
+            android:id="@+id/dismiss_listener"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dismiss Listener" />
+
+        <Button
             android:id="@+id/custom_colors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

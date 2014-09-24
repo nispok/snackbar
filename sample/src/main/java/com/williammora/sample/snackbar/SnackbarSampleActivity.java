@@ -40,7 +40,7 @@ public class SnackbarSampleActivity extends Activity {
                         .actionListener(new Snackbar.ActionClickListener() {
                             @Override
                             public void onActionClicked() {
-
+                                Log.i(TAG, "Action touched");
                             }
                         })
                         .show(SnackbarSampleActivity.this);
@@ -71,7 +71,7 @@ public class SnackbarSampleActivity extends Activity {
                         .actionListener(new Snackbar.ActionClickListener() {
                             @Override
                             public void onActionClicked() {
-
+                                Log.i(TAG, "Action touched");
                             }
                         })
                         .show(SnackbarSampleActivity.this);
@@ -90,6 +90,22 @@ public class SnackbarSampleActivity extends Activity {
             }
         });
 
+        Button dismissListenerButton = (Button) findViewById(R.id.dismiss_listener);
+        dismissListenerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.with(SnackbarSampleActivity.this)
+                        .text("This will do something when dismissed")
+                        .dismissListener(new Snackbar.DismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                Log.i(TAG, "Snackbar dismissed");
+                            }
+                        })
+                        .show(SnackbarSampleActivity.this);
+            }
+        });
+
         Button customColorsButton = (Button) findViewById(R.id.custom_colors);
         customColorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +119,7 @@ public class SnackbarSampleActivity extends Activity {
                         .actionListener(new Snackbar.ActionClickListener() {
                             @Override
                             public void onActionClicked() {
-
+                                Log.i(TAG, "Action touched");
                             }
                         })
                         .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
