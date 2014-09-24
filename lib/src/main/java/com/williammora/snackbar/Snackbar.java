@@ -397,10 +397,18 @@ public class Snackbar extends RelativeLayout {
         return mShouldDismiss;
     }
 
+    /**
+     * Returns whether this {@link com.williammora.snackbar.Snackbar} is currently showing
+     * @return
+     */
     public boolean isShowing() {
         return mIsShowing;
     }
 
+    /**
+     * Returns whether this {@link com.williammora.snackbar.Snackbar} has been dismissed
+     * @return
+     */
     public boolean isDismissed() {
         return !mIsShowing;
     }
