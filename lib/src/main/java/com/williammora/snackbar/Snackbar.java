@@ -3,6 +3,7 @@ package com.williammora.snackbar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.williammora.snackbar.listeners.SwipeDismissTouchListener;
@@ -19,10 +19,18 @@ import com.williammora.snackbar.listeners.SwipeDismissTouchListener;
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
  */
-public class Snackbar extends RelativeLayout {
+public class Snackbar extends SnackbarLayout {
+
+    private static int PHONE_MIN_HEIGHT_DP = 56;
+    private static int PHONE_MAX_HEIGHT_DP = 80;
+
+    private static int TABLET_MIN_WIDTH_DP = 288;
+    private static int TABLET_MAX_WIDTH_DP = 568;
+    private static int TABLET_HEIGHT_DP = 48;
+    private static int TABLET_MARGIN_DP = 24;
 
     public enum SnackbarType {
-        SINGLE_LINE(56, 1), MULTI_LINE(80, 2);
+        SINGLE_LINE(PHONE_MIN_HEIGHT_DP, 1), MULTI_LINE(PHONE_MAX_HEIGHT_DP, 2);
 
         private int height;
         private int maxLines;
@@ -214,19 +222,36 @@ public class Snackbar extends RelativeLayout {
         return this;
     }
 
-    private void init(Activity parent) {
-        RelativeLayout layout = (RelativeLayout) LayoutInflater.from(parent)
+    private FrameLayout.LayoutParams init(Activity parent) {
+        SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(parent)
                 .inflate(R.layout.snackbar, this, true);
 
-        layout.setBackgroundColor(mColor);
+        float scale = getResources().getDisplayMetrics().density;
 
-        float scale = parent.getResources().getDisplayMetrics().density;
-        int height = (int) (mType.getHeight() * scale + 0.5f);
+        FrameLayout.LayoutParams params;
+        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
+            // Phone
+            layout.setMinimumHeight(dpToPx(PHONE_MIN_HEIGHT_DP, scale));
+            layout.setMaxHeight(dpToPx(mType.getHeight(), scale));
+            layout.setBackgroundColor(mColor);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, height);
+            params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        } else {
+            // Tablet/desktop
+            layout.setMinimumWidth(dpToPx(TABLET_MIN_WIDTH_DP, scale));
+            layout.setMaxWidth(dpToPx(TABLET_MAX_WIDTH_DP, scale));
+            layout.setBackgroundResource(R.drawable.snackbar_background);
+            GradientDrawable bg = (GradientDrawable) layout.getBackground();
+            bg.setColor(mColor);
 
-        layout.setLayoutParams(params);
+            params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(TABLET_HEIGHT_DP, scale));
+            int margin = dpToPx(TABLET_MARGIN_DP, scale);
+            params.leftMargin = margin;
+            params.bottomMargin = margin;
+        }
+        params.gravity = Gravity.BOTTOM;
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.snackbar_text);
         snackbarText.setText(mText);
@@ -235,7 +260,6 @@ public class Snackbar extends RelativeLayout {
 
         TextView snackbarAction = (TextView) layout.findViewById(R.id.snackbar_action);
         if (!TextUtils.isEmpty(mActionLabel)) {
-            requestLayout();
             snackbarAction.setText(mActionLabel);
             snackbarAction.setTextColor(mActionColor);
             snackbarAction.setOnClickListener(new OnClickListener() {
@@ -270,6 +294,12 @@ public class Snackbar extends RelativeLayout {
                         }
                     }
                 }));
+
+        return params;
+    }
+
+    private static int dpToPx(int dp, float scale) {
+        return (int) (dp * scale + 0.5f);
     }
 
     /**
@@ -279,11 +309,8 @@ public class Snackbar extends RelativeLayout {
      * @param targetActivity
      */
     public void show(Activity targetActivity) {
-        init(targetActivity);
+        FrameLayout.LayoutParams params = init(targetActivity);
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.BOTTOM;
         root.addView(this, params);
 
         mIsShowing = true;
