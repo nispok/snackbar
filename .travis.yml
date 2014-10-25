@@ -19,11 +19,11 @@ android:
     - build-tools-20.0.0
 
     # The SDK version used to compile your project
-    - android-19
+    - android-20
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-20
+    - sys-img-armeabi-v7a-android-19
     - sys-img-x86-android-17
 
 # Emulator Management: Create, Start and Wait
