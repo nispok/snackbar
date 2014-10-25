@@ -44,10 +44,10 @@
             android:text="No animation" />
 
         <Button
-            android:id="@+id/dismiss_listener"
+            android:id="@+id/event_listener"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dismiss Listener" />
+            android:text="Event Listener" />
 
         <Button
             android:id="@+id/custom_colors"

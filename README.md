@@ -9,7 +9,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.williammora:snackbar:1.3.0'
+ compile 'com.williammora:snackbar:1.4.0'
  ```
 ## Usage
 <br />
@@ -34,15 +34,19 @@ Snackbar.with(getApplicationContext()) // context
      }) // action button's ActionClickListener
      .show(this); // activity where it is displayed
 ```
-If you need to know when the <code>Snackbar</code> is dismissed, assign a <code>DismissListener</code>:
+If you need to know when the <code>Snackbar</code> is shown or dismissed, assign a <code>EventListener</code> to it. This is useful if you need to move other objects while the <code>Snackbar</code> is displayed. For instance, you can move a Floating Action Button up while the <code>Snackbar</code> is on screen:
 <br />
 ```java
 Snackbar.with(getApplicationContext()) // context
     .text("This will do something when dismissed") // text to display
-    .dismissListener(new Snackbar.DismissListener() {
+    .eventListener(new Snackbar.EventListener() {
         @Override
-        public void onDismiss() {
-            Log.d(TAG, "Snackbar dismissed");
+        public void onShow(int height) {
+           myFloatingActionButton.moveUp(height);
+        }        
+        @Override
+        public void onDismiss(int height) {
+           myFloatingActionButton.moveDown(height);
         }
     }) // Snackbar's DismissListener
     .show(this); // activity where it is displayed
@@ -75,7 +79,14 @@ Snackbar.with(getApplicationContext()) // context
      }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
 ```
-It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dimiss functionality.<br /><br />
+It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dimiss functionality. This is enabled by default. You can disable this if you don't want this functionality:<br />
+<br />
+```java
+Snackbar.with(SnackbarSampleActivity.this) // context
+    .text("Can't swipe this") // text to be displayed
+    .swipeToDismiss(false) // disable swipe-to-dismiss functionality
+    .show(this); // activity where it is displayed
+```
 If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/wmora/snackbar/issues) section.<br /><br />
 
 # Examples

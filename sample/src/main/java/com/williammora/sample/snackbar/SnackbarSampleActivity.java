@@ -90,16 +90,21 @@ public class SnackbarSampleActivity extends Activity {
             }
         });
 
-        Button dismissListenerButton = (Button) findViewById(R.id.dismiss_listener);
-        dismissListenerButton.setOnClickListener(new View.OnClickListener() {
+        Button eventListenerButton = (Button) findViewById(R.id.event_listener);
+        eventListenerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
-                        .text("This will do something when dismissed")
-                        .dismissListener(new Snackbar.DismissListener() {
+                        .text("This will do something on enter/exit")
+                        .eventListener(new Snackbar.EventListener() {
                             @Override
-                            public void onDismiss() {
-                                Log.i(TAG, "Snackbar dismissed");
+                            public void onShow(int height) {
+                                Log.i(TAG, "Snackbar will show. Height: " + height);
+                            }
+
+                            @Override
+                            public void onDismiss(int height) {
+                                Log.i(TAG, "Snackbar dismissed. Height: " + height);
                             }
                         })
                         .show(SnackbarSampleActivity.this);

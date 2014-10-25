@@ -73,7 +73,7 @@ public class Snackbar extends SnackbarLayout {
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
     private boolean mShouldDismiss = true;
-    private DismissListener mDismissListener;
+    private EventListener mEventListener;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
 
@@ -183,8 +183,8 @@ public class Snackbar extends SnackbarLayout {
      * @param listener
      * @return
      */
-    public Snackbar dismissListener(DismissListener listener) {
-        mDismissListener = listener;
+    public Snackbar eventListener(EventListener listener) {
+        mEventListener = listener;
         return this;
     }
 
@@ -328,6 +328,10 @@ public class Snackbar extends SnackbarLayout {
 
         mIsShowing = true;
 
+        if (mEventListener != null) {
+            mEventListener.onShow(mType.getHeight());
+        }
+
         if (mAnimated) {
             startSnackbarAnimation();
         } else {
@@ -395,8 +399,8 @@ public class Snackbar extends SnackbarLayout {
         if (parent != null) {
             parent.removeView(this);
         }
-        if (mDismissListener != null && mIsShowing) {
-            mDismissListener.onDismiss();
+        if (mEventListener != null && mIsShowing) {
+            mEventListener.onDismiss(mType.getHeight());
         }
         mIsShowing = false;
     }
@@ -459,7 +463,23 @@ public class Snackbar extends SnackbarLayout {
         public void onActionClicked();
     }
 
-    public interface DismissListener {
-        public void onDismiss();
+    /**
+     * Interface used to notify of all {@link com.williammora.snackbar.Snackbar} display events. Useful if you want
+     * to move other views while the Snackbar is on screen.
+     */
+    public interface EventListener {
+        /**
+         * Called when a {@link com.williammora.snackbar.Snackbar} is about to enter the screen
+         *
+         * @param height {@link com.williammora.snackbar.Snackbar} height, in DP
+         */
+        public void onShow(int height);
+
+        /**
+         * Called when a {@link com.williammora.snackbar.Snackbar} had just been dismissed
+         *
+         * @param height {@link com.williammora.snackbar.Snackbar} height, in DP
+         */
+        public void onDismiss(int height);
     }
 }
