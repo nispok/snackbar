@@ -13,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.williammora.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
@@ -76,6 +75,7 @@ public class Snackbar extends SnackbarLayout {
     private boolean mShouldDismiss = true;
     private DismissListener mDismissListener;
     private boolean mIsShowing = false;
+    private boolean mCanSwipeToDismiss = true;
 
     private Snackbar(Context context) {
         super(context);
@@ -200,6 +200,17 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
+     * Determines whether this {@link com.williammora.snackbar.Snackbar} can be swiped off from the screen
+     *
+     * @param canSwipeToDismiss
+     * @return
+     */
+    public Snackbar swipeToDismiss(boolean canSwipeToDismiss) {
+        mCanSwipeToDismiss = canSwipeToDismiss;
+        return this;
+    }
+
+    /**
      * Sets the duration of this {@link Snackbar}. See
      * {@link Snackbar.SnackbarDuration} for available options
      *
@@ -236,7 +247,7 @@ public class Snackbar extends SnackbarLayout {
             layout.setBackgroundColor(mColor);
 
             params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         } else {
             // Tablet/desktop
             layout.setMinimumWidth(dpToPx(TABLET_MIN_WIDTH_DP, scale));
@@ -246,7 +257,7 @@ public class Snackbar extends SnackbarLayout {
             bg.setColor(mColor);
 
             params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(TABLET_HEIGHT_DP, scale));
+                    FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(TABLET_HEIGHT_DP, scale));
             int margin = dpToPx(TABLET_MARGIN_DP, scale);
             params.leftMargin = margin;
             params.bottomMargin = margin;
@@ -280,20 +291,22 @@ public class Snackbar extends SnackbarLayout {
 
         setClickable(true);
 
-        setOnTouchListener(new SwipeDismissTouchListener(this, null,
-                new SwipeDismissTouchListener.DismissCallbacks() {
-                    @Override
-                    public boolean canDismiss(Object token) {
-                        return true;
-                    }
-
-                    @Override
-                    public void onDismiss(View view, Object token) {
-                        if (view != null) {
-                            dismiss();
+        if (mCanSwipeToDismiss) {
+            setOnTouchListener(new SwipeDismissTouchListener(this, null,
+                    new SwipeDismissTouchListener.DismissCallbacks() {
+                        @Override
+                        public boolean canDismiss(Object token) {
+                            return true;
                         }
-                    }
-                }));
+
+                        @Override
+                        public void onDismiss(View view, Object token) {
+                            if (view != null) {
+                                dismiss();
+                            }
+                        }
+                    }));
+        }
 
         return params;
     }
@@ -426,6 +439,7 @@ public class Snackbar extends SnackbarLayout {
 
     /**
      * Returns whether this {@link com.williammora.snackbar.Snackbar} is currently showing
+     *
      * @return
      */
     public boolean isShowing() {
@@ -434,6 +448,7 @@ public class Snackbar extends SnackbarLayout {
 
     /**
      * Returns whether this {@link com.williammora.snackbar.Snackbar} has been dismissed
+     *
      * @return
      */
     public boolean isDismissed() {

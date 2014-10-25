@@ -55,5 +55,11 @@
             android:layout_height="wrap_content"
             android:text="Custom colors" />
 
+        <Button
+                android:id="@+id/unswipeable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unswipeable" />
+
     </LinearLayout>
 </ScrollView>

@@ -126,6 +126,17 @@ public class SnackbarSampleActivity extends Activity {
                         .show(SnackbarSampleActivity.this);
             }
         });
+
+        Button unswipeableButton = (Button) findViewById(R.id.unswipeable);
+        unswipeableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.with(SnackbarSampleActivity.this)
+                        .text("Can't swipe this")
+                        .swipeToDismiss(false)
+                        .show(SnackbarSampleActivity.this);
+            }
+        });
     }
 
 }
