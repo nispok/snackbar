@@ -1,29 +1,25 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.0"
 
     defaultConfig {
         applicationId "com.williammora.snackbar"
         minSdkVersion 15
-        targetSdkVersion 20
-        versionCode 5
-        versionName "1.4.0"
+        targetSdkVersion 21
+        versionCode 6
+        versionName "2.0.0-SNAPSHOT"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
         testHandleProfiling true
         testFunctionalTest true
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 apply from: 'maven-push.gradle'
