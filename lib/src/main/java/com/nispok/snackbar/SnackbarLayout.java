@@ -1,4 +1,4 @@
-package com.williammora.snackbar;
+package com.nispok.snackbar;
 
 import android.content.Context;
 import android.util.AttributeSet;

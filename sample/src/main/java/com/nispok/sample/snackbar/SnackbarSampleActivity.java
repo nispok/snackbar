@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.williammora.snackbar.Snackbar;
+import com.nispok.snackbar.Snackbar;
 
 import java.lang.Override;
 

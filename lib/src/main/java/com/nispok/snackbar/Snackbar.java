@@ -1,4 +1,4 @@
-package com.williammora.snackbar;
+package com.nispok.snackbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import com.williammora.snackbar.listeners.SwipeDismissTouchListener;
+
+import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
@@ -200,7 +201,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
-     * Determines whether this {@link com.williammora.snackbar.Snackbar} can be swiped off from the screen
+     * Determines whether this {@link Snackbar} can be swiped off from the screen
      *
      * @param canSwipeToDismiss
      * @return
@@ -442,7 +443,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
-     * Returns whether this {@link com.williammora.snackbar.Snackbar} is currently showing
+     * Returns whether this {@link Snackbar} is currently showing
      *
      * @return
      */
@@ -451,7 +452,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
-     * Returns whether this {@link com.williammora.snackbar.Snackbar} has been dismissed
+     * Returns whether this {@link Snackbar} has been dismissed
      *
      * @return
      */
@@ -464,21 +465,21 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
-     * Interface used to notify of all {@link com.williammora.snackbar.Snackbar} display events. Useful if you want
+     * Interface used to notify of all {@link Snackbar} display events. Useful if you want
      * to move other views while the Snackbar is on screen.
      */
     public interface EventListener {
         /**
-         * Called when a {@link com.williammora.snackbar.Snackbar} is about to enter the screen
+         * Called when a {@link Snackbar} is about to enter the screen
          *
-         * @param height {@link com.williammora.snackbar.Snackbar} height, in DP
+         * @param height {@link Snackbar} height, in DP
          */
         public void onShow(int height);
 
         /**
-         * Called when a {@link com.williammora.snackbar.Snackbar} had just been dismissed
+         * Called when a {@link Snackbar} had just been dismissed
          *
-         * @param height {@link com.williammora.snackbar.Snackbar} height, in DP
+         * @param height {@link Snackbar} height, in DP
          */
         public void onDismiss(int height);
     }
