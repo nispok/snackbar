@@ -1,4 +1,4 @@
-package com.williammora.sample.snackbar;
+package com.nispok.sample.snackbar;
 
 import android.app.Activity;
 import android.graphics.Color;

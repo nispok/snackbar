@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.0"
 
     defaultConfig {
-        applicationId "com.williammora.snackbar"
+        applicationId "com.nispok.snackbar"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
