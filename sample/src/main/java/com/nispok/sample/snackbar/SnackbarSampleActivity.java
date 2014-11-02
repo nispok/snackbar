@@ -1,10 +1,10 @@
 package com.nispok.sample.snackbar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +19,7 @@ import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.nispok.snackbar.listeners.EventListener;
 
-public class SnackbarSampleActivity extends Activity {
+public class SnackbarSampleActivity extends ActionBarActivity {
 
     private static final String TAG = SnackbarSampleActivity.class.getSimpleName();
 
@@ -102,7 +102,7 @@ public class SnackbarSampleActivity extends Activity {
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("No animation :(")
                                 .animation(false)
-                                .duration(1000l),
+                                .duration(2500l),
                         SnackbarSampleActivity.this);
             }
         });
@@ -153,14 +153,14 @@ public class SnackbarSampleActivity extends Activity {
             }
         });
 
-        Button swipeableButton = (Button) findViewById(R.id.swipeable);
-        swipeableButton.setOnClickListener(new View.OnClickListener() {
+        Button unswipeableButton = (Button) findViewById(R.id.unswipeable);
+        unswipeableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SnackbarManager.getInstance().show(
                         Snackbar.with(SnackbarSampleActivity.this)
-                                .text("Swipe me off the screen")
-                                .swipeToDismiss(true),
+                                .text("Try to swipe me off the screen")
+                                .swipeToDismiss(false),
                         SnackbarSampleActivity.this);
             }
         });
