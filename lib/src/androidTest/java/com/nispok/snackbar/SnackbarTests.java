@@ -51,12 +51,6 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals(Color.GREEN, mSnackbar.getTextColor());
     }
 
-    public void testSnackbarActionColorShouldBeGreenByDefault() {
-        mSnackbar = Snackbar.with(mContext);
-
-        assertEquals(Color.GREEN, mSnackbar.getActionColor());
-    }
-
     public void testSnackbarActionColorCanBeChanged() {
         mSnackbar = Snackbar.with(mContext).actionColor(Color.BLUE);
 
@@ -107,11 +101,11 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals(1000l, mSnackbar.getDuration());
     }
 
-    public void testSnackbarCanBeSetToDismissOnActionClicked() {
+    public void testSnackbarCanBeSetToNotDismissOnActionClicked() {
         mSnackbar = Snackbar.with(mContext)
-                .dismissOnActionClicked(true);
+                .dismissOnActionClicked(false);
 
-        assertTrue(mSnackbar.shouldDismissOnActionClicked());
+        assertFalse(mSnackbar.shouldDismissOnActionClicked());
     }
 
     public void testSnackbarShouldBeDismissedOnActionClickedByDefault() {

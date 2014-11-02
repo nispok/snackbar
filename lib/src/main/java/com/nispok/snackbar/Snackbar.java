@@ -2,7 +2,6 @@ package com.nispok.snackbar;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,11 +20,11 @@ import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
  */
 public class Snackbar extends RelativeLayout {
 
-    private static int PHONE_MIN_HEIGHT_DP = 56;
-    private static int PHONE_MAX_HEIGHT_DP = 80;
+    private static int MIN_HEIGHT_DP = 56;
+    private static int MAX_HEIGHT_DP = 80;
 
     public enum SnackbarType {
-        SINGLE_LINE(PHONE_MIN_HEIGHT_DP, 1), MULTI_LINE(PHONE_MAX_HEIGHT_DP, 2);
+        SINGLE_LINE(MIN_HEIGHT_DP, 1), MULTI_LINE(MAX_HEIGHT_DP, 2);
 
         private int height;
         private int maxLines;
@@ -61,10 +60,10 @@ public class Snackbar extends RelativeLayout {
     private SnackbarType mType = SnackbarType.SINGLE_LINE;
     private SnackbarDuration mDuration = SnackbarDuration.LENGTH_LONG;
     private CharSequence mText;
-    private int mColor = 0xff323232;
-    private int mTextColor = Color.WHITE;
+    private int mColor = -1;
+    private int mTextColor = -1;
     private CharSequence mActionLabel;
-    private int mActionColor = Color.GREEN;
+    private int mActionColor = -1;
     private boolean mAnimated = true;
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
@@ -233,7 +232,8 @@ public class Snackbar extends RelativeLayout {
         RelativeLayout layout = (RelativeLayout) LayoutInflater.from(parent)
                 .inflate(R.layout.snackbar, this, true);
 
-        layout.setBackgroundColor(mColor);
+        layout.setBackgroundColor(mColor != -1 ? mColor :
+                getResources().getColor(R.color.snackbar_background));
 
         float scale = getResources().getDisplayMetrics().density;
         int height = (int) (mType.getHeight() * scale + 0.5f);
@@ -245,14 +245,22 @@ public class Snackbar extends RelativeLayout {
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.snackbar_text);
         snackbarText.setText(mText);
-        snackbarText.setTextColor(mTextColor);
+
+        if (mTextColor != -1) {
+            snackbarText.setTextColor(mTextColor);
+        }
+
         snackbarText.setMaxLines(mType.getMaxLines());
 
         TextView snackbarAction = (TextView) layout.findViewById(R.id.snackbar_action);
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
             snackbarAction.setText(mActionLabel);
-            snackbarAction.setTextColor(mActionColor);
+
+            if (mActionColor != -1) {
+                snackbarAction.setTextColor(mActionColor);
+            }
+
             snackbarAction.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
