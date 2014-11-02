@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.test.InstrumentationTestCase;
 
+import com.nispok.snackbar.enums.SnackbarType;
+
 public class SnackbarTests extends InstrumentationTestCase {
 
     private Snackbar mSnackbar;
@@ -18,13 +20,13 @@ public class SnackbarTests extends InstrumentationTestCase {
     public void testSnackbarShouldBeSingleLineByDefault() {
         mSnackbar = Snackbar.with(mContext);
 
-        assertEquals(Snackbar.SnackbarType.SINGLE_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.SINGLE_LINE, mSnackbar.getType());
     }
 
     public void testSnackbarTypeCanBeChanged() {
-        mSnackbar = Snackbar.with(mContext).type(Snackbar.SnackbarType.MULTI_LINE);
+        mSnackbar = Snackbar.with(mContext).type(SnackbarType.MULTI_LINE);
 
-        assertEquals(Snackbar.SnackbarType.MULTI_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.MULTI_LINE, mSnackbar.getType());
     }
 
     public void testSnackbarShouldHaveLongLengthDurationSetByDefault() {
@@ -75,14 +77,14 @@ public class SnackbarTests extends InstrumentationTestCase {
                 .textColor(Color.GREEN)
                 .text("Aloha!")
                 .actionLabel("Action")
-                .type(Snackbar.SnackbarType.MULTI_LINE)
+                .type(SnackbarType.MULTI_LINE)
                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT);
 
         assertEquals(Color.BLUE, mSnackbar.getColor());
         assertEquals(Color.GREEN, mSnackbar.getTextColor());
         assertEquals("Aloha!", mSnackbar.getText());
         assertEquals("Action", mSnackbar.getActionLabel());
-        assertEquals(Snackbar.SnackbarType.MULTI_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.MULTI_LINE, mSnackbar.getType());
         assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
     }
 

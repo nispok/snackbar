@@ -47,7 +47,7 @@ public class Snackbar extends RelativeLayout {
     private boolean mAnimated = true;
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
-    private boolean mShouldDismiss = true;
+    private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = false;
@@ -135,7 +135,7 @@ public class Snackbar extends RelativeLayout {
      * @return
      */
     public Snackbar dismissOnActionClicked(boolean shouldDismiss) {
-        mShouldDismiss = shouldDismiss;
+        mShouldDismissOnActionClicked = shouldDismiss;
         return this;
     }
 
@@ -246,7 +246,7 @@ public class Snackbar extends RelativeLayout {
                     if (mActionClickListener != null) {
                         mActionClickListener.onActionClicked();
                     }
-                    if (mShouldDismiss) {
+                    if (mShouldDismissOnActionClicked) {
                         dismiss();
                     }
                 }
@@ -415,7 +415,7 @@ public class Snackbar extends RelativeLayout {
     }
 
     public boolean shouldDismissOnActionClicked() {
-        return mShouldDismiss;
+        return mShouldDismissOnActionClicked;
     }
 
     /**
