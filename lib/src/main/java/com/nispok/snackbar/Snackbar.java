@@ -50,7 +50,7 @@ public class Snackbar extends RelativeLayout {
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
     private boolean mIsShowing = false;
-    private boolean mCanSwipeToDismiss = false;
+    private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
 
     private Snackbar(Context context) {
