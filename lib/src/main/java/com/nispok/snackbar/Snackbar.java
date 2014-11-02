@@ -51,6 +51,7 @@ public class Snackbar extends RelativeLayout {
     private EventListener mEventListener;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = false;
+    private boolean mIsDismissing = false;
 
     private Snackbar(Context context) {
         super(context);
@@ -345,11 +346,15 @@ public class Snackbar extends RelativeLayout {
             return;
         }
 
+        if (mIsDismissing) {
+            return;
+        }
+
         final Animation slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_out);
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                mIsDismissing = true;
             }
 
             @Override
