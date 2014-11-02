@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def loadProperty(name) {
+    hasProperty(name) ? "${getProperty(name)}" : ""
+}
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.0"
@@ -14,10 +18,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(NISPOK_RELEASE_KEYSTORE_PATH)
-            storePassword NISPOK_RELEASE_PASSWORD
-            keyAlias NISPOK_RELEASE_KEY_ALIAS
-            keyPassword NISPOK_RELEASE_KEY_PASSWORD
+            storeFile file(loadProperty("NISPOK_RELEASE_KEYSTORE_PATH"))
+            storePassword loadProperty("NISPOK_RELEASE_PASSWORD")
+            keyAlias loadProperty("NISPOK_RELEASE_KEY_ALIAS")
+            keyPassword loadProperty("NISPOK_RELEASE_KEY_PASSWORD")
         }
     }
 
