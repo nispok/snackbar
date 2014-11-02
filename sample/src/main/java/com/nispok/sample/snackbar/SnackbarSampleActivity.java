@@ -117,10 +117,10 @@ public class SnackbarSampleActivity extends Activity {
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
                         .text("Shorter message, different colors")
-                        .textColor(Color.GREEN)
-                        .color(Color.BLUE)
+                        .textColor(Color.parseColor("#ff9d9d9c"))
+                        .color(Color.parseColor("#ff914300"))
                         .actionLabel("Action")
-                        .actionColor(Color.RED)
+                        .actionColor(Color.parseColor("#ff5a2900"))
                         .actionListener(new Snackbar.ActionClickListener() {
                             @Override
                             public void onActionClicked() {
@@ -132,13 +132,13 @@ public class SnackbarSampleActivity extends Activity {
             }
         });
 
-        Button unswipeableButton = (Button) findViewById(R.id.unswipeable);
-        unswipeableButton.setOnClickListener(new View.OnClickListener() {
+        Button swipeableButton = (Button) findViewById(R.id.swipeable);
+        swipeableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Can't swipe this")
-                        .swipeToDismiss(false)
+                        .text("Swipe me off the screen")
+                        .swipeToDismiss(true)
                         .show(SnackbarSampleActivity.this);
             }
         });
