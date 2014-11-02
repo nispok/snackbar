@@ -137,7 +137,7 @@ public class SnackbarSampleActivity extends Activity {
             public void onClick(View v) {
                 SnackbarManager.getInstance().show(
                         Snackbar.with(SnackbarSampleActivity.this)
-                                .text("Different colors")
+                                .text("Different colors!!!")
                                 .textColor(Color.parseColor("#ff9d9d9c"))
                                 .color(Color.parseColor("#ff914300"))
                                 .actionLabel("Action")
