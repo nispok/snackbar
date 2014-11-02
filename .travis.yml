@@ -23,6 +23,9 @@ android:
 
     # Extras
     - extra-android-support
+    - extra-android-m2repository
+    - extra-google-google_play_services
+    - extra-google-m2repository
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
