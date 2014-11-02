@@ -13,35 +13,15 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
 import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
  */
 public class Snackbar extends RelativeLayout {
-
-    private static int MIN_HEIGHT_DP = 56;
-    private static int MAX_HEIGHT_DP = 80;
-
-    public enum SnackbarType {
-        SINGLE_LINE(MIN_HEIGHT_DP, 1), MULTI_LINE(MAX_HEIGHT_DP, 2);
-
-        private int height;
-        private int maxLines;
-
-        SnackbarType(int height, int maxLines) {
-            this.height = height;
-            this.maxLines = maxLines;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public int getMaxLines() {
-            return maxLines;
-        }
-    }
 
     public enum SnackbarDuration {
         LENGTH_SHORT(2000), LENGTH_LONG(3500);
@@ -83,7 +63,7 @@ public class Snackbar extends RelativeLayout {
     /**
      * Sets the type of {@link Snackbar} to be displayed.
      *
-     * @param type the {@link Snackbar.SnackbarType} of this instance
+     * @param type the {@link SnackbarType} of this instance
      * @return
      */
     public Snackbar type(SnackbarType type) {
@@ -235,8 +215,7 @@ public class Snackbar extends RelativeLayout {
         layout.setBackgroundColor(mColor != -1 ? mColor :
                 getResources().getColor(R.color.snackbar_background));
 
-        float scale = getResources().getDisplayMetrics().density;
-        int height = (int) (mType.getHeight() * scale + 0.5f);
+        int height = mType.getHeightInPx(getResources().getDisplayMetrics().density);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, height);
@@ -455,29 +434,5 @@ public class Snackbar extends RelativeLayout {
      */
     public boolean isDismissed() {
         return !mIsShowing;
-    }
-
-    public interface ActionClickListener {
-        public void onActionClicked();
-    }
-
-    /**
-     * Interface used to notify of all {@link com.nispok.snackbar.Snackbar} display events. Useful if you want
-     * to move other views while the Snackbar is on screen.
-     */
-    public interface EventListener {
-        /**
-         * Called when a {@link com.nispok.snackbar.Snackbar} is about to enter the screen
-         *
-         * @param height {@link com.nispok.snackbar.Snackbar} height, in DP
-         */
-        public void onShow(int height);
-
-        /**
-         * Called when a {@link com.nispok.snackbar.Snackbar} had just been dismissed
-         *
-         * @param height {@link com.nispok.snackbar.Snackbar} height, in DP
-         */
-        public void onDismiss(int height);
     }
 }
