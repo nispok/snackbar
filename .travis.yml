@@ -19,7 +19,7 @@ android:
     - build-tools-21.1.0
 
     # The SDK version used to compile your project
-    - android-20
+    - android-21
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
