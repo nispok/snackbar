@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.nispok.sample.snackbar.utils.SnackbarManager;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.nispok.snackbar.listeners.EventListener;
-
-import java.lang.Override;
 
 public class SnackbarSampleActivity extends Activity {
 
@@ -27,9 +27,10 @@ public class SnackbarSampleActivity extends Activity {
         singleLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Single-line snackbar")
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("Single-line snackbar"),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -37,16 +38,19 @@ public class SnackbarSampleActivity extends Activity {
         singleLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Something has been done")
-                        .actionLabel("Undo")
-                        .actionListener(new ActionClickListener() {
-                            @Override
-                            public void onActionClicked() {
-                                Log.i(TAG, "Action touched");
-                            }
-                        })
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("Something has been done")
+                                .actionLabel("Undo")
+                                .actionListener(new ActionClickListener() {
+                                    @Override
+                                    public void onActionClicked() {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "Action undone",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -54,11 +58,12 @@ public class SnackbarSampleActivity extends Activity {
         multiLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .type(SnackbarType.MULTI_LINE)
-                        .text("This is a multi-line snackbar. Keep in mind that snackbars are " +
-                                "meant for VERY short messages")
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .type(SnackbarType.MULTI_LINE)
+                                .text("This is a multi-line snackbar. Keep in mind that snackbars" +
+                                        " are meant for VERY short messages"),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -66,18 +71,21 @@ public class SnackbarSampleActivity extends Activity {
         multiLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .type(SnackbarType.MULTI_LINE)
-                        .text("This is a multi-line snackbar with an action button. Note that " +
-                                "multi-line snackbars are 2 lines max")
-                        .actionLabel("Action")
-                        .actionListener(new ActionClickListener() {
-                            @Override
-                            public void onActionClicked() {
-                                Log.i(TAG, "Action touched");
-                            }
-                        })
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .type(SnackbarType.MULTI_LINE)
+                                .text("This is a multi-line snackbar with an action button. Note " +
+                                        "that multi-line snackbars are 2 lines max")
+                                .actionLabel("Action")
+                                .actionListener(new ActionClickListener() {
+                                    @Override
+                                    public void onActionClicked() {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "Action clicked",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -85,11 +93,12 @@ public class SnackbarSampleActivity extends Activity {
         noAnimationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("No animation :(")
-                        .animation(false)
-                        .duration(1000l)
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("No animation :(")
+                                .animation(false)
+                                .duration(1000l),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -97,20 +106,23 @@ public class SnackbarSampleActivity extends Activity {
         eventListenerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("This will do something on enter/exit")
-                        .eventListener(new EventListener() {
-                            @Override
-                            public void onShow(int height) {
-                                Log.i(TAG, "Snackbar will show. Height: " + height);
-                            }
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("I'm showing a toast on exit")
+                                .eventListener(new EventListener() {
+                                    @Override
+                                    public void onShow(int height) {
+                                        Log.i(TAG, "Snackbar will show. Height: " + height);
+                                    }
 
-                            @Override
-                            public void onDismiss(int height) {
-                                Log.i(TAG, "Snackbar dismissed. Height: " + height);
-                            }
-                        })
-                        .show(SnackbarSampleActivity.this);
+                                    @Override
+                                    public void onDismiss(int height) {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "Snackbar dismissed. Height in DP: " + height,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -118,20 +130,21 @@ public class SnackbarSampleActivity extends Activity {
         customColorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Shorter message, different colors")
-                        .textColor(Color.parseColor("#ff9d9d9c"))
-                        .color(Color.parseColor("#ff914300"))
-                        .actionLabel("Action")
-                        .actionColor(Color.parseColor("#ff5a2900"))
-                        .actionListener(new ActionClickListener() {
-                            @Override
-                            public void onActionClicked() {
-                                Log.i(TAG, "Action touched");
-                            }
-                        })
-                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("Different colors")
+                                .textColor(Color.parseColor("#ff9d9d9c"))
+                                .color(Color.parseColor("#ff914300"))
+                                .actionLabel("Action")
+                                .actionColor(Color.parseColor("#ff5a2900"))
+                                .actionListener(new ActionClickListener() {
+                                    @Override
+                                    public void onActionClicked() {
+                                        Log.i(TAG, "Action touched");
+                                    }
+                                })
+                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT),
+                        SnackbarSampleActivity.this);
             }
         });
 
@@ -139,10 +152,11 @@ public class SnackbarSampleActivity extends Activity {
         swipeableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                        .text("Swipe me off the screen")
-                        .swipeToDismiss(true)
-                        .show(SnackbarSampleActivity.this);
+                SnackbarManager.getInstance().show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("Swipe me off the screen")
+                                .swipeToDismiss(true),
+                        SnackbarSampleActivity.this);
             }
         });
     }
