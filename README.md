@@ -1,5 +1,5 @@
 # Snackbar
-[![Build Status](https://travis-ci.org/wmora/snackbar.svg?branch=master)](https://travis-ci.org/wmora/snackbar)
+[![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar)
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 
