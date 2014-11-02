@@ -18,16 +18,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(loadProperty("NISPOK_RELEASE_KEYSTORE_PATH"))
-            storePassword loadProperty("NISPOK_RELEASE_PASSWORD")
-            keyAlias loadProperty("NISPOK_RELEASE_KEY_ALIAS")
-            keyPassword loadProperty("NISPOK_RELEASE_KEY_PASSWORD")
+            storeFile file(loadProperty("NISPOK_RELEASE_KEYSTORE_PATH") ?: signingConfigs.debug.storeFile)
+            storePassword loadProperty("NISPOK_RELEASE_PASSWORD") ?: signingConfigs.debug.storePassword
+            keyAlias loadProperty("NISPOK_RELEASE_KEY_ALIAS") ?: signingConfigs.debug.keyAlias
+            keyPassword loadProperty("NISPOK_RELEASE_KEY_PASSWORD") ?: signingConfigs.debug.keyPassword
         }
     }
 
     buildTypes {
         release {
-            signingConfig loadProperty("NISPOK_RELEASE_KEYSTORE_PATH") ? signingConfigs.release : signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 
