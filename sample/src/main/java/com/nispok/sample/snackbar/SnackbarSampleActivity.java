@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
 
 import java.lang.Override;
 
@@ -37,7 +40,7 @@ public class SnackbarSampleActivity extends Activity {
                 Snackbar.with(SnackbarSampleActivity.this)
                         .text("Something has been done")
                         .actionLabel("Undo")
-                        .actionListener(new Snackbar.ActionClickListener() {
+                        .actionListener(new ActionClickListener() {
                             @Override
                             public void onActionClicked() {
                                 Log.i(TAG, "Action touched");
@@ -52,7 +55,7 @@ public class SnackbarSampleActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
-                        .type(Snackbar.SnackbarType.MULTI_LINE)
+                        .type(SnackbarType.MULTI_LINE)
                         .text("This is a multi-line snackbar. Keep in mind that snackbars are " +
                                 "meant for VERY short messages")
                         .show(SnackbarSampleActivity.this);
@@ -64,11 +67,11 @@ public class SnackbarSampleActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
-                        .type(Snackbar.SnackbarType.MULTI_LINE)
+                        .type(SnackbarType.MULTI_LINE)
                         .text("This is a multi-line snackbar with an action button. Note that " +
                                 "multi-line snackbars are 2 lines max")
                         .actionLabel("Action")
-                        .actionListener(new Snackbar.ActionClickListener() {
+                        .actionListener(new ActionClickListener() {
                             @Override
                             public void onActionClicked() {
                                 Log.i(TAG, "Action touched");
@@ -96,7 +99,7 @@ public class SnackbarSampleActivity extends Activity {
             public void onClick(View v) {
                 Snackbar.with(SnackbarSampleActivity.this)
                         .text("This will do something on enter/exit")
-                        .eventListener(new Snackbar.EventListener() {
+                        .eventListener(new EventListener() {
                             @Override
                             public void onShow(int height) {
                                 Log.i(TAG, "Snackbar will show. Height: " + height);
@@ -121,7 +124,7 @@ public class SnackbarSampleActivity extends Activity {
                         .color(Color.parseColor("#ff914300"))
                         .actionLabel("Action")
                         .actionColor(Color.parseColor("#ff5a2900"))
-                        .actionListener(new Snackbar.ActionClickListener() {
+                        .actionListener(new ActionClickListener() {
                             @Override
                             public void onActionClicked() {
                                 Log.i(TAG, "Action touched");
