@@ -7,11 +7,11 @@
         <item name="android:paddingTop">18dp</item>
         <item name="android:paddingRight">24dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/snackbar_text</item>
+        <item name="android:textColor">@color/snackbar_text_color</item>
     </style>
 
     <style name="SnackbarText.Action">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/snackbar_action_text</item>
+        <item name="android:textColor">@color/snackbar_action_text_color</item>
     </style>
 </resources>
