@@ -87,7 +87,7 @@ Snackbar.with(SnackbarSampleActivity.this) // context
     .swipeToDismiss(false) // disable swipe-to-dismiss functionality
     .show(this); // activity where it is displayed
 ```
-If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
+If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/wmora/snackbar/issues) section.<br /><br />
 
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
