@@ -96,6 +96,7 @@ There's a sample app included in the project. [SnackbarSampleActivity](./sample/
 + William Mora - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
 + [Lewis Deane](https://github.com/lewisjdeane)
 + [Andrew Hughes](https://github.com/ashughes)
++ [David Richardson](https://github.com/davidjrichardson)
 
 ## License
 [MIT](./LICENSE)
