@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="snackbar_background">#ff323232</color>
     <color name="snackbar_text_color">#ffffffff</color>
-    <color name="snackbar_action_text_color">#ff00ff00</color>
+    <color name="snackbar_action_text_color">#ffffffff</color>
+    <color name="snackbar_action_bg_color">#1affffff</color>
+
 </resources>
