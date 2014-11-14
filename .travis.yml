@@ -2,7 +2,7 @@ language: android
 
 env:
   matrix:
-    - ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
+      - ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
 
 branches:
   only:
@@ -23,7 +23,7 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-android-17
     - sys-img-x86-android-17
 
 # Emulator Management: Create, Start and Wait
