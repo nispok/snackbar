@@ -9,7 +9,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.nispok:snackbar:2.1.0'
+ compile 'com.nispok:snackbar:2.1.1'
  ```
 ## Usage
 <br />
@@ -87,13 +87,13 @@ Snackbar.with(SnackbarSampleActivity.this) // context
     .swipeToDismiss(false) // disable swipe-to-dismiss functionality
     .show(this); // activity where it is displayed
 ```
-If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/wmora/snackbar/issues) section.<br /><br />
+If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
 
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
 # Contributors
-+ William Mora - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
++ [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
 + [Lewis Deane](https://github.com/lewisjdeane)
 + [Andrew Hughes](https://github.com/ashughes)
 + [David Richardson](https://github.com/davidjrichardson)
