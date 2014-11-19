@@ -1,8 +1,10 @@
-package com.williammora.snackbar;
+package com.nispok.snackbar;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.test.InstrumentationTestCase;
+
+import com.nispok.snackbar.enums.SnackbarType;
 
 public class SnackbarTests extends InstrumentationTestCase {
 
@@ -18,13 +20,13 @@ public class SnackbarTests extends InstrumentationTestCase {
     public void testSnackbarShouldBeSingleLineByDefault() {
         mSnackbar = Snackbar.with(mContext);
 
-        assertEquals(Snackbar.SnackbarType.SINGLE_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.SINGLE_LINE, mSnackbar.getType());
     }
 
     public void testSnackbarTypeCanBeChanged() {
-        mSnackbar = Snackbar.with(mContext).type(Snackbar.SnackbarType.MULTI_LINE);
+        mSnackbar = Snackbar.with(mContext).type(SnackbarType.MULTI_LINE);
 
-        assertEquals(Snackbar.SnackbarType.MULTI_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.MULTI_LINE, mSnackbar.getType());
     }
 
     public void testSnackbarShouldHaveLongLengthDurationSetByDefault() {
@@ -51,12 +53,6 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals(Color.GREEN, mSnackbar.getTextColor());
     }
 
-    public void testSnackbarActionColorShouldBeGreenByDefault() {
-        mSnackbar = Snackbar.with(mContext);
-
-        assertEquals(Color.GREEN, mSnackbar.getActionColor());
-    }
-
     public void testSnackbarActionColorCanBeChanged() {
         mSnackbar = Snackbar.with(mContext).actionColor(Color.BLUE);
 
@@ -81,14 +77,14 @@ public class SnackbarTests extends InstrumentationTestCase {
                 .textColor(Color.GREEN)
                 .text("Aloha!")
                 .actionLabel("Action")
-                .type(Snackbar.SnackbarType.MULTI_LINE)
+                .type(SnackbarType.MULTI_LINE)
                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT);
 
         assertEquals(Color.BLUE, mSnackbar.getColor());
         assertEquals(Color.GREEN, mSnackbar.getTextColor());
         assertEquals("Aloha!", mSnackbar.getText());
         assertEquals("Action", mSnackbar.getActionLabel());
-        assertEquals(Snackbar.SnackbarType.MULTI_LINE, mSnackbar.getType());
+        assertEquals(SnackbarType.MULTI_LINE, mSnackbar.getType());
         assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
     }
 
@@ -107,11 +103,11 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals(1000l, mSnackbar.getDuration());
     }
 
-    public void testSnackbarCanBeSetToDismissOnActionClicked() {
+    public void testSnackbarCanBeSetToNotDismissOnActionClicked() {
         mSnackbar = Snackbar.with(mContext)
-                .dismissOnActionClicked(true);
+                .dismissOnActionClicked(false);
 
-        assertTrue(mSnackbar.shouldDismissOnActionClicked());
+        assertFalse(mSnackbar.shouldDismissOnActionClicked());
     }
 
     public void testSnackbarShouldBeDismissedOnActionClickedByDefault() {

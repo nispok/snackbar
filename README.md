@@ -1,5 +1,5 @@
 # Snackbar
-[![Build Status](https://travis-ci.org/wmora/snackbar.svg?branch=master)](https://travis-ci.org/wmora/snackbar)
+[![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar)
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 
@@ -9,7 +9,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.williammora:snackbar:1.4.0'
+ compile 'com.nispok:snackbar:2.1.1'
  ```
 ## Usage
 <br />
@@ -79,7 +79,7 @@ Snackbar.with(getApplicationContext()) // context
      }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
 ```
-It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dimiss functionality. This is enabled by default. You can disable this if you don't want this functionality:<br />
+It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dismiss functionality. This is enabled by default. You can disable this if you don't want this functionality:<br />
 <br />
 ```java
 Snackbar.with(SnackbarSampleActivity.this) // context
@@ -87,15 +87,16 @@ Snackbar.with(SnackbarSampleActivity.this) // context
     .swipeToDismiss(false) // disable swipe-to-dismiss functionality
     .show(this); // activity where it is displayed
 ```
-If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/wmora/snackbar/issues) section.<br /><br />
+If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
 
 # Examples
-There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/williammora/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
+There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
 # Contributors
-+ William Mora - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
++ [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
 + [Lewis Deane](https://github.com/lewisjdeane)
 + [Andrew Hughes](https://github.com/ashughes)
++ [David Richardson](https://github.com/davidjrichardson)
 
 ## License
 [MIT](./LICENSE)

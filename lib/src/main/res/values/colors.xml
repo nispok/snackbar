@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="snackbar_background">#ff323232</color>
+
+    <color name="sb__background">#ff323232</color>
+    <color name="sb__text_color">#ffffffff</color>
+    <color name="sb__action_text_color">#ffffffff</color>
+    <color name="sb__action_bg_color">#1affffff</color>
+
 </resources>

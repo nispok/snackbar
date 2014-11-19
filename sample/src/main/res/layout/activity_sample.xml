@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.williammora.sample.snackbar.SnackbarSampleActivity">
+    tools:context="com.nispok.sample.snackbar.SnackbarSampleActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,10 +56,10 @@
             android:text="Custom colors" />
 
         <Button
-                android:id="@+id/unswipeable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Unswipeable" />
+            android:id="@+id/unswipeable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unswipeable" />
 
     </LinearLayout>
 </ScrollView>

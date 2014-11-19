@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SnackbarText">
+    <style name="Snackbar" />
+
+    <style name="Snackbar.Text">
         <item name="android:paddingBottom">18dp</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingTop">18dp</item>
         <item name="android:paddingRight">24dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/sb__text_color</item>
     </style>
 
-    <style name="SnackbarText.Action">
+    <style name="Snackbar.Text.Action">
         <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/sb__action_text_color</item>
+        <item name="android:background">@drawable/sb__btn_bg</item>
     </style>
 </resources>
