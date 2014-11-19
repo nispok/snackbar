@@ -211,10 +211,10 @@ public class Snackbar extends RelativeLayout {
 
     private void init(Activity parent) {
         RelativeLayout layout = (RelativeLayout) LayoutInflater.from(parent)
-                .inflate(R.layout.snackbar, this, true);
+                .inflate(R.layout.sb__template, this, true);
 
         layout.setBackgroundColor(mColor != -1 ? mColor :
-                getResources().getColor(R.color.snackbar_background));
+                getResources().getColor(R.color.sb__background));
 
         int height = mType.getHeightInPx(getResources().getDisplayMetrics().density);
 
@@ -223,7 +223,7 @@ public class Snackbar extends RelativeLayout {
 
         layout.setLayoutParams(params);
 
-        TextView snackbarText = (TextView) layout.findViewById(R.id.snackbar_text);
+        TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
 
         if (mTextColor != -1) {
@@ -232,7 +232,7 @@ public class Snackbar extends RelativeLayout {
 
         snackbarText.setMaxLines(mType.getMaxLines());
 
-        TextView snackbarAction = (TextView) layout.findViewById(R.id.snackbar_action);
+        TextView snackbarAction = (TextView) layout.findViewById(R.id.sb__action);
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
             snackbarAction.setText(mActionLabel);
