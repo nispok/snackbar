@@ -44,6 +44,9 @@ public class Snackbar extends RelativeLayout {
     private CharSequence mText;
     private int mColor = -1;
     private int mTextColor = -1;
+    private long mSnackbarStart;
+    private long mSnackbarFinish;
+    private long mTimeRemaining = -1;
     private CharSequence mActionLabel;
     private int mActionColor = -1;
     private boolean mAnimated = true;
@@ -54,6 +57,12 @@ public class Snackbar extends RelativeLayout {
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
+    private Runnable mDismissRunnable = new Runnable() {
+        @Override
+        public void run() {
+            dismiss();
+        }
+    };
 
     private Snackbar(Context context) {
         super(context);
@@ -316,6 +325,19 @@ public class Snackbar extends RelativeLayout {
                                 finish();
                             }
                         }
+
+                        @Override
+                        public void pauseTimer(boolean shouldPause) {
+                            if (shouldPause) {
+                                removeCallbacks(mDismissRunnable);
+
+                                mSnackbarFinish = System.currentTimeMillis();
+                            } else {
+                                mTimeRemaining -= (mSnackbarFinish - mSnackbarStart);
+
+                                startTimer(mTimeRemaining);
+                            }
+                        }
                     }));
         }
 
@@ -360,6 +382,12 @@ public class Snackbar extends RelativeLayout {
                 post(new Runnable() {
                     @Override
                     public void run() {
+                        mSnackbarStart = System.currentTimeMillis();
+
+                        if (mTimeRemaining == -1) {
+                            mTimeRemaining = getDuration();
+                        }
+
                         startTimer();
                     }
                 });
@@ -374,12 +402,11 @@ public class Snackbar extends RelativeLayout {
     }
 
     private void startTimer() {
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, getDuration());
+        postDelayed(mDismissRunnable, getDuration());
+    }
+
+    private void startTimer(long duration) {
+        postDelayed(mDismissRunnable, duration);
     }
 
     public void dismiss() {

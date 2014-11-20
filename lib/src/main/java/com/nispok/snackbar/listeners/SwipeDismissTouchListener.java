@@ -55,6 +55,14 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
          * @param token The optional token passed to this object's constructor.
          */
         void onDismiss(View view, Object token);
+
+        /**
+         * Called on touch down/up to indicate the {@link com.nispok.snackbar.Snackbar} dismissal
+         * timer should or should not pause when the user is swiping the snack bar away.
+         *
+         * @param shouldPause Whether or not the dismissal timer should pause or not
+         */
+        void pauseTimer(boolean shouldPause);
     }
 
     /**
@@ -92,6 +100,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 mDownX = motionEvent.getRawX();
                 mDownY = motionEvent.getRawY();
                 if (mCallbacks.canDismiss(mToken)) {
+                    mCallbacks.pauseTimer(true);
                     mVelocityTracker = VelocityTracker.obtain();
                     mVelocityTracker.addMovement(motionEvent);
                 }
@@ -103,6 +112,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                     break;
                 }
 
+                mCallbacks.pauseTimer(false);
                 float deltaX = motionEvent.getRawX() - mDownX;
                 mVelocityTracker.addMovement(motionEvent);
                 mVelocityTracker.computeCurrentVelocity(1000);
