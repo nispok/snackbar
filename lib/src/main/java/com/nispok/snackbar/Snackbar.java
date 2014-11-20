@@ -1,7 +1,13 @@
 package com.nispok.snackbar;
 
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
+import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
+
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,14 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
-import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
@@ -206,6 +208,47 @@ public class Snackbar extends RelativeLayout {
      */
     public Snackbar duration(long duration) {
         mCustomDuration = duration;
+        return this;
+    }
+
+    /**
+     * Attaches this {@link Snackbar} to an AbsListView (ListView, GridView, ExpandableListView) so
+     * it dismisses when the list is scrolled
+     *
+     * @param absListView
+     * @return
+     */
+    public Snackbar attachToAbsListView(AbsListView absListView) {
+        absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                dismiss();
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
+            }
+        });
+
+        return this;
+    }
+
+    /**
+     * Attaches this {@link Snackbar} to a RecyclerView so it dismisses when the list is scrolled
+     *
+     * @param recyclerView
+     * @return
+     */
+    public Snackbar attachToRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                dismiss();
+            }
+        });
+
         return this;
     }
 
