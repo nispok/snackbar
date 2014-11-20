@@ -30,7 +30,7 @@ If you want an action button to be displayed, just assign a label and an <code>A
 Snackbar.with(getApplicationContext()) // context
     .text("Item deleted") // text to display
     .actionLabel("Undo") // action button label
-    .actionListener(new Snackbar.ActionClickListener() {
+    .actionListener(new ActionClickListener() {
         @Override
         public void onActionClicked() {
             Log.d(TAG, "Undoing something");
@@ -43,7 +43,7 @@ If you need to know when the <code>Snackbar</code> is shown or dismissed, assign
 ```java
 Snackbar.with(getApplicationContext()) // context
     .text("This will do something when dismissed") // text to display
-    .eventListener(new Snackbar.EventListener() {
+    .eventListener(new EventListener() {
         @Override
         public void onShow(int height) {
            myFloatingActionButton.moveUp(height);
@@ -75,7 +75,7 @@ Snackbar.with(getApplicationContext()) // context
     .color(Color.BLUE) // change the background color
     .actionLabel("Action") // action button label
     .actionColor(Color.RED) // action button label color
-    .actionListener(new Snackbar.ActionClickListener() {
+    .actionListener(new ActionClickListener() {
         @Override
         public void onActionClicked() {
             Log.d(TAG, "Doing something");
