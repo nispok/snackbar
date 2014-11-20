@@ -105,6 +105,9 @@ Snackbar.with(SnackbarSampleActivity.this) // context
 ```
 If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
 
+# Who's using Snackbar?
+If you are using this library and would like to be mentioned here, open a PR or tell us via [email](contact@nispok.com).
+
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
