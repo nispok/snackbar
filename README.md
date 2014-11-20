@@ -3,11 +3,11 @@
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 
-![Example App](./art/home.png)
-![Example App](./art/home-1line.png) <br />
-![Example App](./art/home-2line.png)
-![Example App](./art/home-colored.png) <br />
-![Example App](./art/list-1line.png)
+<img src="./art/home.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-1line.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-2line.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-colored.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/list-1line.png" alt="Example App" style="width: 200px; height: 355px" />
 
 ## Installation
 You can import the library from source as a module or grab via Gradle:
