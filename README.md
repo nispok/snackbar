@@ -13,7 +13,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.nispok:snackbar:2.1.1'
+ compile 'com.nispok:snackbar:2.2.0'
  ```
 ## Usage
 <br />
@@ -109,7 +109,7 @@ If you would like to add features to it or report any bugs, refer to the [issues
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
 # Contributors
-+ [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora) - william.r.mora@gmail.com
++ [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora)
 + [Lewis Deane](https://github.com/lewisjdeane)
 + [Andrew Hughes](https://github.com/ashughes)
 + [David Richardson](https://github.com/davidjrichardson)
