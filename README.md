@@ -3,8 +3,12 @@
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 
-<a href="http://1.bp.blogspot.com/-5OkYxr59g10/U_Ps-4vV3XI/AAAAAAAAGyQ/RPX1BAd9eHU/s1600/Screenshot_2014-08-19-19-14-07.png" imageanchor="1"><img border="0" src="http://1.bp.blogspot.com/-5OkYxr59g10/U_Ps-4vV3XI/AAAAAAAAGyQ/RPX1BAd9eHU/s320/Screenshot_2014-08-19-19-14-07.png" /></a>&nbsp;&nbsp;<a href="http://3.bp.blogspot.com/-rqMpr9nysSY/U_Ps-zvhgOI/AAAAAAAAGyM/38M0N_j4i6U/s1600/Screenshot_2014-08-19-19-14-16.png" imageanchor="1"><img border="0" src="http://3.bp.blogspot.com/-rqMpr9nysSY/U_Ps-zvhgOI/AAAAAAAAGyM/38M0N_j4i6U/s320/Screenshot_2014-08-19-19-14-16.png" /></a>&nbsp;&nbsp;<a href="http://2.bp.blogspot.com/-AwjqlrBiAfs/U_Ps-2L_uqI/AAAAAAAAGyI/YJRtC21ocp8/s1600/Screenshot_2014-08-19-19-14-24.png" imageanchor="1"><img border="0" src="http://2.bp.blogspot.com/-AwjqlrBiAfs/U_Ps-2L_uqI/AAAAAAAAGyI/YJRtC21ocp8/s320/Screenshot_2014-08-19-19-14-24.png" /></a><br />
-<a href="http://2.bp.blogspot.com/-W5S5LB61fOM/U_PtADkAmWI/AAAAAAAAGys/xFAb3FbYnls/s1600/Screenshot_2014-08-19-19-14-31.png" imageanchor="1"><img border="0" src="http://2.bp.blogspot.com/-W5S5LB61fOM/U_PtADkAmWI/AAAAAAAAGys/xFAb3FbYnls/s320/Screenshot_2014-08-19-19-14-31.png" /></a>&nbsp;&nbsp;<a href="http://2.bp.blogspot.com/-mpoO1PpIZfU/U_PtAbT9NdI/AAAAAAAAGyU/xvDYuIC1nsM/s1600/Screenshot_2014-08-19-19-14-43.png" imageanchor="1"><img border="0" src="http://2.bp.blogspot.com/-mpoO1PpIZfU/U_PtAbT9NdI/AAAAAAAAGyU/xvDYuIC1nsM/s320/Screenshot_2014-08-19-19-14-43.png" /></a>&nbsp;&nbsp;<a href="http://1.bp.blogspot.com/-6FuxqQH1d3E/U_PtBKyjcsI/AAAAAAAAGyY/kc-qMazyk9c/s1600/Screenshot_2014-08-19-19-15-07.png" imageanchor="1"><img border="0" src="http://1.bp.blogspot.com/-6FuxqQH1d3E/U_PtBKyjcsI/AAAAAAAAGyY/kc-qMazyk9c/s320/Screenshot_2014-08-19-19-15-07.png" /></a>
+<img src="./art/home.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-1line.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-2line.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/home-colored.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/list-1line.png" alt="Example App" style="width: 200px; height: 355px" />
+
 ## Installation
 You can import the library from source as a module or grab via Gradle:
  <br />
@@ -62,7 +66,7 @@ Snackbar.with(getApplicationContext()) // context
     .animation(false) // don't animate it
     .show(this); // where it is displayed
 ```
-Finally, you can change the <code>Snackbar</code>'s colors.
+You can also change the <code>Snackbar</code>'s colors.
 <br />
 ```java
 Snackbar.with(getApplicationContext()) // context
@@ -78,6 +82,18 @@ Snackbar.with(getApplicationContext()) // context
         }
      }) // action button's ActionClickListener    
     .show(this); // activity where it is displayed
+```
+Finally, you can attach the <code>Snackbar</code> to a AbsListView (ListView, GridView) or a RecyclerView.
+<br />
+```java
+Snackbar.with(getApplicationContext()) // context
+    .type(Snackbar.SnackbarType.MULTI_LINE) // Set is as a multi-line snackbar
+    .text("This is a multi-line snackbar. Keep in mind that snackbars are " +
+        "meant for VERY short messages") // text to be displayed
+    .duration(Snackbar.SnackbarDuration.LENGTH_LONG) // make it shorter
+    .animation(false) // don't animate it
+    .attachToAbsListView(listView) // Attach to ListView - attachToRecyclerView() is for RecyclerViews
+    .show(this); // where it is displayed
 ```
 It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dismiss functionality. This is enabled by default. You can disable this if you don't want this functionality:<br />
 <br />

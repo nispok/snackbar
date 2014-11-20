@@ -61,5 +61,17 @@
             android:layout_height="wrap_content"
             android:text="Unswipeable" />
 
+        <Button
+            android:id="@+id/list_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ListView Listener" />
+
+        <Button
+            android:id="@+id/recycler_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RecyclerView Listener" />
+
     </LinearLayout>
 </ScrollView>
