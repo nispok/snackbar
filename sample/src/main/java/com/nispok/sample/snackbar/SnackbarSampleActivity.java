@@ -1,5 +1,11 @@
 package com.nispok.sample.snackbar;
 
+import com.nispok.sample.snackbar.utils.SnackbarManager;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,12 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.nispok.sample.snackbar.utils.SnackbarManager;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
 
 public class SnackbarSampleActivity extends ActionBarActivity {
 
@@ -164,6 +164,26 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         SnackbarSampleActivity.this);
             }
         });
+
+        Button listSampleButton = (Button) findViewById(R.id.list_example);
+        listSampleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
+                        SnackbarListViewSampleActivity.class);
+                startActivity(sampleIntent);
+            }
+        });
+
+        Button recyclerSampleButton = (Button) findViewById(R.id.recycler_example);
+        recyclerSampleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
+                        SnackbarRecyclerViewSampleActivity.class);
+                startActivity(sampleIntent);
+            }
+        });
     }
 
     @Override
@@ -175,11 +195,13 @@ public class SnackbarSampleActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_go_to_repo) {
-            goToRepo();
-            return true;
+        switch(item.getItemId()) {
+            case R.id.action_go_to_repo:
+                goToRepo();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void goToRepo() {

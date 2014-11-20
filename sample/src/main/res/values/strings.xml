@@ -3,6 +3,7 @@
 
     <string name="app_name">Snackbar Demo</string>
     <string name="action_go_to_repo">Go to repo</string>
+    <string name="action_add_snackbar">Add Snackbar</string>
     <string name="repo_url">https://github.com/nispok/snackbar</string>
 
 </resources>
