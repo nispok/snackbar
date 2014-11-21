@@ -95,6 +95,16 @@ public class Snackbar extends RelativeLayout {
     }
 
     /**
+     * Sets the text to be displayed in this {@link Snackbar}
+     *
+     * @param resId
+     * @return
+     */
+    public Snackbar text(int resId) {
+        return text(getContext().getText(resId));
+    }
+
+    /**
      * Sets the background color of this {@link Snackbar}
      *
      * @param color
@@ -126,6 +136,17 @@ public class Snackbar extends RelativeLayout {
     public Snackbar actionLabel(CharSequence actionButtonLabel) {
         mActionLabel = actionButtonLabel;
         return this;
+    }
+
+    /**
+     * Sets the action label to be displayed, if any. Note that if this is not set, the action
+     * button will not be displayed
+     *
+     * @param resId
+     * @return
+     */
+    public Snackbar actionLabel(int resId) {
+        return actionLabel(getContext().getString(resId));
     }
 
     /**
