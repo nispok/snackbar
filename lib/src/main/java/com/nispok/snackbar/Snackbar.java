@@ -1,12 +1,8 @@
 package com.nispok.snackbar;
 
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
-import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
-
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -19,6 +15,11 @@ import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
+import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 
 /**
  * View that provides quick feedback about an operation in a small popup at the base of the screen
@@ -100,7 +101,7 @@ public class Snackbar extends RelativeLayout {
      * @param resId
      * @return
      */
-    public Snackbar text(int resId) {
+    public Snackbar text(@StringRes int resId) {
         return text(getContext().getText(resId));
     }
 
@@ -145,7 +146,7 @@ public class Snackbar extends RelativeLayout {
      * @param resId
      * @return
      */
-    public Snackbar actionLabel(int resId) {
+    public Snackbar actionLabel(@StringRes int resId) {
         return actionLabel(getContext().getString(resId));
     }
 
