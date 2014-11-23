@@ -13,7 +13,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.nispok:snackbar:2.2.0'
+ compile 'com.nispok:snackbar:2.2.1'
  ```
 ## Usage
 <br />
@@ -88,8 +88,7 @@ Finally, you can attach the <code>Snackbar</code> to a AbsListView (ListView, Gr
 ```java
 Snackbar.with(getApplicationContext()) // context
     .type(Snackbar.SnackbarType.MULTI_LINE) // Set is as a multi-line snackbar
-    .text("This is a multi-line snackbar. Keep in mind that snackbars are " +
-        "meant for VERY short messages") // text to be displayed
+    .text(R.string.message) // text to be displayed
     .duration(Snackbar.SnackbarDuration.LENGTH_LONG) // make it shorter
     .animation(false) // don't animate it
     .attachToAbsListView(listView) // Attach to ListView - attachToRecyclerView() is for RecyclerViews
