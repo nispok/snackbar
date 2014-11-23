@@ -1,6 +1,7 @@
 package com.nispok.snackbar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.test.InstrumentationTestCase;
 
@@ -86,6 +87,22 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals("Action", mSnackbar.getActionLabel());
         assertEquals(SnackbarType.MULTI_LINE, mSnackbar.getType());
         assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
+    }
+
+    public void testSnackbarCanBeCreatedWithColorResources() {
+        mSnackbar = Snackbar.with(mContext)
+                .colorResource(R.color.sb__action_bg_color)
+                .textColorResource(R.color.sb__text_color)
+                .actionColorResource(R.color.sb__action_bg_color);
+
+        Resources res = getInstrumentation().getTargetContext().getResources();
+        int color = res.getColor(R.color.sb__action_bg_color);
+        int textColor = res.getColor(R.color.sb__text_color);
+        int actionColor = res.getColor(R.color.sb__action_bg_color);
+
+        assertEquals(color, mSnackbar.getColor());
+        assertEquals(textColor, mSnackbar.getTextColor());
+        assertEquals(actionColor, mSnackbar.getActionColor());
     }
 
     public void testSnackbarCanBeCreatedWithCustomDuration() {
