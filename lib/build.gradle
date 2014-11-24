@@ -8,8 +8,8 @@ android {
         applicationId "com.nispok.snackbar"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 9
-        versionName "2.2.2"
+        versionCode 10
+        versionName "2.3.0"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
         testHandleProfiling true
         testFunctionalTest true
