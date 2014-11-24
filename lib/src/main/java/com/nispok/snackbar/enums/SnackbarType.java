@@ -2,22 +2,31 @@ package com.nispok.snackbar.enums;
 
 public enum SnackbarType {
 
-    SINGLE_LINE(56, 1), MULTI_LINE(80, 2);
+    /**
+     * Snackbar with a single line
+     */
+    SINGLE_LINE(48, 48, 1),
+    /**
+     * Snackbar with two lines
+     */
+    MULTI_LINE(48, 80, 2);
 
-    private int height;
+    private int minHeight;
+    private int maxHeight;
     private int maxLines;
 
-    SnackbarType(int height, int maxLines) {
-        this.height = height;
+    SnackbarType(int minHeight, int maxHeight, int maxLines) {
+        this.minHeight = minHeight;
+        this.maxHeight = maxHeight;
         this.maxLines = maxLines;
     }
 
-    public int getHeight() {
-        return height;
+    public int getMinHeight() {
+        return minHeight;
     }
 
-    public int getHeightInPx(float scale) {
-        return (int) (height * scale + 0.5f);
+    public int getMaxHeight() {
+        return maxHeight;
     }
 
     public int getMaxLines() {
