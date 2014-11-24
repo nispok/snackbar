@@ -13,7 +13,7 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.nispok:snackbar:2.2.1'
+ compile 'com.nispok:snackbar:2.2.2'
  ```
 ## Usage
 <br />
