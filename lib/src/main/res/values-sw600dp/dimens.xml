@@ -4,8 +4,4 @@
     <dimen name="sb__min_width">288dp</dimen>
     <dimen name="sb__max_width">568dp</dimen>
     <dimen name="sb__offset">24dp</dimen>
-    <dimen name="sb__text_padding_bottom">12dp</dimen>
-    <dimen name="sb__text_padding_left">24dp</dimen>
-    <dimen name="sb__text_padding_top">16dp</dimen>
-    <dimen name="sb__text_padding_right">24dp</dimen>
 </resources>
