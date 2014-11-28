@@ -17,11 +17,11 @@ public class SnackbarManager {
     private SnackbarManager() {
     }
 
-    public void show(Snackbar snackbar, Activity target) {
+    public void show(Snackbar snackbar) {
         if (currentSnackbar != null) {
             currentSnackbar.dismiss();
         }
         currentSnackbar = snackbar;
-        currentSnackbar.show(target);
+        currentSnackbar.show((Activity) currentSnackbar.getContext());
     }
 }
