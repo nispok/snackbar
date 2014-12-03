@@ -3,6 +3,7 @@ package com.nispok.snackbar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -441,6 +442,13 @@ public class Snackbar extends SnackbarLayout {
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
 
         root.addView(this, params);
+
+        bringToFront();
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            root.requestLayout();
+            root.invalidate();
+        }
 
         mIsShowing = true;
 
