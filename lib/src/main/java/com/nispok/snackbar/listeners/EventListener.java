@@ -8,14 +8,14 @@ public interface EventListener {
     /**
      * Called when a {@link com.nispok.snackbar.Snackbar} is about to enter the screen
      *
-     * @param height {@link com.nispok.snackbar.Snackbar} total height (including offset), in DP
+     * @param height {@link com.nispok.snackbar.Snackbar} total height (including offset), in PX
      */
     public void onShow(int height);
 
     /**
      * Called when a {@link com.nispok.snackbar.Snackbar} had just been dismissed
      *
-     * @param height {@link com.nispok.snackbar.Snackbar} total height (including offset), in DP
+     * @param height {@link com.nispok.snackbar.Snackbar} total height (including offset), in PX
      */
     public void onDismiss(int height);
 }
