@@ -329,7 +329,7 @@ public class Snackbar extends SnackbarLayout {
         float scale = getResources().getDisplayMetrics().density;
 
         FrameLayout.LayoutParams params;
-        if (getResources().getBoolean(R.bool.isPhone)) {
+        if (getResources().getBoolean(R.bool.is_phone)) {
             // Phone
             layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
