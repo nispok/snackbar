@@ -95,6 +95,7 @@ Snackbar.with(getApplicationContext()) // context
     .show(this); // where it is displayed
 ```
 It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss) to implement the swipe-to-dismiss functionality. This is enabled by default. You can disable this if you don't want this functionality:<br />
+**NOTE:** This has no effect on apps running on APIs < 11; swiping will always be disabled
 <br />
 ```java
 Snackbar.with(SnackbarSampleActivity.this) // context
