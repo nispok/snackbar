@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Snackbar-brightgreen.svg)](https://android-arsenal.com/details/1/1160)
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
+Works on API levels >= 8
 
 <img src="./art/home.png" alt="Example App" style="width: 200px; height: 355px" />
 <img src="./art/home-1line.png" alt="Example App" style="width: 200px; height: 355px" />
@@ -13,11 +14,11 @@ Library that implements <a href="http://www.google.com/design/spec/components/sn
 You can import the library from source as a module or grab via Gradle:
  <br />
  ```groovy
- compile 'com.nispok:snackbar:2.3.1'
+ compile 'com.nispok:snackbar:2.4.0'
  ```
 ## Usage
 <br />
-Using the <code>Snackbar</code> class is easy, this is how you would display it on a <code>HelloWorldActivity</code>:
+Using the <code>Snackbar</code> class is easy, this is how you would display it on an <code>Activity</code>:
 <br />
 ```java
 Snackbar.with(getApplicationContext()) // context
