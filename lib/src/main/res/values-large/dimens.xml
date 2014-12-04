@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sb__bg_corner_radius">2dp</dimen>
+    <dimen name="sb__min_width">288dp</dimen>
+    <dimen name="sb__max_width">568dp</dimen>
+    <dimen name="sb__offset">24dp</dimen>
+</resources>
