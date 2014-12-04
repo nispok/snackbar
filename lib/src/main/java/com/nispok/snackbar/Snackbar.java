@@ -323,7 +323,7 @@ public class Snackbar extends SnackbarLayout {
                 .inflate(R.layout.sb__template, this, true);
 
         mColor = mColor != -1 ? mColor : getResources().getColor(R.color.sb__background);
-        mOffset = (int) (getResources().getDimension(R.dimen.sb__offset)  /
+        mOffset = (int) (getResources().getDimension(R.dimen.sb__offset) /
                 getResources().getDisplayMetrics().density);
 
         float scale = getResources().getDisplayMetrics().density;
@@ -393,7 +393,7 @@ public class Snackbar extends SnackbarLayout {
 
         setClickable(true);
 
-        if (mCanSwipeToDismiss) {
+        if (mCanSwipeToDismiss && getResources().getBoolean(R.bool.is_swipeable)) {
             setOnTouchListener(new SwipeDismissTouchListener(this, null,
                     new SwipeDismissTouchListener.DismissCallbacks() {
                         @Override
