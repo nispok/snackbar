@@ -3,5 +3,5 @@
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="300"
     android:fromYDelta="0%"
-    android:interpolator="@interpolator/accelerate_cubic"
+    android:interpolator="@interpolator/sb__accelerate_cubic"
     android:toYDelta="100%" />
