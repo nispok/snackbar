@@ -1,11 +1,5 @@
 package com.nispok.sample.snackbar;
 
-import com.nispok.sample.snackbar.utils.SnackbarManager;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,6 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.nispok.sample.snackbar.utils.SnackbarManager;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
 
 public class SnackbarSampleActivity extends ActionBarActivity {
 
@@ -117,13 +117,13 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .eventListener(new EventListener() {
                                     @Override
                                     public void onShow(int height) {
-                                        Log.i(TAG, "Snackbar will show. Height: " + height);
+                                        Log.i(TAG, "Snackbar will show. Height in PX: " + height);
                                     }
 
                                     @Override
                                     public void onDismiss(int height) {
                                         Toast.makeText(SnackbarSampleActivity.this,
-                                                "Snackbar dismissed. Height in DP: " + height,
+                                                "Snackbar dismissed. Height in PX: " + height,
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }),
