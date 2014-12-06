@@ -47,8 +47,7 @@ public class SnackbarListViewSampleActivity extends ActionBarActivity {
                                 .actionLabel("Close")
                                 .actionColor(Color.parseColor("#FF8A80"))
                                 .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
-                                .attachToAbsListView(listView),
-                            SnackbarListViewSampleActivity.this);
+                                .attachToAbsListView(listView));
             }
         });
     }

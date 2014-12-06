@@ -67,8 +67,7 @@ public class SnackbarRecyclerViewSampleActivity extends ActionBarActivity {
                                 .actionLabel("Close")
                                 .actionColor(Color.parseColor("#FF8A80"))
                                 .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
-                                .attachToRecyclerView(mRecyclerView),
-                        SnackbarRecyclerViewSampleActivity.this);
+                                .attachToRecyclerView(mRecyclerView));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
