@@ -327,7 +327,7 @@ public class Snackbar extends SnackbarLayout {
 
         Resources resources = getResources();
         mColor = mColor != -1 ? mColor : resources.getColor(R.color.sb__background);
-        mOffset = resources.getDimensionPixelSize(R.dimen.sb__offset);
+        mOffset = resources.getDimensionPixelOffset(R.dimen.sb__offset);
 
         float scale = resources.getDisplayMetrics().density;
 
