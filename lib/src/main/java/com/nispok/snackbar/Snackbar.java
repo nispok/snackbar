@@ -323,10 +323,11 @@ public class Snackbar extends SnackbarLayout {
                 .inflate(R.layout.sb__template, this, true);
 
         mColor = mColor != -1 ? mColor : getResources().getColor(R.color.sb__background);
-        mOffset = (int) (getResources().getDimension(R.dimen.sb__offset) /
-                getResources().getDisplayMetrics().density);
 
         float scale = getResources().getDisplayMetrics().density;
+
+        int offset = getResources().getDimensionPixelOffset(R.dimen.sb__offset);
+        mOffset = (int) (offset / scale);
 
         FrameLayout.LayoutParams params;
         if (getResources().getBoolean(R.bool.is_phone)) {
@@ -339,20 +340,17 @@ public class Snackbar extends SnackbarLayout {
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
-            layout.setMinimumWidth(dpToPx((int) getResources().getDimension(R.dimen.sb__min_width),
-                    scale));
-            layout.setMaxWidth(dpToPx((int) getResources().getDimension(R.dimen.sb__max_width),
-                    scale));
+            layout.setMinimumWidth(getResources().getDimensionPixelSize(R.dimen.sb__min_width));
+            layout.setMaxWidth(getResources().getDimensionPixelSize(R.dimen.sb__max_width));
             layout.setBackgroundResource(R.drawable.sb__bg);
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
 
             params = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    dpToPx(mType.getMaxHeight(), scale));
+                    FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
 
-            params.leftMargin = dpToPx(mOffset, scale);
-            params.bottomMargin = dpToPx(mOffset, scale);
+            params.leftMargin = offset;
+            params.bottomMargin = offset;
         }
 
         params.gravity = Gravity.BOTTOM;
