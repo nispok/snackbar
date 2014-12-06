@@ -14,7 +14,6 @@
 
     <style name="Snackbar.Text.Action">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/sb__action_text_color</item>
         <item name="android:background">@drawable/sb__btn_bg</item>
     </style>
