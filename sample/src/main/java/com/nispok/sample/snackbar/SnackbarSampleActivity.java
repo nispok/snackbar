@@ -1,11 +1,5 @@
 package com.nispok.sample.snackbar;
 
-import com.nispok.sample.snackbar.utils.SnackbarManager;
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.enums.SnackbarType;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,6 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.nispok.sample.snackbar.utils.SnackbarManager;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.enums.SnackbarType;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
 
 public class SnackbarSampleActivity extends ActionBarActivity {
 
@@ -111,14 +111,19 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .text("I'm showing a toast on exit")
                                 .eventListener(new EventListener() {
                                     @Override
-                                    public void onShow(int height) {
-                                        Log.i(TAG, "Snackbar will show. Height: " + height);
+                                    public void onShow(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will show. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
                                     }
 
                                     @Override
-                                    public void onDismiss(int height) {
-                                        Toast.makeText(SnackbarSampleActivity.this,
-                                                "Snackbar dismissed. Height in DP: " + height,
+                                    public void onDismiss(Snackbar snackbar) {
+                                        Toast.makeText(SnackbarSampleActivity.this, String.format(
+                                                "Snackbar dismissed. Width: %d Height: %d Offset: %d",
+                                                        snackbar.getWidth(), snackbar.getHeight(),
+                                                        snackbar.getOffset()),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }));
