@@ -117,6 +117,7 @@ There's a sample app included in the project. [SnackbarSampleActivity](./sample/
 + [Lewis Deane](https://github.com/lewisjdeane)
 + [Andrew Hughes](https://github.com/ashughes)
 + [David Richardson](https://github.com/davidjrichardson)
++ [Juan Ramón González](https://github.com/jrgonzalezg)
 
 ## License
 [MIT](./LICENSE)

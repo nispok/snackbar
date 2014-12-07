@@ -34,8 +34,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
             public void onClick(View v) {
                 SnackbarManager.getInstance().show(
                         Snackbar.with(SnackbarSampleActivity.this)
-                                .text("Single-line snackbar"),
-                        SnackbarSampleActivity.this);
+                                .text("Single-line snackbar"));
             }
         });
 
@@ -54,8 +53,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                                 "Action undone",
                                                 Toast.LENGTH_SHORT).show();
                                     }
-                                }),
-                        SnackbarSampleActivity.this);
+                                }));
             }
         });
 
@@ -67,8 +65,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .type(SnackbarType.MULTI_LINE)
                                 .text("This is a multi-line snackbar. Keep in mind that snackbars" +
-                                        " are meant for VERY short messages"),
-                        SnackbarSampleActivity.this);
+                                        " are meant for VERY short messages"));
             }
         });
 
@@ -89,8 +86,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                                 "Action clicked",
                                                 Toast.LENGTH_SHORT).show();
                                     }
-                                }),
-                        SnackbarSampleActivity.this);
+                                }));
             }
         });
 
@@ -102,8 +98,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("No animation :(")
                                 .animation(false)
-                                .duration(2500l),
-                        SnackbarSampleActivity.this);
+                                .duration(2500l));
             }
         });
 
@@ -116,18 +111,22 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .text("I'm showing a toast on exit")
                                 .eventListener(new EventListener() {
                                     @Override
-                                    public void onShow(int height) {
-                                        Log.i(TAG, "Snackbar will show. Height in PX: " + height);
+                                    public void onShow(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will show. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
                                     }
 
                                     @Override
-                                    public void onDismiss(int height) {
-                                        Toast.makeText(SnackbarSampleActivity.this,
-                                                "Snackbar dismissed. Height in PX: " + height,
+                                    public void onDismiss(Snackbar snackbar) {
+                                        Toast.makeText(SnackbarSampleActivity.this, String.format(
+                                                "Snackbar dismissed. Width: %d Height: %d Offset: %d",
+                                                        snackbar.getWidth(), snackbar.getHeight(),
+                                                        snackbar.getOffset()),
                                                 Toast.LENGTH_SHORT).show();
                                     }
-                                }),
-                        SnackbarSampleActivity.this);
+                                }));
             }
         });
 
@@ -148,8 +147,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                         Log.i(TAG, "Action touched");
                                     }
                                 })
-                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT),
-                        SnackbarSampleActivity.this);
+                                .duration(Snackbar.SnackbarDuration.LENGTH_SHORT));
             }
         });
 
@@ -160,8 +158,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 SnackbarManager.getInstance().show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Try to swipe me off the screen")
-                                .swipeToDismiss(false),
-                        SnackbarSampleActivity.this);
+                                .swipeToDismiss(false));
             }
         });
 

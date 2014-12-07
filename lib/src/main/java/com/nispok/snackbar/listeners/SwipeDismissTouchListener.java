@@ -2,12 +2,10 @@ package com.nispok.snackbar.listeners;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes any {@link android.view.View} dismissible
@@ -219,35 +217,6 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
     }
 
     private void performDismiss() {
-        // Animate the dismissed view to zero-height and then fire the dismiss callback.
-        // This triggers layout on each animation frame; in the future we may want to do something
-        // smarter and more performant.
-
-        final ViewGroup.LayoutParams lp = mView.getLayoutParams();
-        final int originalHeight = mView.getHeight();
-
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mCallbacks.onDismiss(mView, mToken);
-                // Reset view presentation
-                mView.setAlpha(1f);
-                mView.setTranslationX(0);
-                lp.height = originalHeight;
-                mView.setLayoutParams(lp);
-            }
-        });
-
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                lp.height = (Integer) valueAnimator.getAnimatedValue();
-                mView.setLayoutParams(lp);
-            }
-        });
-
-        animator.start();
+        mCallbacks.onDismiss(mView, mToken);
     }
 }

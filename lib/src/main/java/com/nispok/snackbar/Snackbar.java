@@ -3,7 +3,6 @@ package com.nispok.snackbar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -14,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
@@ -61,7 +61,6 @@ public class Snackbar extends SnackbarLayout {
     private ActionClickListener mActionClickListener;
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
-    private boolean mNotifyOnShowEvent;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
@@ -325,14 +324,13 @@ public class Snackbar extends SnackbarLayout {
         SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(parent)
                 .inflate(R.layout.sb__template, this, true);
 
-        Resources resources = getResources();
-        mColor = mColor != -1 ? mColor : resources.getColor(R.color.sb__background);
-        mOffset = resources.getDimensionPixelOffset(R.dimen.sb__offset);
-
-        float scale = resources.getDisplayMetrics().density;
+        Resources res = getResources();
+        mColor = mColor != -1 ? mColor : res.getColor(R.color.sb__background);
+        mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
+        float scale = res.getDisplayMetrics().density;
 
         FrameLayout.LayoutParams params;
-        if (resources.getBoolean(R.bool.is_phone)) {
+        if (res.getBoolean(R.bool.is_phone)) {
             // Phone
             layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
@@ -342,15 +340,14 @@ public class Snackbar extends SnackbarLayout {
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
-            layout.setMinimumWidth(resources.getDimensionPixelSize(R.dimen.sb__min_width));
-            layout.setMaxWidth(resources.getDimensionPixelSize(R.dimen.sb__max_width));
+            layout.setMinimumWidth(res.getDimensionPixelSize(R.dimen.sb__min_width));
+            layout.setMaxWidth(res.getDimensionPixelSize(R.dimen.sb__max_width));
             layout.setBackgroundResource(R.drawable.sb__bg);
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
 
             params = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    dpToPx(mType.getMaxHeight(), scale));
+                    FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
 
             params.leftMargin = mOffset;
             params.bottomMargin = mOffset;
@@ -394,7 +391,7 @@ public class Snackbar extends SnackbarLayout {
 
         setClickable(true);
 
-        if (mCanSwipeToDismiss && resources.getBoolean(R.bool.is_swipeable)) {
+        if (mCanSwipeToDismiss && res.getBoolean(R.bool.is_swipeable)) {
             setOnTouchListener(new SwipeDismissTouchListener(this, null,
                     new SwipeDismissTouchListener.DismissCallbacks() {
                         @Override
@@ -452,7 +449,17 @@ public class Snackbar extends SnackbarLayout {
         }
 
         mIsShowing = true;
-        mNotifyOnShowEvent = true;
+
+        getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                getViewTreeObserver().removeOnPreDrawListener(this);
+                if (mEventListener != null) {
+                    mEventListener.onShow(Snackbar.this);
+                }
+                return true;
+            }
+        });
 
         if (!mAnimated) {
             startTimer();
@@ -463,7 +470,6 @@ public class Snackbar extends SnackbarLayout {
         slideIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
             }
 
             @Override
@@ -484,22 +490,9 @@ public class Snackbar extends SnackbarLayout {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
         startAnimation(slideIn);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        if (mNotifyOnShowEvent) {
-            mNotifyOnShowEvent = false;
-            if (mEventListener != null) {
-                mEventListener.onShow(getHeight() + mOffset);
-            }
-        }
     }
 
     private void startTimer() {
@@ -526,7 +519,7 @@ public class Snackbar extends SnackbarLayout {
             public void onAnimationStart(Animation animation) {
                 mIsDismissing = true;
                 if (mEventListener != null && mIsShowing) {
-                    mEventListener.onDismiss(getHeight() + mOffset);
+                    mEventListener.onDismiss(Snackbar.this);
                 }
             }
 
@@ -542,7 +535,6 @@ public class Snackbar extends SnackbarLayout {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
         startAnimation(slideOut);
@@ -555,7 +547,7 @@ public class Snackbar extends SnackbarLayout {
             parent.removeView(this);
         }
         if (mEventListener != null && mIsShowing && !mIsDismissing) {
-            mEventListener.onDismiss(getHeight() + mOffset);
+            mEventListener.onDismiss(this);
         }
         mIsShowing = false;
     }
@@ -586,6 +578,16 @@ public class Snackbar extends SnackbarLayout {
 
     public SnackbarType getType() {
         return mType;
+    }
+
+    /**
+     * Returns the pixel offset of this {@link com.nispok.snackbar.Snackbar} from the left and
+     * bottom of the {@link android.app.Activity}.
+     *
+     * @return
+     */
+    public int getOffset() {
+        return mOffset;
     }
 
     public boolean isAnimated() {
