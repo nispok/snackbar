@@ -46,14 +46,26 @@ Snackbar.with(getApplicationContext()) // context
     .text("This will do something when dismissed") // text to display
     .eventListener(new EventListener() {
         @Override
-        public void onShow(int height) {
-           myFloatingActionButton.moveUp(height);
-        }        
-        @Override
-        public void onDismiss(int height) {
-           myFloatingActionButton.moveDown(height);
+        public void onShow(Snackbar snackbar) {
+            myFloatingActionButton.moveUp(snackbar.getHeight());
         }
-    }) // Snackbar's DismissListener
+        @Override
+        public void onShown(Snackbar snackbar) {
+            Log.i(TAG, String.format("Snackbar shown. Width: %d Height: %d Offset: %d",
+                    snackbar.getWidth(), snackbar.getHeight(),
+                    snackbar.getOffset()));
+        }
+        @Override
+        public void onDismiss(Snackbar snackbar) {
+            myFloatingActionButton.moveDown(snackbar.getHeight());
+        }
+        @Override
+        public void onDismissed(Snackbar snackbar) {
+            Log.i(TAG, String.format("Snackbar dismissed. Width: %d Height: %d Offset: %d",
+                                snackbar.getWidth(), snackbar.getHeight(),
+                                snackbar.getOffset()));
+        }
+    }) // Snackbar's EventListener
     .show(this); // activity where it is displayed
 ```
 There are two <code>Snackbar</code> types: single-line (default) and multi-line (2 lines max). You can also set the duration of the <code>Snackbar</code> similar to a <a href="http://developer.android.com/reference/android/widget/Toast.html"><code>Toast</code></a>. Animation disabling is also possible.
