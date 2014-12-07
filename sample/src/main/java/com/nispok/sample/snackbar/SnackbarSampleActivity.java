@@ -130,8 +130,8 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                     public void onDismiss(Snackbar snackbar) {
                                         Log.i(TAG, String.format(
                                                 "Snackbar will dismiss. Width: %d Height: %d Offset: %d",
-                                                        snackbar.getWidth(), snackbar.getHeight(),
-                                                        snackbar.getOffset()));
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
                                     }
 
                                     @Override
@@ -208,7 +208,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_go_to_repo:
                 goToRepo();
                 return true;
