@@ -116,13 +116,15 @@ Snackbar.with(SnackbarSampleActivity.this) // context
     .swipeToDismiss(false) // disable swipe-to-dismiss functionality
     .show(this); // activity where it is displayed
 ```
-If you would like to add features to it or report any bugs, refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
 
 # Who's using Snackbar?
 If you are using this library and would like to be mentioned here, open a PR or tell us via [email](mailto:contact@nispok.com).
 
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
+
+# Contributing
+If you would like to add features or report any bugs, open a [PR](https://github.com/nispok/snackbar/pulls) or refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
 
 # Contributors
 + [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora)
@@ -131,5 +133,8 @@ There's a sample app included in the project. [SnackbarSampleActivity](./sample/
 + [David Richardson](https://github.com/davidjrichardson)
 + [Juan Ramón González](https://github.com/jrgonzalezg)
 
-## License
+# License
 [MIT](./LICENSE)
+
+# ChangeLog
+Go to the [releases](https://github.com/nispok/snackbar/releases) section for a brief description of each release
