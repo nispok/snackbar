@@ -377,7 +377,7 @@ public class Snackbar extends SnackbarLayout {
                 @Override
                 public void onClick(View view) {
                     if (mActionClickListener != null) {
-                        mActionClickListener.onActionClicked();
+                        mActionClickListener.onActionClicked(Snackbar.this);
                     }
                     if (mShouldDismissOnActionClicked) {
                         dismiss();
@@ -456,6 +456,9 @@ public class Snackbar extends SnackbarLayout {
                 getViewTreeObserver().removeOnPreDrawListener(this);
                 if (mEventListener != null) {
                     mEventListener.onShow(Snackbar.this);
+                    if (!mAnimated) {
+                        mEventListener.onShown(Snackbar.this);
+                    }
                 }
                 return true;
             }
@@ -474,6 +477,10 @@ public class Snackbar extends SnackbarLayout {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                if (mEventListener != null) {
+                    mEventListener.onShown(Snackbar.this);
+                }
+
                 post(new Runnable() {
                     @Override
                     public void run() {
@@ -504,12 +511,18 @@ public class Snackbar extends SnackbarLayout {
     }
 
     public void dismiss() {
-        if (!mAnimated) {
-            finish();
+        if (mIsDismissing) {
             return;
         }
 
-        if (mIsDismissing) {
+        mIsDismissing = true;
+
+        if (mEventListener != null && mIsShowing) {
+            mEventListener.onDismiss(Snackbar.this);
+        }
+
+        if (!mAnimated) {
+            finish();
             return;
         }
 
@@ -517,7 +530,6 @@ public class Snackbar extends SnackbarLayout {
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                mIsDismissing = true;
             }
 
             @Override
@@ -544,7 +556,7 @@ public class Snackbar extends SnackbarLayout {
             parent.removeView(this);
         }
         if (mEventListener != null && mIsShowing) {
-            mEventListener.onDismiss(this);
+            mEventListener.onDismissed(this);
         }
         mIsShowing = false;
     }
@@ -567,6 +579,10 @@ public class Snackbar extends SnackbarLayout {
 
     public CharSequence getText() {
         return mText;
+    }
+
+    public long getAnimationDuration() {
+        return getResources().getInteger(R.integer.animation_duration);
     }
 
     public long getDuration() {

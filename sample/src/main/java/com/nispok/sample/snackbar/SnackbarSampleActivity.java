@@ -48,7 +48,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .actionLabel("Undo")
                                 .actionListener(new ActionClickListener() {
                                     @Override
-                                    public void onActionClicked() {
+                                    public void onActionClicked(Snackbar snackbar) {
                                         Toast.makeText(SnackbarSampleActivity.this,
                                                 "Action undone",
                                                 Toast.LENGTH_SHORT).show();
@@ -81,7 +81,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .actionLabel("Action")
                                 .actionListener(new ActionClickListener() {
                                     @Override
-                                    public void onActionClicked() {
+                                    public void onActionClicked(Snackbar snackbar) {
                                         Toast.makeText(SnackbarSampleActivity.this,
                                                 "Action clicked",
                                                 Toast.LENGTH_SHORT).show();
@@ -119,9 +119,25 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                     }
 
                                     @Override
+                                    public void onShown(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar shown. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
+
+                                    @Override
                                     public void onDismiss(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will dismiss. Width: %d Height: %d Offset: %d",
+                                                        snackbar.getWidth(), snackbar.getHeight(),
+                                                        snackbar.getOffset()));
+                                    }
+
+                                    @Override
+                                    public void onDismissed(Snackbar snackbar) {
                                         Toast.makeText(SnackbarSampleActivity.this, String.format(
-                                                "Snackbar dismissed. Width: %d Height: %d Offset: %d",
+                                                        "Snackbar dismissed. Width: %d Height: %d Offset: %d",
                                                         snackbar.getWidth(), snackbar.getHeight(),
                                                         snackbar.getOffset()),
                                                 Toast.LENGTH_SHORT).show();
@@ -143,7 +159,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .actionColor(Color.parseColor("#ff5a2900"))
                                 .actionListener(new ActionClickListener() {
                                     @Override
-                                    public void onActionClicked() {
+                                    public void onActionClicked(Snackbar snackbar) {
                                         Log.i(TAG, "Action touched");
                                     }
                                 })
