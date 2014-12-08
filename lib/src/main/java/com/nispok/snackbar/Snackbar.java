@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -591,22 +592,6 @@ public class Snackbar extends SnackbarLayout {
         return getResources().getInteger(R.integer.animation_duration);
     }
 
-    /**
-     * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
-     * to enter the view
-     */
-    public int getInAnimationResource() {
-        return R.anim.snackbar_in;
-    }
-
-    /**
-     * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
-     * to exit the view
-     */
-    public int getOutAnimationResource() {
-        return R.anim.snackbar_out;
-    }
-
     public long getDuration() {
         return mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration;
     }
@@ -643,5 +628,23 @@ public class Snackbar extends SnackbarLayout {
      */
     public boolean isDismissed() {
         return !mIsShowing;
+    }
+
+    /**
+     * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
+     * to enter the view
+     */
+    @AnimRes
+    public static int getInAnimationResource() {
+        return R.anim.snackbar_in;
+    }
+
+    /**
+     * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
+     * to exit the view
+     */
+    @AnimRes
+    public static int getOutAnimationResource() {
+        return R.anim.snackbar_out;
     }
 }
