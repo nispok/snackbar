@@ -586,16 +586,6 @@ public class Snackbar extends SnackbarLayout {
         return mText;
     }
 
-    /**
-     * @return the duration for the in and the out animations
-     * @deprecated get this duration from the animation resource itself. see
-     * {@link #getInAnimationResource()} and {@link #getOutAnimationResource()}
-     */
-    @Deprecated
-    public long getAnimationDuration() {
-        return getResources().getInteger(R.integer.animation_duration);
-    }
-
     public long getDuration() {
         return mCustomDuration == -1 ? mDuration.getDuration() : mCustomDuration;
     }
