@@ -118,13 +118,13 @@ Snackbar.with(SnackbarSampleActivity.this) // context
 ```
 
 # Who's using Snackbar?
-If you are using this library and would like to be mentioned here, open a PR or tell us via [email](mailto:contact@nispok.com).
+If you are using this library and would like to be mentioned here, open a [PR](https://github.com/nispok/snackbar/pulls) or tell us via [email](mailto:contact@nispok.com).
 
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
 # Contributing
-If you would like to add features or report any bugs, open a [PR](https://github.com/nispok/snackbar/pulls) or refer to the [issues](https://github.com/nispok/snackbar/issues) section.<br /><br />
+If you would like to add features or report any bugs, open a [PR](https://github.com/nispok/snackbar/pulls) or refer to the [issues](https://github.com/nispok/snackbar/issues) section.
 
 # Contributors
 + [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora)
@@ -137,4 +137,4 @@ If you would like to add features or report any bugs, open a [PR](https://github
 [MIT](./LICENSE)
 
 # ChangeLog
-Go to the [releases](https://github.com/nispok/snackbar/releases) section for a brief description of each release
+Go to the [releases](https://github.com/nispok/snackbar/releases) section for a brief description of each release.
