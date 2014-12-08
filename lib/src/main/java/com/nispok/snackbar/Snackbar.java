@@ -403,7 +403,7 @@ public class Snackbar extends SnackbarLayout {
                         @Override
                         public void onDismiss(View view, Object token) {
                             if (view != null) {
-                                finish();
+                                dismiss(false);
                             }
                         }
 
@@ -512,6 +512,10 @@ public class Snackbar extends SnackbarLayout {
     }
 
     public void dismiss() {
+        dismiss(mAnimated);
+    }
+
+    private void dismiss(boolean animate) {
         if (mIsDismissing) {
             return;
         }
@@ -522,7 +526,7 @@ public class Snackbar extends SnackbarLayout {
             mEventListener.onDismiss(Snackbar.this);
         }
 
-        if (!mAnimated) {
+        if (!animate) {
             finish();
             return;
         }
