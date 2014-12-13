@@ -33,7 +33,7 @@ Snackbar.with(getApplicationContext()) // context
     .actionLabel("Undo") // action button label
     .actionListener(new ActionClickListener() {
         @Override
-        public void onActionClicked() {
+        public void onActionClicked(Snackbar snackbar) {
             Log.d(TAG, "Undoing something");
         }
      }) // action button's ActionClickListener
@@ -90,7 +90,7 @@ Snackbar.with(getApplicationContext()) // context
     .actionColor(Color.RED) // action button label color
     .actionListener(new ActionClickListener() {
         @Override
-        public void onActionClicked() {
+        public void onActionClicked(Snackbar snackbar) {
             Log.d(TAG, "Doing something");
         }
      }) // action button's ActionClickListener    
