@@ -439,13 +439,15 @@ public class Snackbar extends SnackbarLayout {
         FrameLayout.LayoutParams params = init(targetActivity);
 
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
+
         if (root.getMeasuredHeight() == root.getBottom()) {
-            Resources resources = targetActivity.getResources();
+            Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 params.bottomMargin = resources.getDimensionPixelSize(resourceId);
             }
         }
+
         root.addView(this, params);
 
         bringToFront();
