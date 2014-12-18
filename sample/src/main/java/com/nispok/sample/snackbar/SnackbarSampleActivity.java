@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.nispok.sample.snackbar.utils.SnackbarManager;
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.nispok.snackbar.listeners.EventListener;
@@ -32,7 +32,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         singleLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Single-line snackbar"));
             }
@@ -42,7 +42,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         singleLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Something has been done")
                                 .actionLabel("Undo")
@@ -61,7 +61,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         multiLineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .type(SnackbarType.MULTI_LINE)
                                 .text("This is a multi-line snackbar. Keep in mind that snackbars" +
@@ -73,7 +73,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         multiLineWithActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .type(SnackbarType.MULTI_LINE)
                                 .text("This is a multi-line snackbar with an action button. Note " +
@@ -94,7 +94,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         noAnimationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("No animation :(")
                                 .animation(false)
@@ -106,7 +106,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         eventListenerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("I'm showing a toast on exit")
                                 .eventListener(new EventListener() {
@@ -150,7 +150,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         customColorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Different colors!!!")
                                 .textColor(Color.parseColor("#ff9d9d9c"))
@@ -171,7 +171,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         unswipeableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Try to swipe me off the screen")
                                 .swipeToDismiss(false));

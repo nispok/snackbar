@@ -1,7 +1,7 @@
 package com.nispok.sample.snackbar;
 
-import com.nispok.sample.snackbar.utils.SnackbarManager;
 import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -61,7 +61,7 @@ public class SnackbarRecyclerViewSampleActivity extends ActionBarActivity {
                 finish();
                 return true;
             case R.id.action_add_snackbar:
-                SnackbarManager.getInstance().show(
+                SnackbarManager.show(
                         Snackbar.with(SnackbarRecyclerViewSampleActivity.this)
                                 .text("Woo, snackbar!")
                                 .actionLabel("Close")
