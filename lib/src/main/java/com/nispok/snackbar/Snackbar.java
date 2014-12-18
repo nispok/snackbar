@@ -1,5 +1,6 @@
 package com.nispok.snackbar;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -440,7 +441,7 @@ public class Snackbar extends SnackbarLayout {
 
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
 
-        if (root.getMeasuredHeight() == root.getBottom()) {
+        if (!isNavigationBarHidden(root)) {
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
             if (resourceId > 0) {
@@ -452,6 +453,7 @@ public class Snackbar extends SnackbarLayout {
 
         bringToFront();
 
+        // As requested in the documentation for bringToFront()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             root.requestLayout();
             root.invalidate();
@@ -509,6 +511,18 @@ public class Snackbar extends SnackbarLayout {
             }
         });
         startAnimation(slideIn);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private boolean isNavigationBarHidden(ViewGroup root) {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            return true;
+        }
+
+        int viewFlags = root.getWindowSystemUiVisibility();
+        return (viewFlags & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) ==
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
     }
 
     private void startTimer() {
