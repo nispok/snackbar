@@ -332,7 +332,7 @@ public class Snackbar extends SnackbarLayout {
         float scale = res.getDisplayMetrics().density;
 
         FrameLayout.LayoutParams params;
-        if (res.getBoolean(R.bool.is_phone)) {
+        if (res.getBoolean(R.bool.sb__is_phone)) {
             // Phone
             layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
@@ -393,7 +393,7 @@ public class Snackbar extends SnackbarLayout {
 
         setClickable(true);
 
-        if (mCanSwipeToDismiss && res.getBoolean(R.bool.is_swipeable)) {
+        if (mCanSwipeToDismiss && res.getBoolean(R.bool.sb__is_swipeable)) {
             setOnTouchListener(new SwipeDismissTouchListener(this, null,
                     new SwipeDismissTouchListener.DismissCallbacks() {
                         @Override
@@ -480,7 +480,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_in);
+        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.sb__in);
         slideIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -553,7 +553,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_out);
+        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.sb__out);
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -652,7 +652,7 @@ public class Snackbar extends SnackbarLayout {
      */
     @AnimRes
     public static int getInAnimationResource() {
-        return R.anim.snackbar_in;
+        return R.anim.sb__in;
     }
 
     /**
@@ -661,6 +661,6 @@ public class Snackbar extends SnackbarLayout {
      */
     @AnimRes
     public static int getOutAnimationResource() {
-        return R.anim.snackbar_out;
+        return R.anim.sb__out;
     }
 }

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="is_swipeable">true</bool>
+    <bool name="sb__is_swipeable">true</bool>
 </resources>
