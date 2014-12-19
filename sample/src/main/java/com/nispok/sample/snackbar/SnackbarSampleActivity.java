@@ -173,7 +173,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
             public void onClick(View v) {
                 SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
-                                .text("Try to swipe me off the screen")
+                                .text("Try to swipe me off from the screen")
                                 .swipeToDismiss(false));
             }
         });
