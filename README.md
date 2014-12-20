@@ -148,9 +148,6 @@ SnackbarManager.show(
     , this); // activity where it is displayed
 ```
 
-# Who's using Snackbar?
-If you are using this library and would like to be mentioned here, open a [PR](https://github.com/nispok/snackbar/pulls) or tell us via [email](mailto:contact@nispok.com).
-
 # Examples
 There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
