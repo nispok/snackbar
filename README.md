@@ -4,6 +4,11 @@
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 Works on API levels >= 8
 
+<a href="https://play.google.com/store/apps/details?id=com.nispok.samples.snackbar">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+</a>
+
 <img src="./art/home.png" alt="Example App" style="width: 200px; height: 355px" />
 <img src="./art/home-1line.png" alt="Example App" style="width: 200px; height: 355px" />
 <img src="./art/home-2line.png" alt="Example App" style="width: 200px; height: 355px" />
