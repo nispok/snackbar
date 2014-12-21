@@ -17,21 +17,21 @@ Works on API levels >= 8
 
 ## Installation
 You can import the library from source as a module or grab via Gradle:
- <br />
+ 
  ```groovy
  compile 'com.nispok:snackbar:2.7.0'
  ```
 ## Usage
-<br />
+
 Using the `Snackbar` class is easy, this is how you would display it on an `Activity`:
-<br />
+
 ```java
 Snackbar.with(getApplicationContext()) // context
     .text("Single-line snackbar") // text to display
     .show(this); // activity where it is displayed
 ```
 However, I recommend you use the `SnackbarManager` to handle the Snackbars queue:
-<br />
+
 ```java
 // Dismisses the Snackbar being shown, if any, and displays the new one
 SnackbarManager.show(
@@ -40,7 +40,7 @@ SnackbarManager.show(
 ```
 If you are using `getApplicationContext()` as the `Context` to create the `Snackbar` then you must
 specify the target `Activity` when calling the `SnackbarManager`:
-<br />
+
 ```java
 // Dismisses the Snackbar being shown, if any, and displays the new one
 SnackbarManager.show(
@@ -48,7 +48,7 @@ SnackbarManager.show(
     .text("Single-line snackbar"), myActivity);
 ```
 If you want an action button to be displayed, just assign a label and an `ActionClickListener`:
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
@@ -65,7 +65,7 @@ SnackbarManager.show(
 If you need to know when the `Snackbar` is shown or dismissed, assign a `EventListener` to it.
 This is useful if you need to move other objects while the `Snackbar` is displayed. For instance,
 you can move a Floating Action Button up while the `Snackbar` is on screen:
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
@@ -97,8 +97,16 @@ SnackbarManager.show(
 There are two `Snackbar` types: single-line (default) and multi-line (2 lines max). You can also set
 the duration of the `Snackbar` similar to a
 <a href="http://developer.android.com/reference/android/widget/Toast.html">`Toast`</a>.
+
+The lengths of a Snackbar duration are:
+* LENGTH_SHORT: 2s
+* LENGTH_LONG: 3.5s
+* LENGTH_INDEFINTE: Indefinite; ideal for persistent errors
+
+You could also set a custom duration.
+
 Animation disabling is also possible.
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
@@ -110,7 +118,7 @@ SnackbarManager.show(
     , this); // where it is displayed
 ```
 You can also change the `Snackbar`'s colors.
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
@@ -128,7 +136,7 @@ SnackbarManager.show(
     , this); // activity where it is displayed
 ```
 Finally, you can attach the `Snackbar` to a AbsListView (ListView, GridView) or a RecyclerView.
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
@@ -142,9 +150,9 @@ SnackbarManager.show(
 It uses [Roman Nurik's SwipeToDismiss sample code](https://github.com/romannurik/android-swipetodismiss)
 to implement the swipe-to-dismiss functionality. This is enabled by default. You can disable this if
 you don't want this functionality:
-<br />
+
 **NOTE:** This has no effect on apps running on APIs < 11; swiping will always be disabled in those cases
-<br />
+
 ```java
 SnackbarManager.show(
     Snackbar.with(SnackbarSampleActivity.this) // context
