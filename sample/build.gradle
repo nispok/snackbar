@@ -9,7 +9,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.nispok.snackbar"
+        applicationId "com.nispok.samples.snackbar"
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1

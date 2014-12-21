@@ -1,4 +1,4 @@
-package com.nispok.sample.snackbar;
+package com.nispok.samples.snackbar;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -209,7 +209,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_go_to_repo:
+            case R.id.visit_repo:
                 goToRepo();
                 return true;
             default:

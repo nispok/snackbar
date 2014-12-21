@@ -1,4 +1,4 @@
-package com.nispok.sample.snackbar;
+package com.nispok.samples.snackbar;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
