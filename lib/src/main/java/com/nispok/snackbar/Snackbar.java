@@ -34,7 +34,7 @@ import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 public class Snackbar extends SnackbarLayout {
 
     public enum SnackbarDuration {
-        LENGTH_SHORT(2000), LENGTH_LONG(3500);
+        LENGTH_SHORT(2000), LENGTH_LONG(3500), LENGTH_INDEFINITE(-1);
 
         private long duration;
 
@@ -273,11 +273,11 @@ public class Snackbar extends SnackbarLayout {
     /**
      * Sets a custom duration of this {@link Snackbar}
      *
-     * @param duration
+     * @param duration custom duration. Value must be greater than 0 or it will be ignored
      * @return
      */
     public Snackbar duration(long duration) {
-        mCustomDuration = duration;
+        mCustomDuration = duration > 0 ? duration : mCustomDuration;
         return this;
     }
 
@@ -410,6 +410,9 @@ public class Snackbar extends SnackbarLayout {
 
                         @Override
                         public void pauseTimer(boolean shouldPause) {
+                            if (isIndefiniteDuration()) {
+                                return;
+                            }
                             if (shouldPause) {
                                 removeCallbacks(mDismissRunnable);
 
@@ -476,7 +479,9 @@ public class Snackbar extends SnackbarLayout {
         });
 
         if (!mAnimated) {
-            startTimer();
+            if (shouldStartTimer()) {
+                startTimer();
+            }
             return;
         }
 
@@ -500,8 +505,9 @@ public class Snackbar extends SnackbarLayout {
                         if (mTimeRemaining == -1) {
                             mTimeRemaining = getDuration();
                         }
-
-                        startTimer();
+                        if (shouldStartTimer()) {
+                            startTimer();
+                        }
                     }
                 });
             }
@@ -511,6 +517,14 @@ public class Snackbar extends SnackbarLayout {
             }
         });
         startAnimation(slideIn);
+    }
+
+    private boolean shouldStartTimer() {
+        return !isIndefiniteDuration();
+    }
+
+    private boolean isIndefiniteDuration() {
+        return getDuration() == SnackbarDuration.LENGTH_INDEFINITE.getDuration();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

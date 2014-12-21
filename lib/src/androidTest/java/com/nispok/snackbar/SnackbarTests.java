@@ -133,4 +133,10 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertTrue(mSnackbar.shouldDismissOnActionClicked());
     }
 
+    public void testSnackbarCustomDurationMustBeGreaterThanZero() {
+        mSnackbar = Snackbar.with(mContext).duration(0);
+
+        assertFalse(mSnackbar.getDuration() == 0);
+    }
+
 }
