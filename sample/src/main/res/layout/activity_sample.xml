@@ -62,6 +62,12 @@
             android:text="Unswipeable" />
 
         <Button
+            android:id="@+id/indefinite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Indefinite Duration" />
+
+        <Button
             android:id="@+id/list_example"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

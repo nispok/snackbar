@@ -178,6 +178,18 @@ public class SnackbarSampleActivity extends ActionBarActivity {
             }
         });
 
+        Button indefiniteButton = (Button) findViewById(R.id.indefinite);
+        indefiniteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SnackbarManager.show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .type(SnackbarType.MULTI_LINE)
+                                .duration(Snackbar.SnackbarDuration.LENGTH_INDEFINITE)
+                                .text("Indefinite duration, ideal for communicating errors"));
+            }
+        });
+
         Button listSampleButton = (Button) findViewById(R.id.list_example);
         listSampleButton.setOnClickListener(new View.OnClickListener() {
             @Override
