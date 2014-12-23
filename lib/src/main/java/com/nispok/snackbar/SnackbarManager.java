@@ -48,4 +48,13 @@ public class SnackbarManager {
         currentSnackbar = snackbar;
         currentSnackbar.show(activity);
     }
+
+    /**
+     * Dismisses the {@link com.nispok.snackbar.Snackbar} shown by this manager.
+     */
+    public static void dismiss() {
+        if (currentSnackbar != null) {
+            currentSnackbar.dismiss();
+        }
+    }
 }
