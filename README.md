@@ -19,7 +19,7 @@ Works on API levels >= 8
 You can import the library from source as a module or grab via Gradle:
  
  ```groovy
- compile 'com.nispok:snackbar:2.7.1'
+ compile 'com.nispok:snackbar:2.7.2'
  ```
 ## Usage
 
