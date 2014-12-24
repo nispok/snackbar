@@ -444,6 +444,8 @@ public class Snackbar extends SnackbarLayout {
 
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
 
+        root.removeView(this);
+
         if (isNavigationBarHidden(root)) {
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
