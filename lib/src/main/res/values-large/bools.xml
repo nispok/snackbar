@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="sb__is_phone">false</bool>
+    <bool name="sb__is_phone">true</bool>
 </resources>
