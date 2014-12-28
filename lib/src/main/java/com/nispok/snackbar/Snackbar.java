@@ -533,7 +533,7 @@ public class Snackbar extends SnackbarLayout {
     private boolean isNavigationBarHidden(ViewGroup root) {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            return true;
+            return false;
         }
 
         int viewFlags = root.getWindowSystemUiVisibility();
