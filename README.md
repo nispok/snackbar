@@ -99,9 +99,9 @@ the duration of the `Snackbar` similar to a
 <a href="http://developer.android.com/reference/android/widget/Toast.html">`Toast`</a>.
 
 The lengths of a Snackbar duration are:
-* LENGTH_SHORT: 2s
-* LENGTH_LONG: 3.5s
-* LENGTH_INDEFINTE: Indefinite; ideal for persistent errors
+* `LENGTH_SHORT`: 2s
+* `LENGTH_LONG`: 3.5s
+* `LENGTH_INDEFINTE`: Indefinite; ideal for persistent errors
 
 You could also set a custom duration.
 
