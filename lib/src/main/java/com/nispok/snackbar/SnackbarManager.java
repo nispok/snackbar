@@ -52,6 +52,9 @@ public class SnackbarManager {
             }, activity.getResources().getInteger(R.integer.sb__anim_duration));
 
             currentSnackbar.dismiss();
+        } else {
+            currentSnackbar = snackbar;
+            currentSnackbar.show(activity);
         }
     }
 
