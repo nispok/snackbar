@@ -94,14 +94,14 @@ SnackbarManager.show(
         }) // Snackbar's EventListener
     , this); // activity where it is displayed
 ```
-There are two `Snackbar` types: single-line (default) and multi-line (2 lines max). You can also set
+There are two `Snackbar` types: single-line (default) and multi-line (2 lines max. Note this only applies for phones; tablets are always single-line). You can also set
 the duration of the `Snackbar` similar to a
 <a href="http://developer.android.com/reference/android/widget/Toast.html">`Toast`</a>.
 
 The lengths of a Snackbar duration are:
-* LENGTH_SHORT: 2s
-* LENGTH_LONG: 3.5s
-* LENGTH_INDEFINTE: Indefinite; ideal for persistent errors
+* `LENGTH_SHORT`: 2s
+* `LENGTH_LONG`: 3.5s
+* `LENGTH_INDEFINTE`: Indefinite; ideal for persistent errors
 
 You could also set a custom duration.
 
