@@ -604,6 +604,14 @@ public class Snackbar extends SnackbarLayout {
         mIsShowing = false;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mDismissRunnable != null) {
+            removeCallbacks(mDismissRunnable);
+        }
+    }
+
     public int getActionColor() {
         return mActionColor;
     }
