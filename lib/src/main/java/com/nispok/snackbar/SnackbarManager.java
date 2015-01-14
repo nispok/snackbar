@@ -57,4 +57,11 @@ public class SnackbarManager {
             currentSnackbar.dismiss();
         }
     }
+    
+    /**
+     * Return the current Snackbar
+     */
+     public static Snackbar getCurrentSnackbar() {
+         return currentSnackbar;
+     }
 }
