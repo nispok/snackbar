@@ -100,7 +100,7 @@ the duration of the `Snackbar` similar to a
 
 The lengths of a Snackbar duration are:
 * `LENGTH_SHORT`: 2s
-* `LENGTH_LONG`: 3.5s
+* `LENGTH_LONG`: 3.5s (default)
 * `LENGTH_INDEFINTE`: Indefinite; ideal for persistent errors
 
 You could also set a custom duration.
