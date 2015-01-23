@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.AnimRes;
@@ -63,6 +64,8 @@ public class Snackbar extends SnackbarLayout {
     private ActionClickListener mActionClickListener;
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
+    private Typeface mTextTypeface;
+    private Typeface mActionTypeface;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
@@ -322,6 +325,28 @@ public class Snackbar extends SnackbarLayout {
         return this;
     }
 
+    /**
+     * Use a custom typeface for this Snackbar's text
+     *
+     * @param typeface
+     * @return
+     */
+    public Snackbar textTypeface(Typeface typeface) {
+        mTextTypeface = typeface;
+        return this;
+    }
+
+    /**
+     * Use a custom typeface for this Snackbar's action label
+     *
+     * @param typeface
+     * @return
+     */
+    public Snackbar actionLabelTypeface(Typeface typeface) {
+        mActionTypeface = typeface;
+        return this;
+    }
+
     private FrameLayout.LayoutParams init(Activity parent) {
         SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(parent)
                 .inflate(R.layout.sb__template, this, true);
@@ -359,6 +384,7 @@ public class Snackbar extends SnackbarLayout {
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
+        snackbarText.setTypeface(mTextTypeface);
 
         if (mTextColor != -1) {
             snackbarText.setTextColor(mTextColor);
@@ -370,6 +396,7 @@ public class Snackbar extends SnackbarLayout {
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
             snackbarAction.setText(mActionLabel);
+            snackbarAction.setTypeface(mActionTypeface);
 
             if (mActionColor != -1) {
                 snackbarAction.setTextColor(mActionColor);
