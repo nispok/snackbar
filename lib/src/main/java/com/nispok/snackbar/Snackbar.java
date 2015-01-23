@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -310,17 +309,19 @@ public class Snackbar extends SnackbarLayout {
     /**
      * Attaches this {@link Snackbar} to a RecyclerView so it dismisses when the list is scrolled
      *
-     * @param recyclerView
+     * @param recyclerView The RecyclerView instance to attach to.
      * @return
      */
-    public Snackbar attachToRecyclerView(RecyclerView recyclerView) {
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                dismiss();
-            }
-        });
+    public Snackbar attachToRecyclerView(View recyclerView) {
+
+        try {
+            Class.forName("android.support.v7.widget.RecyclerView");
+
+            // We got here, so now we can safely check
+            RecyclerUtil.setScrollListener(this, recyclerView);
+        } catch (ClassNotFoundException ignored) {
+            throw new IllegalArgumentException("RecyclerView not found. Did you add it to your dependencies?");
+        }
 
         return this;
     }
