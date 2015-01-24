@@ -117,16 +117,18 @@ SnackbarManager.show(
         .animation(false) // don't animate it
     , this); // where it is displayed
 ```
-You can also change the `Snackbar`'s colors.
+You can also change the `Snackbar`'s colors and fonts.
 
 ```java
 SnackbarManager.show(
     Snackbar.with(getApplicationContext()) // context
         .text("Different colors this time") // text to be displayed
         .textColor(Color.GREEN) // change the text color
+        .textTypeface(myTypeface) // change the text font
         .color(Color.BLUE) // change the background color
         .actionLabel("Action") // action button label
         .actionColor(Color.RED) // action button label color
+        .actionLabelTypeface(myTypeface) // change the action button font
         .actionListener(new ActionClickListener() {
             @Override
             public void onActionClicked(Snackbar snackbar) {
