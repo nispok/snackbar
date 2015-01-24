@@ -2,6 +2,7 @@ package com.nispok.samples.snackbar;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -207,6 +208,20 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
                         SnackbarRecyclerViewSampleActivity.class);
                 startActivity(sampleIntent);
+            }
+        });
+
+        Button customTypefaceButton = (Button) findViewById(R.id.typeface_example);
+        customTypefaceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-LightItalic.ttf");
+                SnackbarManager.show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                        .text("Custom font!")
+                        .textTypeface(tf)
+                        .actionLabel("Cool")
+                        .actionLabelTypeface(tf));
             }
         });
     }

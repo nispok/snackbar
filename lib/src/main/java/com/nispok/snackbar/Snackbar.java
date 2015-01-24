@@ -4,12 +4,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -63,6 +63,8 @@ public class Snackbar extends SnackbarLayout {
     private ActionClickListener mActionClickListener;
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
+    private Typeface mTextTypeface;
+    private Typeface mActionTypeface;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
@@ -307,18 +309,42 @@ public class Snackbar extends SnackbarLayout {
     /**
      * Attaches this {@link Snackbar} to a RecyclerView so it dismisses when the list is scrolled
      *
-     * @param recyclerView
+     * @param recyclerView The RecyclerView instance to attach to.
      * @return
      */
-    public Snackbar attachToRecyclerView(RecyclerView recyclerView) {
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                dismiss();
-            }
-        });
+    public Snackbar attachToRecyclerView(View recyclerView) {
 
+        try {
+            Class.forName("android.support.v7.widget.RecyclerView");
+
+            // We got here, so now we can safely check
+            RecyclerUtil.setScrollListener(this, recyclerView);
+        } catch (ClassNotFoundException ignored) {
+            throw new IllegalArgumentException("RecyclerView not found. Did you add it to your dependencies?");
+        }
+
+        return this;
+    }
+
+    /**
+     * Use a custom typeface for this Snackbar's text
+     *
+     * @param typeface
+     * @return
+     */
+    public Snackbar textTypeface(Typeface typeface) {
+        mTextTypeface = typeface;
+        return this;
+    }
+
+    /**
+     * Use a custom typeface for this Snackbar's action label
+     *
+     * @param typeface
+     * @return
+     */
+    public Snackbar actionLabelTypeface(Typeface typeface) {
+        mActionTypeface = typeface;
         return this;
     }
 
@@ -359,6 +385,7 @@ public class Snackbar extends SnackbarLayout {
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
+        snackbarText.setTypeface(mTextTypeface);
 
         if (mTextColor != -1) {
             snackbarText.setTextColor(mTextColor);
@@ -370,6 +397,7 @@ public class Snackbar extends SnackbarLayout {
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
             snackbarAction.setText(mActionLabel);
+            snackbarAction.setTypeface(mActionTypeface);
 
             if (mActionColor != -1) {
                 snackbarAction.setTextColor(mActionColor);

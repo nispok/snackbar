@@ -79,5 +79,11 @@
             android:layout_height="wrap_content"
             android:text="RecyclerView Listener" />
 
+        <Button
+            android:id="@+id/typeface_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom Typefaces" />
+
     </LinearLayout>
 </ScrollView>
