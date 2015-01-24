@@ -41,12 +41,21 @@ public class SnackbarManager {
      * @param snackbar instance of {@link com.nispok.snackbar.Snackbar} to display
      * @param activity target {@link Activity} to display the Snackbar
      */
-    public static void show(@NonNull Snackbar snackbar, @NonNull Activity activity) {
+    public static void show(@NonNull final Snackbar snackbar, @NonNull final Activity activity) {
         if (currentSnackbar != null) {
+            currentSnackbar.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    currentSnackbar = snackbar;
+                    currentSnackbar.show(activity);
+                }
+            }, activity.getResources().getInteger(R.integer.sb__anim_duration));
+
             currentSnackbar.dismiss();
+        } else {
+            currentSnackbar = snackbar;
+            currentSnackbar.show(activity);
         }
-        currentSnackbar = snackbar;
-        currentSnackbar.show(activity);
     }
 
     /**
