@@ -170,11 +170,7 @@ There's a sample app included in the project. [SnackbarSampleActivity](./sample/
 If you would like to add features or report any bugs, open a [PR](https://github.com/nispok/snackbar/pulls) or refer to the [issues](https://github.com/nispok/snackbar/issues) section.
 
 # Contributors
-+ [William Mora](https://github.com/wmora) - [@_williammora](https://twitter.com/_williammora)
-+ [Lewis Deane](https://github.com/lewisjdeane)
-+ [Andrew Hughes](https://github.com/ashughes)
-+ [David Richardson](https://github.com/davidjrichardson)
-+ [Juan Ramón González](https://github.com/jrgonzalezg)
+Thanks to all [contributors](https://github.com/nispok/snackbar/graphs/contributors)!
 
 # License
 [MIT](./LICENSE)
