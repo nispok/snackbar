@@ -61,6 +61,8 @@ public class Snackbar extends SnackbarLayout {
     private boolean mAnimated = true;
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
+    private boolean mShouldAllowMultipleActionClicks;
+    private boolean mActionClicked;
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
     private Typeface mTextTypeface;
@@ -224,6 +226,19 @@ public class Snackbar extends SnackbarLayout {
      */
     public Snackbar actionListener(ActionClickListener listener) {
         mActionClickListener = listener;
+        return this;
+    }
+
+    /**
+     * Determines whether this {@link Snackbar} should allow the action button to be
+     * clicked multiple times
+     *
+     * @param shouldAllow
+     * @return
+     */
+    public Snackbar allowMultipleActionClicks(boolean shouldAllow){
+
+        mShouldAllowMultipleActionClicks = shouldAllow;
         return this;
     }
 
@@ -407,7 +422,15 @@ public class Snackbar extends SnackbarLayout {
                 @Override
                 public void onClick(View view) {
                     if (mActionClickListener != null) {
-                        mActionClickListener.onActionClicked(Snackbar.this);
+
+                        // Before calling the onActionClicked() callback, make sure:
+                        // 1) The snackbar is not dismissing
+                        // 2) If we aren't allowing multiple clicks, that this is the first click
+                        if (!mIsDismissing && (!mActionClicked || mShouldAllowMultipleActionClicks)) {
+
+                            mActionClickListener.onActionClicked(Snackbar.this);
+                            mActionClicked = true;
+                        }
                     }
                     if (mShouldDismissOnActionClicked) {
                         dismiss();
