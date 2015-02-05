@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
@@ -59,6 +60,8 @@ public class Snackbar extends SnackbarLayout {
     private CharSequence mActionLabel;
     private int mActionColor = -1;
     private boolean mAnimated = true;
+    private boolean mIsReplacePending = false;
+    private boolean mIsShowingByReplace = false;
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
     private boolean mShouldDismissOnActionClicked = true;
@@ -357,11 +360,23 @@ public class Snackbar extends SnackbarLayout {
         mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
         float scale = res.getDisplayMetrics().density;
 
+        // Add bottom padding when navigation bar is translucent
+        int snackBarBottomPadding = 0;
+        if (isNavigationBarTranslucent(parent)) {
+            Resources resources = getResources();
+            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                snackBarBottomPadding = resources.getDimensionPixelSize(resourceId);
+                setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(),
+                        getPaddingBottom() + snackBarBottomPadding);
+            }
+        }
+
         FrameLayout.LayoutParams params;
         if (res.getBoolean(R.bool.sb__is_phone)) {
             // Phone
-            layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
-            layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
+            layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale) + snackBarBottomPadding);
+            layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale) + snackBarBottomPadding);
             layout.setBackgroundColor(mColor);
             params = new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -461,6 +476,11 @@ public class Snackbar extends SnackbarLayout {
         return (int) (dp * scale + 0.5f);
     }
 
+    public void showByReplace(Activity targetActivity) {
+        mIsShowingByReplace = true;
+        show(targetActivity);
+    }
+
     /**
      * Displays the {@link Snackbar} at the bottom of the
      * {@link android.app.Activity} provided.
@@ -477,7 +497,7 @@ public class Snackbar extends SnackbarLayout {
         if (isNavigationBarHidden(root)) {
             Resources resources = getResources();
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
+            if (resourceId > 0 && !isNavigationBarTranslucent(targetActivity)) {
                 params.bottomMargin = resources.getDimensionPixelSize(resourceId);
             }
         }
@@ -499,9 +519,14 @@ public class Snackbar extends SnackbarLayout {
             public boolean onPreDraw() {
                 getViewTreeObserver().removeOnPreDrawListener(this);
                 if (mEventListener != null) {
-                    mEventListener.onShow(Snackbar.this);
+                    if(mIsShowingByReplace) {
+                        mEventListener.onShowByReplace(Snackbar.this);
+                    } else {
+                        mEventListener.onShow(Snackbar.this);
+                    }
                     if (!mAnimated) {
                         mEventListener.onShown(Snackbar.this);
+                        mIsShowingByReplace = false; // reset flag
                     }
                 }
                 return true;
@@ -525,6 +550,7 @@ public class Snackbar extends SnackbarLayout {
             public void onAnimationEnd(Animation animation) {
                 if (mEventListener != null) {
                     mEventListener.onShown(Snackbar.this);
+                    mIsShowingByReplace = false; // reset flag
                 }
 
                 post(new Runnable() {
@@ -569,12 +595,27 @@ public class Snackbar extends SnackbarLayout {
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
     }
 
+    private boolean isNavigationBarTranslucent(Activity targetActivity) {
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return false;
+        }
+
+        int flags = targetActivity.getWindow().getAttributes().flags;
+        return (flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) != 0;
+    }
+
     private void startTimer() {
         postDelayed(mDismissRunnable, getDuration());
     }
 
     private void startTimer(long duration) {
         postDelayed(mDismissRunnable, duration);
+    }
+
+    public void dismissByReplace() {
+        mIsReplacePending = true;
+        dismiss();
     }
 
     public void dismiss() {
@@ -589,7 +630,11 @@ public class Snackbar extends SnackbarLayout {
         mIsDismissing = true;
 
         if (mEventListener != null && mIsShowing) {
-            mEventListener.onDismiss(Snackbar.this);
+            if(mIsReplacePending) {
+                mEventListener.onDismissByReplace(Snackbar.this);
+            } else {
+                mEventListener.onDismiss(Snackbar.this);
+            }
         }
 
         if (!animate) {
@@ -630,6 +675,7 @@ public class Snackbar extends SnackbarLayout {
             mEventListener.onDismissed(this);
         }
         mIsShowing = false;
+        mIsReplacePending = false;
     }
 
     @Override
@@ -689,6 +735,13 @@ public class Snackbar extends SnackbarLayout {
      */
     public boolean isShowing() {
         return mIsShowing;
+    }
+
+    /**
+     * @return true if this {@link com.nispok.snackbar.Snackbar} is dismissing.
+     */
+    public boolean isDimissing() {
+        return mIsDismissing;
     }
 
     /**

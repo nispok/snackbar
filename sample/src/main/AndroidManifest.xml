@@ -16,6 +16,7 @@
         </activity>
         <activity android:name=".SnackbarListViewSampleActivity" />
         <activity android:name=".SnackbarRecyclerViewSampleActivity" />
+        <activity android:name=".SnackbarNavigationBarTranslucentSampleActivity" />
     </application>
 
 </manifest>

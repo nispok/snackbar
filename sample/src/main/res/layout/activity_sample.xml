@@ -85,5 +85,11 @@
             android:layout_height="wrap_content"
             android:text="Custom Typefaces" />
 
+        <Button
+            android:id="@+id/navigation_bar_translucent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigation Bar Translucent"/>
+
     </LinearLayout>
 </ScrollView>
