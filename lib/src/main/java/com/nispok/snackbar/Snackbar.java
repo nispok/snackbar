@@ -239,7 +239,7 @@ public class Snackbar extends SnackbarLayout {
      * @param shouldAllow
      * @return
      */
-    public Snackbar allowMultipleActionClicks(boolean shouldAllow){
+    public Snackbar allowMultipleActionClicks(boolean shouldAllow) {
 
         mShouldAllowMultipleActionClicks = shouldAllow;
         return this;
@@ -542,7 +542,7 @@ public class Snackbar extends SnackbarLayout {
             public boolean onPreDraw() {
                 getViewTreeObserver().removeOnPreDrawListener(this);
                 if (mEventListener != null) {
-                    if(mIsShowingByReplace) {
+                    if (mIsShowingByReplace) {
                         mEventListener.onShowByReplace(Snackbar.this);
                     } else {
                         mEventListener.onShow(Snackbar.this);
@@ -653,7 +653,7 @@ public class Snackbar extends SnackbarLayout {
         mIsDismissing = true;
 
         if (mEventListener != null && mIsShowing) {
-            if(mIsReplacePending) {
+            if (mIsReplacePending) {
                 mEventListener.onDismissByReplace(Snackbar.this);
             } else {
                 mEventListener.onDismiss(Snackbar.this);
@@ -735,6 +735,17 @@ public class Snackbar extends SnackbarLayout {
 
     public SnackbarType getType() {
         return mType;
+    }
+
+    /**
+     * @return whether the action button has been clicked. In other words, this method will let
+     * you know if {@link com.nispok.snackbar.listeners.ActionClickListener#onActionClicked(Snackbar)}
+     * was called. This is useful, for instance, if you want to know during
+     * {@link com.nispok.snackbar.listeners.EventListener#onDismiss(Snackbar)} if the
+     * {@link com.nispok.snackbar.Snackbar} is being dismissed because of its action click
+     */
+    public boolean isActionClicked() {
+        return mActionClicked;
     }
 
     /**
