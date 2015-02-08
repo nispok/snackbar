@@ -120,6 +120,14 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                     }
 
                                     @Override
+                                    public void onShowByReplace(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will show by replace. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
+
+                                    @Override
                                     public void onShown(Snackbar snackbar) {
                                         Log.i(TAG, String.format(
                                                 "Snackbar shown. Width: %d Height: %d Offset: %d",
@@ -131,6 +139,14 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                     public void onDismiss(Snackbar snackbar) {
                                         Log.i(TAG, String.format(
                                                 "Snackbar will dismiss. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
+
+                                    @Override
+                                    public void onDismissByReplace(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will dismiss by replace. Width: %d Height: %d Offset: %d",
                                                 snackbar.getWidth(), snackbar.getHeight(),
                                                 snackbar.getOffset()));
                                     }
@@ -222,6 +238,23 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         .textTypeface(tf)
                         .actionLabel("Cool")
                         .actionLabelTypeface(tf));
+            }
+        });
+
+        Button navigationBarTranslucentButton = (Button) findViewById(R.id.navigation_bar_translucent);
+        navigationBarTranslucentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(SnackbarNavigationBarTranslucentSampleActivity.isTranslucentSystemBarsCapable()) {
+                    Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
+                            SnackbarNavigationBarTranslucentSampleActivity.class);
+                    startActivity(sampleIntent);
+                } else {
+                    Toast.makeText(SnackbarSampleActivity.this,
+                            "Translucent System bars only available for KITKAT or newer",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

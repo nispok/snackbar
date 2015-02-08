@@ -15,6 +15,14 @@ public interface EventListener {
     public void onShow(Snackbar snackbar);
 
     /**
+     * Called when a {@link com.nispok.snackbar.Snackbar} is about to enter the screen while
+     * a {@link com.nispok.snackbar.Snackbar} is about to exit the screen by replacement.
+     *
+     * @param snackbar the {@link com.nispok.snackbar.Snackbar} that's being shown
+     */
+    public void onShowByReplace(Snackbar snackbar);
+
+    /**
      * Called when a {@link com.nispok.snackbar.Snackbar} is fully shown
      *
      * @param snackbar the {@link com.nispok.snackbar.Snackbar} that's being shown
@@ -27,6 +35,14 @@ public interface EventListener {
      * @param snackbar the {@link com.nispok.snackbar.Snackbar} that's being dismissed
      */
     public void onDismiss(Snackbar snackbar);
+
+    /**
+     * Called when a {@link com.nispok.snackbar.Snackbar} is about to exit the screen
+     * when a new {@link com.nispok.snackbar.Snackbar} is about to enter the screen.
+     *
+     * @param snackbar the {@link com.nispok.snackbar.Snackbar} that's being dismissed
+     */
+    public void onDismissByReplace(Snackbar snackbar);
 
     /**
      * Called when a {@link com.nispok.snackbar.Snackbar} had just been dismissed

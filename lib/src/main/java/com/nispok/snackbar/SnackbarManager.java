@@ -43,6 +43,12 @@ public class SnackbarManager {
      */
     public static void show(@NonNull Snackbar snackbar, @NonNull Activity activity) {
         if (currentSnackbar != null) {
+            if(currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                currentSnackbar.dismissByReplace();
+                currentSnackbar = snackbar;
+                currentSnackbar.showByReplace(activity);
+                return;
+            }
             currentSnackbar.dismiss();
         }
         currentSnackbar = snackbar;
