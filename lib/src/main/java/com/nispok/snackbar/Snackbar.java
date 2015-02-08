@@ -48,17 +48,19 @@ public class Snackbar extends SnackbarLayout {
         }
     }
 
+    private int mUndefinedColor = -10000;
+
     private SnackbarType mType = SnackbarType.SINGLE_LINE;
     private SnackbarDuration mDuration = SnackbarDuration.LENGTH_LONG;
     private CharSequence mText;
-    private int mColor = -1;
-    private int mTextColor = -1;
+    private int mColor = mUndefinedColor;
+    private int mTextColor = mUndefinedColor;
     private int mOffset;
     private long mSnackbarStart;
     private long mSnackbarFinish;
     private long mTimeRemaining = -1;
     private CharSequence mActionLabel;
-    private int mActionColor = -1;
+    private int mActionColor = mUndefinedColor;
     private boolean mAnimated = true;
     private boolean mIsReplacePending = false;
     private boolean mIsShowingByReplace = false;
@@ -371,7 +373,7 @@ public class Snackbar extends SnackbarLayout {
                 .inflate(R.layout.sb__template, this, true);
 
         Resources res = getResources();
-        mColor = mColor != -1 ? mColor : res.getColor(R.color.sb__background);
+        mColor = mColor != mUndefinedColor ? mColor : res.getColor(R.color.sb__background);
         mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
         float scale = res.getDisplayMetrics().density;
 
@@ -417,7 +419,7 @@ public class Snackbar extends SnackbarLayout {
         snackbarText.setText(mText);
         snackbarText.setTypeface(mTextTypeface);
 
-        if (mTextColor != -1) {
+        if (mTextColor != mUndefinedColor) {
             snackbarText.setTextColor(mTextColor);
         }
 
@@ -429,7 +431,7 @@ public class Snackbar extends SnackbarLayout {
             snackbarAction.setText(mActionLabel);
             snackbarAction.setTypeface(mActionTypeface);
 
-            if (mActionColor != -1) {
+            if (mActionColor != mUndefinedColor) {
                 snackbarAction.setTextColor(mActionColor);
             }
 

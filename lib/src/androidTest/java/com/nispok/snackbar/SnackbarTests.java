@@ -42,12 +42,6 @@ public class SnackbarTests extends InstrumentationTestCase {
         assertEquals(Snackbar.SnackbarDuration.LENGTH_SHORT.getDuration(), mSnackbar.getDuration());
     }
 
-    public void testSnackbarShouldHaveWhiteTextColorByDefault() {
-        mSnackbar = Snackbar.with(mContext);
-
-        assertEquals(Color.WHITE, mSnackbar.getTextColor());
-    }
-
     public void testSnackbarTextColorCanBeChanged() {
         mSnackbar = Snackbar.with(mContext).textColor(Color.GREEN);
 
