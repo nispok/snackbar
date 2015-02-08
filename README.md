@@ -19,7 +19,7 @@ Works on API levels >= 8
 You can import the library from source as a module or grab via Gradle:
  
  ```groovy
- compile 'com.nispok:snackbar:2.7.5'
+ compile 'com.nispok:snackbar:2.8.0'
  ```
 ## Usage
 
@@ -76,6 +76,12 @@ SnackbarManager.show(
                 myFloatingActionButton.moveUp(snackbar.getHeight());
             }
             @Override
+            public void onShowByReplace(Snackbar snackbar) {
+                Log.i(TAG, String.format("Snackbar will show by replace. Width: %d Height: %d Offset: %d",
+                                        snackbar.getWidth(), snackbar.getHeight(),
+                                        snackbar.getOffset()));
+            }
+            @Override
             public void onShown(Snackbar snackbar) {
                 Log.i(TAG, String.format("Snackbar shown. Width: %d Height: %d Offset: %d",
                         snackbar.getWidth(), snackbar.getHeight(),
@@ -84,6 +90,13 @@ SnackbarManager.show(
             @Override
             public void onDismiss(Snackbar snackbar) {
                 myFloatingActionButton.moveDown(snackbar.getHeight());
+            }
+            @Override
+            public void onDismissByReplace(Snackbar snackbar) {
+                Log.i(TAG, String.format(
+                                "Snackbar will dismiss by replace. Width: %d Height: %d Offset: %d",
+                                snackbar.getWidth(), snackbar.getHeight(),
+                                snackbar.getOffset()));
             }
             @Override
             public void onDismissed(Snackbar snackbar) {
