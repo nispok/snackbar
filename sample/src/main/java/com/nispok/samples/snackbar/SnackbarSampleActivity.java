@@ -257,6 +257,24 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 }
             }
         });
+
+
+        Button immersiveModeButton = (Button) findViewById(R.id.immersive_mode_example);
+        immersiveModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(SnackbarImmersiveModeSampleActivity.isImmersiveModeCapable()) {
+                    Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
+                            SnackbarImmersiveModeSampleActivity.class);
+                    startActivity(sampleIntent);
+                } else {
+                    Toast.makeText(SnackbarSampleActivity.this,
+                            "Immersive mode only available for KITKAT or newer",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
