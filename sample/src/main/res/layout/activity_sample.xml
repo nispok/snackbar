@@ -97,5 +97,11 @@
             android:layout_height="wrap_content"
             android:text="Immersive Mode"/>
 
+        <Button
+            android:id="@+id/show_in_dialog_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show in Dialog"/>
+
     </LinearLayout>
 </ScrollView>
