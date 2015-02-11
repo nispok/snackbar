@@ -47,6 +47,12 @@ SnackbarManager.show(
     Snackbar.with(getApplicationContext())
     .text("Single-line snackbar"), myActivity);
 ```
+You can place the `Snackbar` at the bottom of a particular hierarchy of views. The sample app makes
+use of this; check out [SnackbarImmersiveModeSampleActivity](./sample/src/main/java/com/nispok/samples/snackbar/SnackbarImmersiveModeSampleActivity.java):
+```java
+SnackbarManager.show(Snackbar snackbar, ViewGroup parent) { }
+SnackbarManager.show(Snackbar snackbar, ViewGroup parent, boolean usePhoneLayout) { }
+```
 If you want an action button to be displayed, just assign a label and an `ActionClickListener`:
 
 ```java
@@ -64,7 +70,8 @@ SnackbarManager.show(
 ```
 If you need to know when the `Snackbar` is shown or dismissed, assign a `EventListener` to it.
 This is useful if you need to move other objects while the `Snackbar` is displayed. For instance,
-you can move a Floating Action Button up while the `Snackbar` is on screen:
+you can move a Floating Action Button up while the `Snackbar` is on screen. Note that if you only
+need to override a subset of the interface methods you can extend from `EventListenerAdapter`:
 
 ```java
 SnackbarManager.show(
