@@ -275,6 +275,16 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 }
             }
         });
+
+        Button showInDialogButton = (Button) findViewById(R.id.show_in_dialog_example);
+        showInDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
+                        SnackbarShowInDialogSampleActivity.class);
+                startActivity(sampleIntent);
+            }
+        });
     }
 
     @Override

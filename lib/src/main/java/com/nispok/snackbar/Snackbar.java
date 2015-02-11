@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nispok.snackbar.enums.SnackbarType;
@@ -83,6 +84,7 @@ public class Snackbar extends SnackbarLayout {
     private Point mDisplaySize = new Point();
     private Point mRealDisplaySize = new Point();
     private Activity mTargetActivity;
+    private boolean mUsePhoneLayout;
     private Runnable mDismissRunnable = new Runnable() {
         @Override
         public void run() {
@@ -387,23 +389,45 @@ public class Snackbar extends SnackbarLayout {
         return this;
     }
 
-    private FrameLayout.LayoutParams init(Activity parent) {
-        SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(parent)
+    private static MarginLayoutParams createMarginLayoutParams(ViewGroup viewGroup, int width, int height) {
+        if (viewGroup instanceof FrameLayout) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
+            params.gravity = Gravity.BOTTOM;
+            return params;
+        } else if (viewGroup instanceof RelativeLayout) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+            return params;
+        } else {
+            throw new IllegalStateException("Requires FrameLayout or RelativeLayout for the parent of Snackbar");
+        }
+    }
+
+    static boolean shouldUsePhoneLayout(Context context) {
+        if (context == null) {
+            return true;
+        } else {
+            return context.getResources().getBoolean(R.bool.sb__is_phone);
+        }
+    }
+
+    private MarginLayoutParams init(Context context, Activity targetActivity, ViewGroup parent, boolean usePhoneLayout) {
+        SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(context)
                 .inflate(R.layout.sb__template, this, true);
 
         Resources res = getResources();
         mColor = mColor != mUndefinedColor ? mColor : res.getColor(R.color.sb__background);
         mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
+        mUsePhoneLayout = usePhoneLayout;
         float scale = res.getDisplayMetrics().density;
 
-        FrameLayout.LayoutParams params;
-        if (res.getBoolean(R.bool.sb__is_phone)) {
+        MarginLayoutParams params;
+        if (mUsePhoneLayout) {
             // Phone
             layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
             layout.setBackgroundColor(mColor);
-            params = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            params = createMarginLayoutParams(
+                    parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
@@ -413,11 +437,9 @@ public class Snackbar extends SnackbarLayout {
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
 
-            params = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
+            params = createMarginLayoutParams(
+                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
         }
-
-        params.gravity = Gravity.BOTTOM;
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
@@ -551,6 +573,16 @@ public class Snackbar extends SnackbarLayout {
         show(targetActivity);
     }
 
+    public void showByReplace(ViewGroup parent) {
+        mIsShowingByReplace = true;
+        show(parent, shouldUsePhoneLayout(parent.getContext()));
+    }
+
+    public void showByReplace(ViewGroup parent, boolean usePhoneLayout) {
+        mIsShowingByReplace = true;
+        show(parent, usePhoneLayout);
+    }
+
     /**
      * Displays the {@link Snackbar} at the bottom of the
      * {@link android.app.Activity} provided.
@@ -558,21 +590,47 @@ public class Snackbar extends SnackbarLayout {
      * @param targetActivity
      */
     public void show(Activity targetActivity) {
-        FrameLayout.LayoutParams params = init(targetActivity);
-
-        updateLayoutParamsMargins(targetActivity, params);
-
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
+        boolean usePhoneLayout = shouldUsePhoneLayout(targetActivity);
+        MarginLayoutParams params = init(targetActivity, targetActivity, root, usePhoneLayout);
+        updateLayoutParamsMargins(targetActivity, params);
+        showInternal(targetActivity, params, root);
+    }
 
-        root.removeView(this);
-        root.addView(this, params);
+    /**
+     * Displays the {@link Snackbar} at the bottom of the
+     * {@link android.view.ViewGroup} provided.
+     *
+     * @param parent
+     */
+    public void show(ViewGroup parent) {
+        show(parent, shouldUsePhoneLayout(parent.getContext()));
+    }
+
+    /**
+     * Displays the {@link Snackbar} at the bottom of the
+     * {@link android.view.ViewGroup} provided.
+     *
+     * @param parent
+     * @param usePhoneLayout
+     */
+    public void show(ViewGroup parent, boolean usePhoneLayout) {
+        MarginLayoutParams params = init(parent.getContext(), null, parent, usePhoneLayout);
+        updateLayoutParamsMargins(null, params);
+        showInternal(null, params, parent);
+    }
+
+    private void showInternal(Activity targetActivity, MarginLayoutParams params, ViewGroup parent) {
+        parent.removeView(this);
+
+        parent.addView(this, params);
 
         bringToFront();
 
         // As requested in the documentation for bringToFront()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            root.requestLayout();
-            root.invalidate();
+            parent.requestLayout();
+            parent.invalidate();
         }
 
         mIsShowing = true;
@@ -782,9 +840,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     protected void updateLayoutParamsMargins(Activity targetActivity, MarginLayoutParams params) {
-        Resources res = getResources();
-
-        if (res.getBoolean(R.bool.sb__is_phone)) {
+        if (mUsePhoneLayout) {
             // Phone
             params.topMargin = 0;
             params.rightMargin = 0;
