@@ -17,6 +17,7 @@
         <activity android:name=".SnackbarListViewSampleActivity" />
         <activity android:name=".SnackbarRecyclerViewSampleActivity" />
         <activity android:name=".SnackbarNavigationBarTranslucentSampleActivity" />
+        <activity android:name=".SnackbarImmersiveModeSampleActivity" />
     </application>
 
 </manifest>

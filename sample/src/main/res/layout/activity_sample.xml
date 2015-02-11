@@ -91,5 +91,11 @@
             android:layout_height="wrap_content"
             android:text="Navigation Bar Translucent"/>
 
+        <Button
+            android:id="@+id/immersive_mode_example"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Immersive Mode"/>
+
     </LinearLayout>
 </ScrollView>

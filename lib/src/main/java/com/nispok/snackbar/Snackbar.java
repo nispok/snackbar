@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -11,6 +13,7 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,15 +78,31 @@ public class Snackbar extends SnackbarLayout {
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
     private boolean mIsDismissing = false;
+    private Rect mWindowInsets = new Rect();
+    private Rect mDisplayFrame = new Rect();
+    private Point mDisplaySize = new Point();
+    private Point mRealDisplaySize = new Point();
+    private Activity mTargetActivity;
     private Runnable mDismissRunnable = new Runnable() {
         @Override
         public void run() {
             dismiss();
         }
     };
+    private Runnable mRefreshLayoutParamsMarginsRunnable = new Runnable() {
+        @Override
+        public void run() {
+            refreshLayoutParamsMargins();
+        }
+    };
 
     private Snackbar(Context context) {
         super(context);
+
+        // inject helper view to use onWindowSystemUiVisibilityChangedCompat() event
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            addView(new SnackbarHelperChildViewJB(getContext()));
+        }
     }
 
     public static Snackbar with(Context context) {
@@ -377,23 +396,11 @@ public class Snackbar extends SnackbarLayout {
         mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
         float scale = res.getDisplayMetrics().density;
 
-        // Add bottom padding when navigation bar is translucent
-        int snackBarBottomPadding = 0;
-        if (isNavigationBarTranslucent(parent)) {
-            Resources resources = getResources();
-            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                snackBarBottomPadding = resources.getDimensionPixelSize(resourceId);
-                setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(),
-                        getPaddingBottom() + snackBarBottomPadding);
-            }
-        }
-
         FrameLayout.LayoutParams params;
         if (res.getBoolean(R.bool.sb__is_phone)) {
             // Phone
-            layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale) + snackBarBottomPadding);
-            layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale) + snackBarBottomPadding);
+            layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
+            layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
             layout.setBackgroundColor(mColor);
             params = new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -408,9 +415,6 @@ public class Snackbar extends SnackbarLayout {
 
             params = new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
-
-            params.leftMargin = mOffset;
-            params.bottomMargin = mOffset;
         }
 
         params.gravity = Gravity.BOTTOM;
@@ -497,6 +501,47 @@ public class Snackbar extends SnackbarLayout {
         return params;
     }
 
+
+    private void updateWindowInsets(Activity targetActivity, Rect outInsets) {
+        outInsets.left = outInsets.top = outInsets.right = outInsets.bottom = 0;
+
+        if (targetActivity == null) {
+            return;
+        }
+
+        ViewGroup decorView = (ViewGroup) targetActivity.getWindow().getDecorView();
+        Display display = targetActivity.getWindowManager().getDefaultDisplay();
+
+        boolean isTranslucent = isNavigationBarTranslucent(targetActivity);
+        boolean isHidden = isNavigationBarHidden(decorView);
+
+        Rect dispFrame = mDisplayFrame;
+        Point realDispSize = mRealDisplaySize;
+        Point dispSize = mDisplaySize;
+
+        decorView.getWindowVisibleDisplayFrame(dispFrame);
+
+        DisplayCompat.getRealSize(display, realDispSize);
+        DisplayCompat.getSize(display, dispSize);
+
+        if (dispSize.x < realDispSize.x) {
+            // navigation bar is placed on right side of the screen
+            if (isTranslucent || isHidden) {
+                int navBarWidth = realDispSize.x - dispSize.x;
+                int overlapWidth = realDispSize.x - dispFrame.right;
+                outInsets.right = Math.max(Math.min(navBarWidth, overlapWidth), 0);
+            }
+        } else if (dispSize.y < realDispSize.y) {
+            // navigation bar is placed on bottom side of the screen
+
+            if (isTranslucent || isHidden) {
+                int navBarHeight = realDispSize.y - dispSize.y;
+                int overlapHeight = realDispSize.y - dispFrame.bottom;
+                outInsets.bottom = Math.max(Math.min(navBarHeight, overlapHeight), 0);
+            }
+        }
+    }
+
     private static int dpToPx(int dp, float scale) {
         return (int) (dp * scale + 0.5f);
     }
@@ -515,18 +560,11 @@ public class Snackbar extends SnackbarLayout {
     public void show(Activity targetActivity) {
         FrameLayout.LayoutParams params = init(targetActivity);
 
+        updateLayoutParamsMargins(targetActivity, params);
+
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
 
         root.removeView(this);
-
-        if (isNavigationBarHidden(root)) {
-            Resources resources = getResources();
-            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0 && !isNavigationBarTranslucent(targetActivity)) {
-                params.bottomMargin = resources.getDimensionPixelSize(resourceId);
-            }
-        }
-
         root.addView(this, params);
 
         bringToFront();
@@ -538,6 +576,7 @@ public class Snackbar extends SnackbarLayout {
         }
 
         mIsShowing = true;
+        mTargetActivity = targetActivity;
 
         getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
@@ -701,6 +740,7 @@ public class Snackbar extends SnackbarLayout {
         }
         mIsShowing = false;
         mIsReplacePending = false;
+        mTargetActivity = null;
     }
 
     @Override
@@ -709,6 +749,60 @@ public class Snackbar extends SnackbarLayout {
         if (mDismissRunnable != null) {
             removeCallbacks(mDismissRunnable);
         }
+        if (mRefreshLayoutParamsMarginsRunnable != null) {
+            removeCallbacks(mRefreshLayoutParamsMarginsRunnable);
+        }
+    }
+
+    void dispatchOnWindowSystemUiVisibilityChangedCompat(int visible) {
+        onWindowSystemUiVisibilityChangedCompat(visible);
+    }
+
+    protected void onWindowSystemUiVisibilityChangedCompat(int visible) {
+        if (mRefreshLayoutParamsMarginsRunnable != null) {
+            post(mRefreshLayoutParamsMarginsRunnable);
+        }
+    }
+
+    protected void refreshLayoutParamsMargins() {
+        if (mIsDismissing) {
+            return;
+        }
+
+        ViewGroup parent = (ViewGroup) getParent();
+        if (parent == null) {
+            return;
+        }
+
+        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
+
+        updateLayoutParamsMargins(mTargetActivity, params);
+
+        setLayoutParams(params);
+    }
+
+    protected void updateLayoutParamsMargins(Activity targetActivity, MarginLayoutParams params) {
+        Resources res = getResources();
+
+        if (res.getBoolean(R.bool.sb__is_phone)) {
+            // Phone
+            params.topMargin = 0;
+            params.rightMargin = 0;
+            params.leftMargin = 0;
+            params.bottomMargin = 0;
+        } else {
+            // Tablet/desktop
+            params.topMargin = 0;
+            params.rightMargin = 0;
+            params.leftMargin = mOffset;
+            params.bottomMargin = mOffset;
+        }
+
+        // Add bottom/right margin when navigation bar is hidden or translucent
+        updateWindowInsets(targetActivity, mWindowInsets);
+
+        params.rightMargin += mWindowInsets.right;
+        params.bottomMargin += mWindowInsets.bottom;
     }
 
     public int getActionColor() {
