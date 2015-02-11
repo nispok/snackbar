@@ -177,7 +177,7 @@ SnackbarManager.show(
 ```
 
 # Examples
-There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/sample/snackbar/SnackbarSampleActivity.java) is where you want to start.
+There's a sample app included in the project. [SnackbarSampleActivity](./sample/src/main/java/com/nispok/samples/snackbar/SnackbarSampleActivity.java) is where you want to start.
 
 # Contributing
 If you would like to add features or report any bugs, open a [PR](https://github.com/nispok/snackbar/pulls) or refer to the [issues](https://github.com/nispok/snackbar/issues) section.
