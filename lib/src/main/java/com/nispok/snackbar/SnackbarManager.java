@@ -3,6 +3,7 @@ package com.nispok.snackbar;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.ViewGroup;
 
 /**
  * A handler for multiple {@link Snackbar}s
@@ -53,6 +54,27 @@ public class SnackbarManager {
         }
         currentSnackbar = snackbar;
         currentSnackbar.show(activity);
+    }
+
+    /**
+     * Displays a {@link com.nispok.snackbar.Snackbar} in the specified {@link ViewGroup}, dismissing
+     * the current Snackbar being displayed, if any
+     *
+     * @param snackbar instance of {@link com.nispok.snackbar.Snackbar} to display
+     * @param parent parent {@link ViewGroup} to display the Snackbar
+     */
+    public static void show(@NonNull Snackbar snackbar, @NonNull ViewGroup parent) {
+        if (currentSnackbar != null) {
+            if(currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                currentSnackbar.dismissByReplace();
+                currentSnackbar = snackbar;
+                currentSnackbar.showByReplace(parent);
+                return;
+            }
+            currentSnackbar.dismiss();
+        }
+        currentSnackbar = snackbar;
+        currentSnackbar.show(parent);
     }
 
     /**
