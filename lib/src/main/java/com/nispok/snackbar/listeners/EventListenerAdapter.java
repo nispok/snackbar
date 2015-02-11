@@ -8,52 +8,51 @@ import com.nispok.snackbar.Snackbar;
  */
 public abstract class EventListenerAdapter implements EventListener {
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onShow(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onShow(Snackbar snackbar) {
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onShowByReplace(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onShowByReplace(Snackbar snackbar) {
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onShown(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onShown(Snackbar snackbar) {
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDismiss(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onDismiss(Snackbar snackbar) {
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDismissByReplace(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onDismissByReplace(Snackbar snackbar) {
+    }
 
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDismissed(Snackbar snackbar) {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void onDismissed(Snackbar snackbar) {
-
-	}
+    }
 }
