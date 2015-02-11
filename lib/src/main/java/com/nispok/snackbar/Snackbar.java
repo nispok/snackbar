@@ -84,6 +84,7 @@ public class Snackbar extends SnackbarLayout {
     private Point mDisplaySize = new Point();
     private Point mRealDisplaySize = new Point();
     private Activity mTargetActivity;
+    private boolean mUsePhoneLayout;
     private Runnable mDismissRunnable = new Runnable() {
         @Override
         public void run() {
@@ -401,25 +402,26 @@ public class Snackbar extends SnackbarLayout {
         }
     }
 
-    private boolean shouldUsePhoneLayout(Activity targetActivity) {
-        if (targetActivity == null) {
+    static boolean shouldUsePhoneLayout(Context context) {
+        if (context == null) {
             return true;
         } else {
-            return targetActivity.getResources().getBoolean(R.bool.sb__is_phone);
+            return context.getResources().getBoolean(R.bool.sb__is_phone);
         }
     }
 
-    private MarginLayoutParams init(Context context, Activity targetActivity, ViewGroup parent) {
+    private MarginLayoutParams init(Context context, Activity targetActivity, ViewGroup parent, boolean usePhoneLayout) {
         SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(context)
                 .inflate(R.layout.sb__template, this, true);
 
         Resources res = getResources();
         mColor = mColor != mUndefinedColor ? mColor : res.getColor(R.color.sb__background);
         mOffset = res.getDimensionPixelOffset(R.dimen.sb__offset);
+        mUsePhoneLayout = usePhoneLayout;
         float scale = res.getDisplayMetrics().density;
 
         MarginLayoutParams params;
-        if (shouldUsePhoneLayout(targetActivity)) {
+        if (mUsePhoneLayout) {
             // Phone
             layout.setMinimumHeight(dpToPx(mType.getMinHeight(), scale));
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
@@ -573,7 +575,12 @@ public class Snackbar extends SnackbarLayout {
 
     public void showByReplace(ViewGroup parent) {
         mIsShowingByReplace = true;
-        show(parent);
+        show(parent, shouldUsePhoneLayout(parent.getContext()));
+    }
+
+    public void showByReplace(ViewGroup parent, boolean usePhoneLayout) {
+        mIsShowingByReplace = true;
+        show(parent, usePhoneLayout);
     }
 
     /**
@@ -584,7 +591,8 @@ public class Snackbar extends SnackbarLayout {
      */
     public void show(Activity targetActivity) {
         ViewGroup root = (ViewGroup) targetActivity.findViewById(android.R.id.content);
-        MarginLayoutParams params = init(targetActivity, targetActivity, root);
+        boolean usePhoneLayout = shouldUsePhoneLayout(targetActivity);
+        MarginLayoutParams params = init(targetActivity, targetActivity, root, usePhoneLayout);
         updateLayoutParamsMargins(targetActivity, params);
         showInternal(targetActivity, params, root);
     }
@@ -596,7 +604,18 @@ public class Snackbar extends SnackbarLayout {
      * @param parent
      */
     public void show(ViewGroup parent) {
-        MarginLayoutParams params = init(parent.getContext(), null, parent);
+        show(parent, shouldUsePhoneLayout(parent.getContext()));
+    }
+
+    /**
+     * Displays the {@link Snackbar} at the bottom of the
+     * {@link android.view.ViewGroup} provided.
+     *
+     * @param parent
+     * @param usePhoneLayout
+     */
+    public void show(ViewGroup parent, boolean usePhoneLayout) {
+        MarginLayoutParams params = init(parent.getContext(), null, parent, usePhoneLayout);
         updateLayoutParamsMargins(null, params);
         showInternal(null, params, parent);
     }
@@ -821,9 +840,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     protected void updateLayoutParamsMargins(Activity targetActivity, MarginLayoutParams params) {
-        Resources res = getResources();
-
-        if (shouldUsePhoneLayout(targetActivity)) {
+        if (mUsePhoneLayout) {
             // Phone
             params.topMargin = 0;
             params.rightMargin = 0;

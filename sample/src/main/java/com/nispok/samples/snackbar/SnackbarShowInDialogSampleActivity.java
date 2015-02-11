@@ -121,7 +121,7 @@ public class SnackbarShowInDialogSampleActivity extends ActionBarActivity {
                             .actionColor(Color.parseColor("#FF8A80"))
                             .duration(Snackbar.SnackbarDuration.LENGTH_LONG)
                             .attachToAbsListView(mListView),
-                    mSnackbarContainer);
+                    mSnackbarContainer, true);
 
         }
     }
