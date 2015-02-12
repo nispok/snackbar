@@ -47,10 +47,12 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .text("Something has been done")
                                 .actionLabel("Undo")
                                 .actionListener(new ActionClickListener() {
-	                                @Override
-	                                public void onActionClicked ( Snackbar snackbar ) {
-		                                Toast.makeText(SnackbarSampleActivity.this, "Action undone", Toast.LENGTH_SHORT).show();
-	                                }
+                                    @Override
+                                    public void onActionClicked(Snackbar snackbar) {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "Action undone",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }));
             }
         });
@@ -74,13 +76,16 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 SnackbarManager.show(
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .type(SnackbarType.MULTI_LINE)
-                                .text("This is a multi-line snackbar with an action button. Note " + "that multi-line snackbars are 2 lines max")
+                                .text("This is a multi-line snackbar with an action button. Note " +
+                                        "that multi-line snackbars are 2 lines max")
                                 .actionLabel("Action")
                                 .actionListener(new ActionClickListener() {
-	                                @Override
-	                                public void onActionClicked ( Snackbar snackbar ) {
-		                                Toast.makeText(SnackbarSampleActivity.this, "Action clicked", Toast.LENGTH_SHORT).show();
-	                                }
+                                    @Override
+                                    public void onActionClicked(Snackbar snackbar) {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "Action clicked",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }));
             }
         });
@@ -105,35 +110,54 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("I'm showing a toast on exit")
                                 .eventListener(new EventListener() {
-	                                @Override
-	                                public void onShow ( Snackbar snackbar ) {
-		                                Log.i(TAG, String.format("Snackbar will show. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()));
-	                                }
+                                    @Override
+                                    public void onShow(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will show. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
 
-	                                @Override
-	                                public void onShowByReplace ( Snackbar snackbar ) {
-		                                Log.i(TAG, String.format("Snackbar will show by replace. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()));
-	                                }
+                                    @Override
+                                    public void onShowByReplace(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will show by replace. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
 
-	                                @Override
-	                                public void onShown ( Snackbar snackbar ) {
-		                                Log.i(TAG, String.format("Snackbar shown. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()));
-	                                }
+                                    @Override
+                                    public void onShown(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar shown. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
 
-	                                @Override
-	                                public void onDismiss ( Snackbar snackbar ) {
-		                                Log.i(TAG, String.format("Snackbar will dismiss. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()));
-	                                }
+                                    @Override
+                                    public void onDismiss(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will dismiss. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
 
-	                                @Override
-	                                public void onDismissByReplace ( Snackbar snackbar ) {
-		                                Log.i(TAG, String.format("Snackbar will dismiss by replace. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()));
-	                                }
+                                    @Override
+                                    public void onDismissByReplace(Snackbar snackbar) {
+                                        Log.i(TAG, String.format(
+                                                "Snackbar will dismiss by replace. Width: %d Height: %d Offset: %d",
+                                                snackbar.getWidth(), snackbar.getHeight(),
+                                                snackbar.getOffset()));
+                                    }
 
-	                                @Override
-	                                public void onDismissed ( Snackbar snackbar ) {
-		                                Toast.makeText(SnackbarSampleActivity.this, String.format("Snackbar dismissed. Width: %d Height: %d Offset: %d", snackbar.getWidth(), snackbar.getHeight(), snackbar.getOffset()), Toast.LENGTH_SHORT).show();
-	                                }
+                                    @Override
+                                    public void onDismissed(Snackbar snackbar) {
+                                        Toast.makeText(SnackbarSampleActivity.this, String.format(
+                                                        "Snackbar dismissed. Width: %d Height: %d Offset: %d",
+                                                        snackbar.getWidth(), snackbar.getHeight(),
+                                                        snackbar.getOffset()),
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }));
             }
         });
@@ -150,10 +174,10 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                                 .actionLabel("Action")
                                 .actionColor(Color.parseColor("#ff5a2900"))
                                 .actionListener(new ActionClickListener() {
-	                                @Override
-	                                public void onActionClicked ( Snackbar snackbar ) {
-		                                Log.i(TAG, "Action touched");
-	                                }
+                                    @Override
+                                    public void onActionClicked(Snackbar snackbar) {
+                                        Log.i(TAG, "Action touched");
+                                    }
                                 })
                                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT));
             }
@@ -318,8 +342,8 @@ public class SnackbarSampleActivity extends ActionBarActivity {
 					            .margin(15, 15)
 					            .backgroundDrawable(R.drawable.custom_shape)
 					            .text("Single-line Custom Shape"));
-		    }
-	    });
+            }
+        });
     }
 
     @Override
