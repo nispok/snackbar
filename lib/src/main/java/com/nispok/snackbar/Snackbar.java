@@ -7,26 +7,18 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
+import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.layouts.SnackbarLayout;
 import com.nispok.snackbar.listeners.ActionClickListener;
@@ -52,7 +44,22 @@ public class Snackbar extends SnackbarLayout {
         }
     }
 
+	public static enum SnackbarPosition {
+		TOP(Gravity.TOP), BOTTOM(Gravity.BOTTOM);
+
+		private int layoutGravity;
+
+		SnackbarPosition ( int layoutGravity ) {
+			this.layoutGravity = layoutGravity;
+		}
+
+		public int getLayoutGravity () {
+			return layoutGravity;
+		}
+	}
+
     private int mUndefinedColor = -10000;
+	private int mUndefinedDrawable = -10000;
 
     private SnackbarType mType = SnackbarType.SINGLE_LINE;
     private SnackbarDuration mDuration = SnackbarDuration.LENGTH_LONG;
@@ -60,6 +67,12 @@ public class Snackbar extends SnackbarLayout {
     private int mColor = mUndefinedColor;
     private int mTextColor = mUndefinedColor;
     private int mOffset;
+	private SnackbarPosition mPosition = SnackbarPosition.BOTTOM;
+	private int mDrawable = mUndefinedDrawable;
+	private int mMarginTop = 0;
+	private int mMarginBottom = 0;
+	private int mMarginLeft = 0;
+	private int mMarginRight = 0;
     private long mSnackbarStart;
     private long mSnackbarFinish;
     private long mTimeRemaining = -1;
@@ -164,6 +177,17 @@ public class Snackbar extends SnackbarLayout {
         return color(getResources().getColor(resId));
     }
 
+	/**
+	 * Sets the background drawable of this {@link Snackbar}
+	 *
+	 * @param resId
+	 * @return
+	 */
+	public Snackbar backgroundDrawable(@DrawableRes int resId) {
+		mDrawable = resId;
+		return this;
+	}
+
     /**
      * Sets the text color of this {@link Snackbar}
      *
@@ -207,6 +231,57 @@ public class Snackbar extends SnackbarLayout {
     public Snackbar actionLabel(@StringRes int resId) {
         return actionLabel(getContext().getString(resId));
     }
+
+	/**
+	 * Set the position of the {@link Snackbar}. Note that if this is not set, the default is to
+	 * show the snackbar to the bottom of the screen.
+	 *
+	 * @param position
+	 * @return
+	 */
+	public Snackbar position(SnackbarPosition position) {
+		mPosition = position;
+		return this;
+	}
+
+	/**
+	 * Sets all the margins of the {@link Snackbar} to the same value, in pixels
+	 *
+	 * @param margin
+	 * @return
+	 */
+	public Snackbar margin(int margin) {
+		return margin(margin, margin, margin, margin);
+	}
+
+	/**
+	 * Sets the margins of the {@link Snackbar} in pixels such that the left and right are equal, and the top and bottom are equal
+	 *
+	 * @param marginLR
+	 * @param marginTB
+	 * @return
+	 */
+	public Snackbar margin(int marginLR, int marginTB) {
+		return margin(marginLR, marginTB, marginLR, marginTB);
+	}
+
+	/**
+	 * Sets all the margin of the {@link Snackbar} individually, in pixels
+	 *
+	 * @param marginLeft
+	 * @param marginTop
+	 * @param marginRight
+	 * @param marginBottom
+	 * @return
+	 */
+	public Snackbar margin(int marginLeft, int marginTop, int marginRight, int marginBottom) {
+		mMarginLeft = marginLeft;
+		mMarginTop = marginTop;
+		mMarginBottom = marginBottom;
+		mMarginRight = marginRight;
+
+		return this;
+	}
 
     /**
      * Sets the color of the action button label. Note that you must set a button label with
@@ -389,14 +464,24 @@ public class Snackbar extends SnackbarLayout {
         return this;
     }
 
-    private static MarginLayoutParams createMarginLayoutParams(ViewGroup viewGroup, int width, int height) {
+    private static MarginLayoutParams createMarginLayoutParams(ViewGroup viewGroup, int width, int height, SnackbarPosition position) {
         if (viewGroup instanceof FrameLayout) {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-            params.gravity = Gravity.BOTTOM;
+            params.gravity = position.getLayoutGravity();
             return params;
         } else if (viewGroup instanceof RelativeLayout) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+
+	        if (position == SnackbarPosition.TOP)
+		        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+	        else
+		        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+
             return params;
+        } else if (viewGroup instanceof LinearLayout) {
+	        LinearLayout.LayoutParams params = new LayoutParams(width, height);
+	        params.gravity = position.getLayoutGravity();
+	        return params;
         } else {
             throw new IllegalStateException("Requires FrameLayout or RelativeLayout for the parent of Snackbar");
         }
@@ -427,7 +512,7 @@ public class Snackbar extends SnackbarLayout {
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
             layout.setBackgroundColor(mColor);
             params = createMarginLayoutParams(
-                    parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                    parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, mPosition);
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
@@ -438,8 +523,11 @@ public class Snackbar extends SnackbarLayout {
             bg.setColor(mColor);
 
             params = createMarginLayoutParams(
-                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale));
+                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale), mPosition);
         }
+
+	    if (mDrawable != mUndefinedDrawable)
+		    setBackgroundDrawable(layout, res.getDrawable(mDrawable));
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
@@ -662,7 +750,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        Animation slideIn = AnimationUtils.loadAnimation(getContext(), R.anim.sb__in);
+        Animation slideIn = AnimationUtils.loadAnimation(getContext(), getInAnimationResource(mPosition));
         slideIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -764,7 +852,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), R.anim.sb__out);
+        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), getOutAnimationResource(mPosition));
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -842,16 +930,16 @@ public class Snackbar extends SnackbarLayout {
     protected void updateLayoutParamsMargins(Activity targetActivity, MarginLayoutParams params) {
         if (mUsePhoneLayout) {
             // Phone
-            params.topMargin = 0;
-            params.rightMargin = 0;
-            params.leftMargin = 0;
-            params.bottomMargin = 0;
+	        params.topMargin = mMarginTop;
+	        params.rightMargin = mMarginRight;
+	        params.leftMargin = mMarginLeft;
+	        params.bottomMargin = mMarginBottom;
         } else {
             // Tablet/desktop
-            params.topMargin = 0;
-            params.rightMargin = 0;
-            params.leftMargin = mOffset;
-            params.bottomMargin = mOffset;
+	        params.topMargin = mMarginTop;
+	        params.rightMargin = mMarginRight;
+	        params.leftMargin = mMarginLeft + mOffset;
+	        params.bottomMargin = mMarginBottom + mOffset;
         }
 
         // Add bottom/right margin when navigation bar is hidden or translucent
@@ -860,6 +948,8 @@ public class Snackbar extends SnackbarLayout {
         params.rightMargin += mWindowInsets.right;
         params.bottomMargin += mWindowInsets.bottom;
     }
+
+
 
     public int getActionColor() {
         return mActionColor;
@@ -938,20 +1028,36 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
+     * @param snackbarPosition
      * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
      * to enter the view
      */
     @AnimRes
-    public static int getInAnimationResource() {
-        return R.anim.sb__in;
+    public static int getInAnimationResource(SnackbarPosition snackbarPosition) {
+        return snackbarPosition == SnackbarPosition.TOP ? R.anim.sb__top_in : R.anim.sb__bottom_in;
     }
 
     /**
+     * @param snackbarPosition
      * @return the animation resource used by this {@link com.nispok.snackbar.Snackbar} instance
      * to exit the view
      */
     @AnimRes
-    public static int getOutAnimationResource() {
-        return R.anim.sb__out;
+    public static int getOutAnimationResource(SnackbarPosition snackbarPosition) {
+        return snackbarPosition == SnackbarPosition.TOP ? R.anim.sb__top_out : R.anim.sb__bottom_out;
     }
+
+	/**
+	 * Set a Background Drawable using the appropriate Android version api call
+	 *
+	 * @param view
+	 * @param drawable
+	 */
+	public static void setBackgroundDrawable(View view, Drawable drawable) {
+		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+			view.setBackgroundDrawable(drawable);
+		} else {
+			view.setBackground(drawable);
+		}
+	}
 }

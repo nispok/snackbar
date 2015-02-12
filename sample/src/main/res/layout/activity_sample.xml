@@ -103,5 +103,49 @@
             android:layout_height="wrap_content"
             android:text="Show in Dialog"/>
 
+	    <Button
+		    android:id="@+id/single_line_top"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Single-line Top" />
+
+	    <Button
+		    android:id="@+id/single_line_margins"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Single-line Margins" />
+
+	    <Button
+		    android:id="@+id/single_line_shape"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Custom Shape Touchable" />
+
+	    <Button
+		    android:id="@+id/single_line_inside"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Single-line Inside RelativeLayout" />
+
+	    <Button
+		    android:id="@+id/single_line_top_inside"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Single-line Top Inside LinearLayout" />
+
+	    <RelativeLayout
+		    android:id="@+id/view_realtive_layout"
+		    android:layout_width="match_parent"
+		    android:layout_height="100dp"
+		    android:orientation="horizontal"
+		    android:background="@color/material_deep_teal_500" />
+
+	    <LinearLayout
+		    android:id="@+id/view_linear_layout"
+		    android:layout_width="match_parent"
+		    android:layout_height="100dp"
+		    android:orientation="horizontal"
+		    android:background="@color/material_deep_teal_200" />
+
     </LinearLayout>
 </ScrollView>
