@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.layouts.SnackbarLayout;
 import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.ActionSwipeListener;
 import com.nispok.snackbar.listeners.EventListener;
 import com.nispok.snackbar.listeners.SwipeDismissTouchListener;
 
@@ -70,6 +71,7 @@ public class Snackbar extends SnackbarLayout {
     private boolean mIsShowingByReplace = false;
     private long mCustomDuration = -1;
     private ActionClickListener mActionClickListener;
+    private ActionSwipeListener mActionSwipeListener;
     private boolean mShouldAllowMultipleActionClicks;
     private boolean mActionClicked;
     private boolean mShouldDismissOnActionClicked = true;
@@ -252,6 +254,18 @@ public class Snackbar extends SnackbarLayout {
      */
     public Snackbar actionListener(ActionClickListener listener) {
         mActionClickListener = listener;
+        return this;
+    }
+
+
+    /**
+     * Sets the listener to be called when the {@link Snackbar} is dismissed by swipe.
+     *
+     * @param listener
+     * @return
+     */
+    public Snackbar swipeListener(ActionSwipeListener listener) {
+        mActionSwipeListener = listener;
         return this;
     }
 
@@ -498,6 +512,9 @@ public class Snackbar extends SnackbarLayout {
                         @Override
                         public void onDismiss(View view, Object token) {
                             if (view != null) {
+                                if (mActionSwipeListener != null) {
+                                    mActionSwipeListener.onSwipeToDismiss();
+                                }
                                 dismiss(false);
                             }
                         }

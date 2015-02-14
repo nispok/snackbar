@@ -18,6 +18,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.ActionSwipeListener;
 import com.nispok.snackbar.listeners.EventListener;
 
 public class SnackbarSampleActivity extends ActionBarActivity {
@@ -47,6 +48,14 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                         Snackbar.with(SnackbarSampleActivity.this)
                                 .text("Something has been done")
                                 .actionLabel("Undo")
+                                .swipeListener(new ActionSwipeListener() {
+                                    @Override
+                                    public void onSwipeToDismiss() {
+                                        Toast.makeText(SnackbarSampleActivity.this,
+                                                "swipe to dismiss",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                })
                                 .actionListener(new ActionClickListener() {
                                     @Override
                                     public void onActionClicked(Snackbar snackbar) {
