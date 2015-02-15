@@ -1,5 +1,5 @@
 # Snackbar
-[![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Snackbar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1160) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-129-blue.svg?style=flat)](http://androidweekly.net/issues/issue-129)
+[![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar) [![Maven Central](https://img.shields.io/maven-central/v/com.nispok/snackbar.svg)](https://oss.sonatype.org/content/repositories/releases/com/nispok/snackbar/) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Snackbar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1160) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-129-blue.svg?style=flat)](http://androidweekly.net/issues/issue-129)
 
 Library that implements <a href="http://www.google.com/design/spec/components/snackbars-and-toasts.html">Snackbars</a> from Google's <a href="http://www.google.com/design/spec/material-design/introduction.html">Material Design documentation</a>.
 Works on API levels >= 8
