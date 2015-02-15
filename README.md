@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/nispok/snackbar.png?label=ready&title=Ready)](https://waffle.io/nispok/snackbar)
 # Snackbar
 [![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Snackbar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1160)
 
