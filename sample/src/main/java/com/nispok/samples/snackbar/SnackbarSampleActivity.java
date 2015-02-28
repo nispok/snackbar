@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -292,6 +291,66 @@ public class SnackbarSampleActivity extends ActionBarActivity {
                 Intent sampleIntent = new Intent(SnackbarSampleActivity.this,
                         SnackbarShowInDialogSampleActivity.class);
                 startActivity(sampleIntent);
+            }
+        });
+
+	    Button singleLineMarginsButton = (Button) findViewById(R.id.single_line_margins);
+	    singleLineMarginsButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    SnackbarManager.show(
+					    Snackbar.with(SnackbarSampleActivity.this)
+					            .margin(25)
+					            .text("Single-line Margins"));
+		    }
+	    });
+
+	    Button singleLineTopButton = (Button) findViewById(R.id.single_line_top);
+	    singleLineTopButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    SnackbarManager.show(
+					    Snackbar.with(SnackbarSampleActivity.this).position(Snackbar.SnackbarPosition.TOP)
+					            .text("Single-line Top"));
+		    }
+	    });
+
+
+	    Button singleLineButtonInside = (Button) findViewById(R.id.single_line_inside);
+	    singleLineButtonInside.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    SnackbarManager.show(
+					    Snackbar.with(SnackbarSampleActivity.this)
+					            .text("Single-line Inside RelativeLayout")
+					    , (android.view.ViewGroup) findViewById(R.id.view_realtive_layout));
+
+		    }
+	    });
+
+	    Button singleLineTopButtonInside = (Button) findViewById(R.id.single_line_top_inside);
+	    singleLineTopButtonInside.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    SnackbarManager.show(
+					    Snackbar.with(SnackbarSampleActivity.this)
+					            .position(Snackbar.SnackbarPosition.TOP)
+					            .margin(25, 15)
+					            .text("Single-line TOP Inside LinearLayout")
+					    , (android.view.ViewGroup) findViewById(R.id.view_linear_layout));
+		    }
+	    });
+
+	    Button singleLineButtonCustomShape = (Button) findViewById(R.id.single_line_shape);
+	    singleLineButtonCustomShape.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    SnackbarManager.show(
+					    Snackbar.with(SnackbarSampleActivity.this)
+					            .position(Snackbar.SnackbarPosition.TOP)
+					            .margin(15, 15)
+					            .backgroundDrawable(R.drawable.custom_shape)
+					            .text("Single-line Custom Shape"));
             }
         });
     }
