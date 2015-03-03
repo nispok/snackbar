@@ -99,6 +99,7 @@ public class Snackbar extends SnackbarLayout {
     private Point mDisplaySize = new Point();
     private Point mRealDisplaySize = new Point();
     private Activity mTargetActivity;
+    private Float mMaxWidthPercentage = null;
     private boolean mUsePhoneLayout;
     private Runnable mDismissRunnable = new Runnable() {
         @Override
@@ -531,7 +532,10 @@ public class Snackbar extends SnackbarLayout {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
             layout.setMinimumWidth(res.getDimensionPixelSize(R.dimen.sb__min_width));
-            layout.setMaxWidth(res.getDimensionPixelSize(R.dimen.sb__max_width));
+            layout.setMaxWidth(
+                    mMaxWidthPercentage == null
+                    ? res.getDimensionPixelSize(R.dimen.sb__max_width)
+                    : DisplayCompat.getWidthFromPercentage(targetActivity , mMaxWidthPercentage));
             layout.setBackgroundResource(R.drawable.sb__bg);
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
@@ -723,6 +727,11 @@ public class Snackbar extends SnackbarLayout {
         MarginLayoutParams params = init(parent.getContext(), null, parent, usePhoneLayout);
         updateLayoutParamsMargins(null, params);
         showInternal(null, params, parent);
+    }
+
+    public Snackbar maxWidthPercentage(float maxWidthPercentage) {
+        mMaxWidthPercentage = maxWidthPercentage;
+        return this;
     }
 
     private void showInternal(Activity targetActivity, MarginLayoutParams params, ViewGroup parent) {
