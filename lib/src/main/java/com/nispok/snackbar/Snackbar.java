@@ -15,6 +15,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -90,6 +91,7 @@ public class Snackbar extends SnackbarLayout {
     private boolean mShouldDismissOnActionClicked = true;
     private EventListener mEventListener;
     private Typeface mTextTypeface;
+    private Float mTextSize = null;
     private Typeface mActionTypeface;
     private boolean mIsShowing = false;
     private boolean mCanSwipeToDismiss = true;
@@ -468,6 +470,41 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
+     * Use a specific text size for this Snackbar's text
+     *
+     * mTextSize = size;
+     * @return
+     */
+    public Snackbar textSize(float size) {
+        mTextSize = size;
+        return this;
+    }
+
+    /**
+     * Set the default text size to a given unit and value.  See {@link
+     * android.util.TypedValue} for the possible dimension units.
+     *
+     * @param unit The desired dimension unit.
+     * @param size The desired size in the given units.
+     *
+     * @attr ref android.R.styleable#TextView_textSize
+     */
+    public Snackbar textSize(int unit, float size) {
+        Context c = getContext();
+        Resources r;
+
+        if (c == null)
+            r = Resources.getSystem();
+        else
+            r = c.getResources();
+
+        textSize(TypedValue.applyDimension(
+                unit, size, r.getDisplayMetrics()));
+
+        return this;
+    }
+
+    /**
      * Use a custom typeface for this Snackbar's action label
      *
      * @param typeface
@@ -536,8 +573,17 @@ public class Snackbar extends SnackbarLayout {
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
 
+            float fontScaleFactor = 1.0f; final int defaultTextSizeDp = 14;
+            final int defaultTextSizePx = DisplayCompat.convertDpToPixels(targetActivity, defaultTextSizeDp);
+            if (mTextSize != null && mTextSize > defaultTextSizePx)
+                fontScaleFactor = mTextSize/defaultTextSizePx;
+
             params = createMarginLayoutParams(
-                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale), mPosition);
+                    parent, FrameLayout.LayoutParams.WRAP_CONTENT,
+                    dpToPx(
+                        mTextSize != null ? (int)(mType.getMaxHeight() * fontScaleFactor ) : mType.getMaxHeight(),
+                        scale),
+                    mPosition);
         }
 
         if (mDrawable != mUndefinedDrawable)
@@ -545,6 +591,8 @@ public class Snackbar extends SnackbarLayout {
 
         TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
+        if (mTextSize != null)
+            snackbarText.setTextSize(mTextSize);
         snackbarText.setTypeface(mTextTypeface);
 
         if (mTextColor != mUndefinedColor) {
@@ -556,6 +604,8 @@ public class Snackbar extends SnackbarLayout {
         TextView snackbarAction = (TextView) layout.findViewById(R.id.sb__action);
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
+            if (mTextSize != null)
+                snackbarAction.setTextSize(mTextSize);
             snackbarAction.setText(mActionLabel);
             snackbarAction.setTypeface(mActionTypeface);
 
