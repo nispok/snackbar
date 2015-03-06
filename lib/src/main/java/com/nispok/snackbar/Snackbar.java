@@ -15,10 +15,21 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
-import android.view.*;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.*;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.layouts.SnackbarLayout;
 import com.nispok.snackbar.listeners.ActionClickListener;
@@ -50,11 +61,11 @@ public class Snackbar extends SnackbarLayout {
 
         private int layoutGravity;
 
-        SnackbarPosition ( int layoutGravity ) {
+        SnackbarPosition(int layoutGravity) {
             this.layoutGravity = layoutGravity;
         }
 
-        public int getLayoutGravity () {
+        public int getLayoutGravity() {
             return layoutGravity;
         }
     }
@@ -65,6 +76,7 @@ public class Snackbar extends SnackbarLayout {
     private SnackbarType mType = SnackbarType.SINGLE_LINE;
     private SnackbarDuration mDuration = SnackbarDuration.LENGTH_LONG;
     private CharSequence mText;
+    private TextView snackbarText;
     private int mColor = mUndefinedColor;
     private int mTextColor = mUndefinedColor;
     private int mOffset;
@@ -145,6 +157,9 @@ public class Snackbar extends SnackbarLayout {
      */
     public Snackbar text(CharSequence text) {
         mText = text;
+        if (snackbarText != null) {
+            snackbarText.setText(mText);
+        }
         return this;
     }
 
@@ -543,7 +558,7 @@ public class Snackbar extends SnackbarLayout {
         if (mDrawable != mUndefinedDrawable)
             setBackgroundDrawable(layout, res.getDrawable(mDrawable));
 
-        TextView snackbarText = (TextView) layout.findViewById(R.id.sb__text);
+        snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
         snackbarText.setTypeface(mTextTypeface);
 
@@ -965,7 +980,6 @@ public class Snackbar extends SnackbarLayout {
         params.rightMargin += mWindowInsets.right;
         params.bottomMargin += mWindowInsets.bottom;
     }
-
 
 
     public int getActionColor() {
