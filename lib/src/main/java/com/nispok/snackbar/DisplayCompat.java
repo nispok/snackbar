@@ -1,5 +1,6 @@
 package com.nispok.snackbar;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
@@ -29,5 +30,13 @@ class DisplayCompat {
 
     public static void getRealSize(Display display, Point outSize) {
         IMPL.getRealSize(display, outSize);
+    }
+
+    public static int getWidthFromPercentage(Activity targetActivity, Float mMaxWidthPercentage) {
+        Display display = targetActivity.getWindowManager().getDefaultDisplay();
+        Point dispSize = new Point();
+        getRealSize(display, dispSize);
+
+        return (int) (dispSize.x * mMaxWidthPercentage);
     }
 }
