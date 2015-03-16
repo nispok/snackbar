@@ -134,7 +134,7 @@
 		    android:text="Single-line Top Inside LinearLayout" />
 
 	    <RelativeLayout
-		    android:id="@+id/view_realtive_layout"
+		    android:id="@+id/view_relative_layout"
 		    android:layout_width="match_parent"
 		    android:layout_height="100dp"
 		    android:orientation="horizontal"
