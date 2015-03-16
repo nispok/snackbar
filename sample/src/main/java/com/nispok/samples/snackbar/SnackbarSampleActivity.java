@@ -323,7 +323,7 @@ public class SnackbarSampleActivity extends ActionBarActivity {
 			    SnackbarManager.show(
 					    Snackbar.with(SnackbarSampleActivity.this)
 					            .text("Single-line Inside RelativeLayout")
-					    , (android.view.ViewGroup) findViewById(R.id.view_realtive_layout));
+					    , (android.view.ViewGroup) findViewById(R.id.view_relative_layout));
 
 		    }
 	    });
