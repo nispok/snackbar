@@ -14,7 +14,8 @@
         android:id="@+id/sb__action"
         style="@style/Snackbar.Text.Action"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:gravity="right" />
 
 </merge>
