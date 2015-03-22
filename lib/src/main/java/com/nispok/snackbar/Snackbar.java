@@ -82,6 +82,7 @@ public class Snackbar extends SnackbarLayout {
     private int mColor = mUndefinedColor;
     private int mTextColor = mUndefinedColor;
     private int mOffset;
+    private Integer mLineColor;
     private SnackbarPosition mPosition = SnackbarPosition.BOTTOM;
     private int mDrawable = mUndefinedDrawable;
     private int mMarginTop = 0;
@@ -228,6 +229,27 @@ public class Snackbar extends SnackbarLayout {
      */
     public Snackbar textColorResource(@ColorRes int resId) {
         return textColor(getResources().getColor(resId));
+    }
+
+    /**
+     * Sets the text color of this {@link Snackbar}'s top line, or null for none
+     *
+     * @param lineColor
+     * @return
+     */
+    public Snackbar lineColor(Integer lineColor) {
+        mLineColor = lineColor;
+        return this;
+    }
+
+    /**
+     * Sets the text color of this {@link Snackbar}'s top line
+     *
+     * @param resId
+     * @return
+     */
+    public Snackbar lineColorResource(@ColorRes int resId) {
+        return lineColor(getResources().getColor(resId));
     }
 
     /**
@@ -554,6 +576,7 @@ public class Snackbar extends SnackbarLayout {
     private MarginLayoutParams init(Context context, Activity targetActivity, ViewGroup parent, boolean usePhoneLayout) {
         SnackbarLayout layout = (SnackbarLayout) LayoutInflater.from(context)
                 .inflate(R.layout.sb__template, this, true);
+        layout.setOrientation(LinearLayout.VERTICAL);
 
         Resources res = getResources();
         mColor = mColor != mUndefinedColor ? mColor : res.getColor(R.color.sb__background);
@@ -587,6 +610,12 @@ public class Snackbar extends SnackbarLayout {
 
         if (mDrawable != mUndefinedDrawable)
             setBackgroundDrawable(layout, res.getDrawable(mDrawable));
+
+        if (mLineColor != null) {
+            layout.findViewById(R.id.sb__divider).setBackgroundColor(mLineColor);
+        } else {
+            layout.findViewById(R.id.sb__divider).setVisibility(View.GONE);
+        }
 
         snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
@@ -1044,6 +1073,10 @@ public class Snackbar extends SnackbarLayout {
 
     public int getColor() {
         return mColor;
+    }
+
+    public int getLineColor() {
+        return mLineColor;
     }
 
     public CharSequence getText() {

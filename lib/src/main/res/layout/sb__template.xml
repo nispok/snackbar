@@ -2,22 +2,33 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/sb__text"
-        style="@style/Snackbar.Text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:focusable="true" />
+    <View
+        android:id="@+id/sb__divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
 
-    <TextView
-        android:id="@+id/sb__action"
-        style="@style/Snackbar.Text.Action"
-        android:layout_width="wrap_content"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="right"
-        android:focusable="true" />
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/sb__text"
+            style="@style/Snackbar.Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/sb__action"
+            style="@style/Snackbar.Text.Action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:focusable="true" />
+
+    </LinearLayout>
 
 </merge>
