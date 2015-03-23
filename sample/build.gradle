@@ -35,20 +35,13 @@ android {
 }
 
 dependencies {
-
-    // Known issue with Travis CI. Revert to compile "com.android.support:appcompat-v7:22.0.0"
-    // when solved
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
-
     compile(name:'appcompat-v7-22.0.0', ext:'aar')
 
     compile project(':lib')
+    compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
     testCompile 'org.robolectric:robolectric:2.4'
 }
