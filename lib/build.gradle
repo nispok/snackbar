@@ -7,9 +7,6 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 22
-        testInstrumentationRunner "android.test.InstrumentationTestRunner"
-        testHandleProfiling true
-        testFunctionalTest true
     }
     buildTypes {
         release {
@@ -22,6 +19,11 @@ android {
 dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:support-annotations:22.0.0'
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:2.4'
 }
 
 apply from: 'maven-push.gradle'
