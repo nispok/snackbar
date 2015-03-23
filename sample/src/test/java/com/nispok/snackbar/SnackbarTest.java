@@ -1,6 +1,7 @@
 package com.nispok.snackbar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 
 import com.nispok.snackbar.enums.SnackbarType;
