@@ -20,4 +20,4 @@ android:
     - android-22
 
 script:
-  - ./gradlew :lib:testDebug :sample:assembleDebug
+  - ./gradlew :sample:testDebug :sample:assembleDebug
