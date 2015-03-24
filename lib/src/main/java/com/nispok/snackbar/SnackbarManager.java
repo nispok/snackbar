@@ -1,6 +1,8 @@
 package com.nispok.snackbar;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 public class SnackbarManager {
 
     private static final String TAG = SnackbarManager.class.getSimpleName();
+    private static final Handler MAIN_THREAD = new Handler(Looper.getMainLooper());
 
     private static Snackbar currentSnackbar;
 
@@ -42,18 +45,23 @@ public class SnackbarManager {
      * @param snackbar instance of {@link com.nispok.snackbar.Snackbar} to display
      * @param activity target {@link Activity} to display the Snackbar
      */
-    public static void show(@NonNull Snackbar snackbar, @NonNull Activity activity) {
-        if (currentSnackbar != null) {
-            if(currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
-                currentSnackbar.dismissByReplace();
+    public static void show(@NonNull final Snackbar snackbar, @NonNull final Activity activity) {
+        MAIN_THREAD.post(new Runnable() {
+            @Override
+            public void run() {
+                if (currentSnackbar != null) {
+                    if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                        currentSnackbar.dismissByReplace();
+                        currentSnackbar = snackbar;
+                        currentSnackbar.showByReplace(activity);
+                        return;
+                    }
+                    currentSnackbar.dismiss();
+                }
                 currentSnackbar = snackbar;
-                currentSnackbar.showByReplace(activity);
-                return;
+                currentSnackbar.show(activity);
             }
-            currentSnackbar.dismiss();
-        }
-        currentSnackbar = snackbar;
-        currentSnackbar.show(activity);
+        });
     }
 
     /**
@@ -61,7 +69,7 @@ public class SnackbarManager {
      * the current Snackbar being displayed, if any
      *
      * @param snackbar instance of {@link com.nispok.snackbar.Snackbar} to display
-     * @param parent parent {@link ViewGroup} to display the Snackbar
+     * @param parent   parent {@link ViewGroup} to display the Snackbar
      */
     public static void show(@NonNull Snackbar snackbar, @NonNull ViewGroup parent) {
         show(snackbar, parent, Snackbar.shouldUsePhoneLayout(snackbar.getContext()));
@@ -71,22 +79,28 @@ public class SnackbarManager {
      * Displays a {@link com.nispok.snackbar.Snackbar} in the specified {@link ViewGroup}, dismissing
      * the current Snackbar being displayed, if any
      *
-     * @param snackbar instance of {@link com.nispok.snackbar.Snackbar} to display
-     * @param parent parent {@link ViewGroup} to display the Snackbar
+     * @param snackbar       instance of {@link com.nispok.snackbar.Snackbar} to display
+     * @param parent         parent {@link ViewGroup} to display the Snackbar
      * @param usePhoneLayout true: use phone layout, false: use tablet layout
      */
-    public static void show(@NonNull Snackbar snackbar, @NonNull ViewGroup parent, boolean usePhoneLayout) {
-        if (currentSnackbar != null) {
-            if(currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
-                currentSnackbar.dismissByReplace();
+    public static void show(@NonNull final Snackbar snackbar, @NonNull final ViewGroup parent,
+                            final boolean usePhoneLayout) {
+        MAIN_THREAD.post(new Runnable() {
+            @Override
+            public void run() {
+                if (currentSnackbar != null) {
+                    if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                        currentSnackbar.dismissByReplace();
+                        currentSnackbar = snackbar;
+                        currentSnackbar.showByReplace(parent, usePhoneLayout);
+                        return;
+                    }
+                    currentSnackbar.dismiss();
+                }
                 currentSnackbar = snackbar;
-                currentSnackbar.showByReplace(parent, usePhoneLayout);
-                return;
+                currentSnackbar.show(parent, usePhoneLayout);
             }
-            currentSnackbar.dismiss();
-        }
-        currentSnackbar = snackbar;
-        currentSnackbar.show(parent, usePhoneLayout);
+        });
     }
 
     /**
@@ -94,14 +108,19 @@ public class SnackbarManager {
      */
     public static void dismiss() {
         if (currentSnackbar != null) {
-            currentSnackbar.dismiss();
+            MAIN_THREAD.post(new Runnable() {
+                @Override
+                public void run() {
+                    currentSnackbar.dismiss();
+                }
+            });
         }
     }
-    
+
     /**
      * Return the current Snackbar
      */
-     public static Snackbar getCurrentSnackbar() {
-         return currentSnackbar;
-     }
+    public static Snackbar getCurrentSnackbar() {
+        return currentSnackbar;
+    }
 }
