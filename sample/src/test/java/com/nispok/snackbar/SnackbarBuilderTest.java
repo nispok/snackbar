@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class SnackbarTest {
+public class SnackbarBuilderTest {
 
     private Snackbar mSnackbar;
     private Context mContext;
