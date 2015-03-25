@@ -8,7 +8,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ellipsize="end" />
+        android:ellipsize="end"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/sb__action"
@@ -16,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:gravity="right" />
+        android:gravity="right"
+        android:focusable="true" />
 
 </merge>
