@@ -14,6 +14,7 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.view.accessibility.AccessibilityEventCompat;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
@@ -804,6 +806,8 @@ public class Snackbar extends SnackbarLayout {
                     mIsShowingByReplace = false; // reset flag
                 }
 
+                focusForAccessibility(snackbarText);
+
                 post(new Runnable() {
                     @Override
                     public void run() {
@@ -824,6 +828,14 @@ public class Snackbar extends SnackbarLayout {
             }
         });
         startAnimation(slideIn);
+    }
+
+    private void focusForAccessibility(View view) {
+        final AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+
+        AccessibilityEventCompat.asRecord(event).setSource(view);
+
+        view.sendAccessibilityEventUnchecked(event);
     }
 
     private boolean shouldStartTimer() {
