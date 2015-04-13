@@ -93,7 +93,8 @@ public class Snackbar extends SnackbarLayout {
     private long mTimeRemaining = -1;
     private CharSequence mActionLabel;
     private int mActionColor = mUndefinedColor;
-    private boolean mAnimated = true;
+    private boolean mShowAnimated = true;
+    private boolean mDismissAnimated = true;
     private boolean mIsReplacePending = false;
     private boolean mIsShowingByReplace = false;
     private long mCustomDuration = -1;
@@ -387,13 +388,36 @@ public class Snackbar extends SnackbarLayout {
     }
 
     /**
-     * Sets on/off animation for this {@link Snackbar}
+     * Sets on/off both show and dismiss animations for this {@link Snackbar}
      *
      * @param withAnimation
      * @return
      */
     public Snackbar animation(boolean withAnimation) {
-        mAnimated = withAnimation;
+        mShowAnimated = withAnimation;
+        mDismissAnimated = withAnimation;
+        return this;
+    }
+
+    /**
+     * Sets on/off show animation for this {@link Snackbar}
+     *
+     * @param withAnimation
+     * @return
+     */
+    public Snackbar showAnimation(boolean withAnimation) {
+        mShowAnimated = withAnimation;
+        return this;
+    }
+
+    /**
+     * Sets on/off dismiss animation for this {@link Snackbar}
+     *
+     * @param withAnimation
+     * @return
+     */
+    public Snackbar dismissAnimation(boolean withAnimation) {
+        mDismissAnimated = withAnimation;
         return this;
     }
 
@@ -777,7 +801,7 @@ public class Snackbar extends SnackbarLayout {
                     } else {
                         mEventListener.onShow(Snackbar.this);
                     }
-                    if (!mAnimated) {
+                    if (!mShowAnimated) {
                         mEventListener.onShown(Snackbar.this);
                         mIsShowingByReplace = false; // reset flag
                     }
@@ -786,7 +810,7 @@ public class Snackbar extends SnackbarLayout {
             }
         });
 
-        if (!mAnimated) {
+        if (!mShowAnimated) {
             if (shouldStartTimer()) {
                 startTimer();
             }
@@ -882,7 +906,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     public void dismiss() {
-        dismiss(mAnimated);
+        dismiss(mDismissAnimated);
     }
 
     private void dismiss(boolean animate) {
@@ -1050,8 +1074,19 @@ public class Snackbar extends SnackbarLayout {
         return mOffset;
     }
 
+    /**
+     * @return true only if both dismiss and show animations are enabled
+     */
     public boolean isAnimated() {
-        return mAnimated;
+        return mShowAnimated && mDismissAnimated;
+    }
+
+    public boolean isDismissAnimated(){
+        return mDismissAnimated;
+    }
+
+    public boolean isShowAnimated(){
+        return mShowAnimated;
     }
 
     public boolean shouldDismissOnActionClicked() {
