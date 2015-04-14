@@ -51,8 +51,10 @@ public class SnackbarManager {
             public void run() {
                 if (currentSnackbar != null) {
                     if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                        currentSnackbar.dismissAnimation(false);
                         currentSnackbar.dismissByReplace();
                         currentSnackbar = snackbar;
+                        currentSnackbar.showAnimation(false);
                         currentSnackbar.showByReplace(activity);
                         return;
                     }
@@ -90,8 +92,10 @@ public class SnackbarManager {
             public void run() {
                 if (currentSnackbar != null) {
                     if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
+                        currentSnackbar.dismissAnimation(false);
                         currentSnackbar.dismissByReplace();
                         currentSnackbar = snackbar;
+                        currentSnackbar.showAnimation(false);
                         currentSnackbar.showByReplace(parent, usePhoneLayout);
                         return;
                     }
