@@ -575,8 +575,8 @@ public class Snackbar extends SnackbarLayout {
             layout.setMinimumWidth(res.getDimensionPixelSize(R.dimen.sb__min_width));
             layout.setMaxWidth(
                     mMaxWidthPercentage == null
-                    ? res.getDimensionPixelSize(R.dimen.sb__max_width)
-                    : DisplayCompat.getWidthFromPercentage(targetActivity , mMaxWidthPercentage));
+                            ? res.getDimensionPixelSize(R.dimen.sb__max_width)
+                            : DisplayCompat.getWidthFromPercentage(targetActivity, mMaxWidthPercentage));
             layout.setBackgroundResource(R.drawable.sb__bg);
             GradientDrawable bg = (GradientDrawable) layout.getBackground();
             bg.setColor(mColor);
@@ -858,8 +858,11 @@ public class Snackbar extends SnackbarLayout {
         final AccessibilityEvent event = AccessibilityEvent.obtain(AccessibilityEvent.TYPE_VIEW_FOCUSED);
 
         AccessibilityEventCompat.asRecord(event).setSource(view);
-
-        view.sendAccessibilityEventUnchecked(event);
+        try {
+            view.sendAccessibilityEventUnchecked(event);
+        } catch (IllegalStateException e) {
+            // accessibility is off.
+        }
     }
 
     private boolean shouldStartTimer() {
@@ -1081,11 +1084,11 @@ public class Snackbar extends SnackbarLayout {
         return mShowAnimated && mDismissAnimated;
     }
 
-    public boolean isDismissAnimated(){
+    public boolean isDismissAnimated() {
         return mDismissAnimated;
     }
 
-    public boolean isShowAnimated(){
+    public boolean isShowAnimated() {
         return mShowAnimated;
     }
 
