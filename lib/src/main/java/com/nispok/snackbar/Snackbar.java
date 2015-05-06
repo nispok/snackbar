@@ -807,6 +807,17 @@ public class Snackbar extends SnackbarLayout {
     private void showInternal(Activity targetActivity, MarginLayoutParams params, ViewGroup parent) {
         parent.removeView(this);
 
+        // We need to make sure the Snackbar elevation is at least as high as
+        // any other child views, or it will be displayed underneath them
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View otherChild = parent.getChildAt(i);
+                float elvation = otherChild.getElevation();
+                if (elvation > getElevation()) {
+                    setElevation(elvation);
+                }
+            }
+        }
         parent.addView(this, params);
 
         bringToFront();
