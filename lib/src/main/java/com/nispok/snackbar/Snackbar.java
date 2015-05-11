@@ -59,7 +59,7 @@ public class Snackbar extends SnackbarLayout {
     }
 
     public static enum SnackbarPosition {
-        TOP(Gravity.TOP), BOTTOM(Gravity.BOTTOM);
+        TOP(Gravity.TOP), BOTTOM(Gravity.BOTTOM), BOTTOM_CENTER(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
 
         private int layoutGravity;
 
@@ -83,7 +83,8 @@ public class Snackbar extends SnackbarLayout {
     private int mTextColor = mUndefinedColor;
     private int mOffset;
     private Integer mLineColor;
-    private SnackbarPosition mPosition = SnackbarPosition.BOTTOM;
+    private SnackbarPosition mPhonePosition = SnackbarPosition.BOTTOM;
+    private SnackbarPosition mWidePosition = SnackbarPosition.BOTTOM_CENTER;
     private int mDrawable = mUndefinedDrawable;
     private int mMarginTop = 0;
     private int mMarginBottom = 0;
@@ -283,7 +284,19 @@ public class Snackbar extends SnackbarLayout {
      * @return
      */
     public Snackbar position(SnackbarPosition position) {
-        mPosition = position;
+        mPhonePosition = position;
+        return this;
+    }
+
+    /**
+     * Set the position for wide screen (tablets | desktop) of the {@link Snackbar}. Note that if this is not set, the default is to
+     * show the snackbar to the bottom | center of the screen.
+     *
+     * @param position A {@link com.nispok.snackbar.Snackbar.SnackbarPosition}
+     * @return A {@link Snackbar} instance to make changing
+     */
+    public Snackbar widePosition(SnackbarPosition position){
+        mWidePosition = position;
         return this;
     }
 
@@ -591,7 +604,7 @@ public class Snackbar extends SnackbarLayout {
             layout.setMaxHeight(dpToPx(mType.getMaxHeight(), scale));
             layout.setBackgroundColor(mColor);
             params = createMarginLayoutParams(
-                    parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, mPosition);
+                    parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, mPhonePosition);
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
@@ -605,7 +618,7 @@ public class Snackbar extends SnackbarLayout {
             bg.setColor(mColor);
 
             params = createMarginLayoutParams(
-                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale), mPosition);
+                    parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale), mWidePosition);
         }
 
         if (mDrawable != mUndefinedDrawable)
@@ -857,7 +870,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        Animation slideIn = AnimationUtils.loadAnimation(getContext(), getInAnimationResource(mPosition));
+        Animation slideIn = AnimationUtils.loadAnimation(getContext(), getInAnimationResource(mPhonePosition));
         slideIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -972,7 +985,7 @@ public class Snackbar extends SnackbarLayout {
             return;
         }
 
-        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), getOutAnimationResource(mPosition));
+        final Animation slideOut = AnimationUtils.loadAnimation(getContext(), getOutAnimationResource(mPhonePosition));
         slideOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
