@@ -1025,6 +1025,9 @@ public class Snackbar extends SnackbarLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        
+        mIsShowing = false;
+
         if (mDismissRunnable != null) {
             removeCallbacks(mDismissRunnable);
         }
