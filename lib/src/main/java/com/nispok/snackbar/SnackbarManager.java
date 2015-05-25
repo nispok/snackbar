@@ -1,5 +1,7 @@
 package com.nispok.snackbar;
 
+import java.lang.ref.WeakReference;
+
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +17,7 @@ public class SnackbarManager {
     private static final String TAG = SnackbarManager.class.getSimpleName();
     private static final Handler MAIN_THREAD = new Handler(Looper.getMainLooper());
 
-    private static Snackbar currentSnackbar;
+    private static WeakReference<Snackbar> snackbarReference;
 
     private SnackbarManager() {
     }
@@ -49,19 +51,20 @@ public class SnackbarManager {
         MAIN_THREAD.post(new Runnable() {
             @Override
             public void run() {
+                Snackbar currentSnackbar = getCurrentSnackbar();
                 if (currentSnackbar != null) {
                     if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
                         currentSnackbar.dismissAnimation(false);
                         currentSnackbar.dismissByReplace();
-                        currentSnackbar = snackbar;
-                        currentSnackbar.showAnimation(false);
-                        currentSnackbar.showByReplace(activity);
+                        snackbarReference = new WeakReference<>(snackbar);
+                        snackbar.showAnimation(false);
+                        snackbar.showByReplace(activity);
                         return;
                     }
                     currentSnackbar.dismiss();
                 }
-                currentSnackbar = snackbar;
-                currentSnackbar.show(activity);
+                snackbarReference = new WeakReference<>(snackbar);
+                snackbar.show(activity);
             }
         });
     }
@@ -90,19 +93,20 @@ public class SnackbarManager {
         MAIN_THREAD.post(new Runnable() {
             @Override
             public void run() {
+                Snackbar currentSnackbar = getCurrentSnackbar();
                 if (currentSnackbar != null) {
                     if (currentSnackbar.isShowing() && !currentSnackbar.isDimissing()) {
                         currentSnackbar.dismissAnimation(false);
                         currentSnackbar.dismissByReplace();
-                        currentSnackbar = snackbar;
-                        currentSnackbar.showAnimation(false);
-                        currentSnackbar.showByReplace(parent, usePhoneLayout);
+                        snackbarReference = new WeakReference<>(snackbar);
+                        snackbar.showAnimation(false);
+                        snackbar.showByReplace(parent, usePhoneLayout);
                         return;
                     }
                     currentSnackbar.dismiss();
                 }
-                currentSnackbar = snackbar;
-                currentSnackbar.show(parent, usePhoneLayout);
+                snackbarReference = new WeakReference<>(snackbar);
+                snackbar.show(parent, usePhoneLayout);
             }
         });
     }
@@ -111,6 +115,7 @@ public class SnackbarManager {
      * Dismisses the {@link com.nispok.snackbar.Snackbar} shown by this manager.
      */
     public static void dismiss() {
+        final Snackbar currentSnackbar = getCurrentSnackbar();
         if (currentSnackbar != null) {
             MAIN_THREAD.post(new Runnable() {
                 @Override
@@ -125,6 +130,9 @@ public class SnackbarManager {
      * Return the current Snackbar
      */
     public static Snackbar getCurrentSnackbar() {
-        return currentSnackbar;
+        if (snackbarReference != null) {
+            return snackbarReference.get();
+        }
+        return null;
     }
 }
