@@ -1,3 +1,8 @@
+# DEPRECATED
+This lib is deprecated in favor of Google's [Design Support Library](http://developer.android.com/tools/support-library/features.html#design) which includes a [Snackbar](http://developer.android.com/reference/android/support/design/widget/Snackbar.html) and is no longer being developed.
+
+Thanks for all your support!
+
 # Snackbar
 [![Build Status](https://travis-ci.org/nispok/snackbar.svg?branch=master)](https://travis-ci.org/nispok/snackbar) [![Maven Central](https://img.shields.io/maven-central/v/com.nispok/snackbar.svg)](https://oss.sonatype.org/content/repositories/releases/com/nispok/snackbar/) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Snackbar-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1160) [![Android Weekly](https://img.shields.io/badge/Android%20Weekly-129-blue.svg?style=flat)](http://androidweekly.net/issues/issue-129)
 
