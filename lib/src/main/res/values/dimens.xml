@@ -7,4 +7,6 @@
     <dimen name="sb__text_padding_top">14dp</dimen>
     <dimen name="sb__text_padding_right">24dp</dimen>
     <dimen name="sb__text_size">14sp</dimen>
+    <dimen name="sb__min_width">288dp</dimen>
+    <dimen name="sb__max_width">568dp</dimen>
 </resources>
