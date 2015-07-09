@@ -1018,6 +1018,7 @@ public class Snackbar extends SnackbarLayout {
             mEventListener.onDismissed(this);
         }
         mIsShowing = false;
+        mIsDismissing = false;
         mIsReplacePending = false;
         mTargetActivity = null;
     }
