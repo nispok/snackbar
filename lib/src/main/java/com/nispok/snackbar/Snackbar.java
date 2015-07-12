@@ -79,6 +79,7 @@ public class Snackbar extends SnackbarLayout {
     private SnackbarDuration mDuration = SnackbarDuration.LENGTH_LONG;
     private CharSequence mText;
     private TextView snackbarText;
+    private TextView snackbarAction;
     private int mColor = mUndefinedColor;
     private int mTextColor = mUndefinedColor;
     private int mOffset;
@@ -643,7 +644,7 @@ public class Snackbar extends SnackbarLayout {
 
         snackbarText.setMaxLines(mType.getMaxLines());
 
-        TextView snackbarAction = (TextView) layout.findViewById(R.id.sb__action);
+        snackbarAction = (TextView) layout.findViewById(R.id.sb__action);
         if (!TextUtils.isEmpty(mActionLabel)) {
             requestLayout();
             snackbarAction.setText(mActionLabel);
