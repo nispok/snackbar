@@ -262,6 +262,9 @@ public class Snackbar extends SnackbarLayout {
      */
     public Snackbar actionLabel(CharSequence actionButtonLabel) {
         mActionLabel = actionButtonLabel;
+        if (snackbarAction != null) {
+            snackbarAction.setText(mActionLabel);
+        }
         return this;
     }
 
