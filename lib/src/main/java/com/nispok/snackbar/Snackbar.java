@@ -597,6 +597,8 @@ public class Snackbar extends SnackbarLayout {
         mUsePhoneLayout = usePhoneLayout;
         float scale = res.getDisplayMetrics().density;
 
+        View divider = layout.findViewById(R.id.sb__divider);
+
         MarginLayoutParams params;
         if (mUsePhoneLayout) {
             // Phone
@@ -605,6 +607,12 @@ public class Snackbar extends SnackbarLayout {
             layout.setBackgroundColor(mColor);
             params = createMarginLayoutParams(
                     parent, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT, mPhonePosition);
+
+            if (mLineColor != null) {
+                divider.setBackgroundColor(mLineColor);
+            } else {
+                divider.setVisibility(View.GONE);
+            }
         } else {
             // Tablet/desktop
             mType = SnackbarType.SINGLE_LINE; // Force single-line
@@ -619,16 +627,18 @@ public class Snackbar extends SnackbarLayout {
 
             params = createMarginLayoutParams(
                     parent, FrameLayout.LayoutParams.WRAP_CONTENT, dpToPx(mType.getMaxHeight(), scale), mWidePosition);
+
+            if (mLineColor != null) {
+                divider.setBackgroundResource(R.drawable.sb__divider_bg);
+                GradientDrawable dbg = (GradientDrawable) divider.getBackground();
+                dbg.setColor(mLineColor);
+            } else {
+                divider.setVisibility(View.GONE);
+            }
         }
 
         if (mDrawable != mUndefinedDrawable)
             setBackgroundDrawable(layout, res.getDrawable(mDrawable));
-
-        if (mLineColor != null) {
-            layout.findViewById(R.id.sb__divider).setBackgroundColor(mLineColor);
-        } else {
-            layout.findViewById(R.id.sb__divider).setVisibility(View.GONE);
-        }
 
         snackbarText = (TextView) layout.findViewById(R.id.sb__text);
         snackbarText.setText(mText);
