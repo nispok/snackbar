@@ -688,10 +688,11 @@ public class Snackbar extends SnackbarLayout {
             snackbarAction.setVisibility(GONE);
         }
 
-        setClickable(true);
+        View inner = layout.findViewById(R.id.sb__inner);
+        inner.setClickable(true);
 
         if (mCanSwipeToDismiss && res.getBoolean(R.bool.sb__is_swipeable)) {
-            setOnTouchListener(new SwipeDismissTouchListener(this, null,
+            inner.setOnTouchListener(new SwipeDismissTouchListener(this, null,
                     new SwipeDismissTouchListener.DismissCallbacks() {
                         @Override
                         public boolean canDismiss(Object token) {
