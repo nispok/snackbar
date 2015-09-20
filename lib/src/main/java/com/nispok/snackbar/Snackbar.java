@@ -790,6 +790,16 @@ public class Snackbar extends SnackbarLayout {
         show(parent, usePhoneLayout);
     }
 
+
+
+    /**
+     * SnackbarManager show method
+     *
+     */
+    public void show() {
+        SnackbarManager.show(this);
+    }
+    
     /**
      * Displays the {@link Snackbar} at the bottom of the
      * {@link android.app.Activity} provided.
