@@ -30,7 +30,6 @@ public class SnackbarSampleActivity extends ActionBarActivity {
         setContentView(R.layout.activity_sample);
 
         Button singleLineButton = (Button) findViewById(R.id.single_line);
-        
         singleLineButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
