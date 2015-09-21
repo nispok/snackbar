@@ -31,22 +31,14 @@ public class SnackbarSampleActivity extends ActionBarActivity {
 
         Button singleLineButton = (Button) findViewById(R.id.single_line);
         
-        //Simplified show method
         singleLineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.with(SnackbarSampleActivity.this)
-                                .text("Single-line snackbar").show();
-            }
+           @Override
+           public void onClick(View v) {
+                SnackbarManager.show(
+                        Snackbar.with(SnackbarSampleActivity.this)
+                                .text("Single-line snackbar"));
+           }
         });
-//        singleLineButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SnackbarManager.show(
-//                        Snackbar.with(SnackbarSampleActivity.this)
-//                                .text("Single-line snackbar"));
-//            }
-//        });
         
         Button singleLineWithActionButton = (Button) findViewById(R.id.single_line_with_action);
         singleLineWithActionButton.setOnClickListener(new View.OnClickListener() {
